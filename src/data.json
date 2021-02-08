@@ -1,0 +1,14 @@
+{
+    "messages": [
+        {
+            "text": "good morning!",
+            "who": "others",
+            "id": "1"
+        },
+        {
+            "text": "hello!",
+            "who": "me",
+            "id": "2"
+        }
+    ]
+}
