@@ -1,0 +1,14 @@
+.chat_wrapper {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.chat_ballon {
+    border: 3px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.mine {
+    margin-left: auto;
+}

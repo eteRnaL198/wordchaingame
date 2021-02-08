@@ -1,18 +1,19 @@
 import React from 'react';
+import '../assets/styles/Chat.css';
 
 type Props = {
+  className?: string;
+  message: {
     text: string;
-    who: string;
-    id: number;
-}
+    whose: string;
+  }
+};
 
-const Chat: React.FC<> = (props: Props) => {
+const Chat = (props: Props) => {
     return (
-        {props.map((message) => (
-            <div className="box" key={message.id}>
-              {message.text}
-            </div>
-          ))}    
+      <div className="chat_wrapper">
+        <div className={`chat_ballon ${props.message.whose}`}>{props.message.text}</div>
+      </div>
     )
 }
 

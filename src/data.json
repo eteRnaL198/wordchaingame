@@ -2,13 +2,15 @@
     "messages": [
         {
             "text": "good morning!",
-            "who": "others",
-            "id": "1"
+            "whose": "others"
         },
         {
             "text": "hello!",
-            "who": "me",
-            "id": "2"
+            "whose": "mine"
+        },
+        {
+            "text": "good night!",
+            "whose": "others"
         }
     ]
 }
