@@ -1,16 +1,12 @@
 {
     "messages": [
         {
-            "text": "good morning!",
+            "text": "しりとりはじめ",
             "whose": "others"
         },
         {
-            "text": "hello!",
+            "text": "めだか",
             "whose": "mine"
-        },
-        {
-            "text": "good night!",
-            "whose": "others"
         }
     ]
 }
