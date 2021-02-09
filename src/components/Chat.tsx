@@ -12,7 +12,7 @@ type Props = {
 const Chat = (props: Props) => {
     return (
       <div className="chat_wrapper">
-        <div className={`chat_ballon ${props.message.whose}`}>{props.message.text}</div>
+        <div className={`chat_balloon ${props.message.whose}`}>{props.message.text}</div>
       </div>
     )
 }

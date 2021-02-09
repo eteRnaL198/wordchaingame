@@ -29,6 +29,11 @@ type Message = {
 function App() {
   const [messages, setMessages] = useState(jsonData.messages);
 
+  useEffect(() => {
+    console.log(messages);
+    // 負け判定
+  }, [messages]);
+
   const handleTextAdd = (newText: string) => {
     const newMessage: Message = {
       text: newText,
