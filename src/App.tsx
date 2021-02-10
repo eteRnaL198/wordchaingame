@@ -12,8 +12,6 @@ type Message = {
   whose: string;
 }
 
-type FetchWord = (char: string) => Promise<string | null>;
-
 const scrollBottom = () => {
   const chatsWrapper = document.getElementById("js_chats_wrapper");
   if(chatsWrapper) {
@@ -66,7 +64,6 @@ function App() {
     // return field[idx].word;
   }
    
-
   const handleWordAdd = (newWord: string) => {
     const newMyMessage: Message = {
       word: newWord,
@@ -82,7 +79,7 @@ function App() {
           <Chat key={idx} message={message} />
         ))}
       </div>
-      <Input onWordAdd={handleWordAdd} />
+      <Input onWordAdd={handleWordAdd} lastChar={"a"} />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import '../assets/styles/Input.css';
 
 type Props = {
     onWordAdd: (text: string) => void
+    lastChar: string
 };
 
 const Input = (props: Props) => {
@@ -21,6 +22,7 @@ const Input = (props: Props) => {
         <div className="input_wrapper">
             <input
                 className="input_textBox"
+                placeholder={`${props.lastChar} から始まる単語を入力`}
                 type="text"
                 value={inputWord}
                 onChange={handleWordChange}
