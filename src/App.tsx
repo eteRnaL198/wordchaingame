@@ -50,11 +50,12 @@ function App() {
     // const doc = await db.collection("words").doc(char).get();
     const field = await doc.get("a")
     const idx = Math.floor(Math.random() * field.length)
-    const newOthersMessage: Message = {
+    const newOpponentMessage: Message = {
       word: `${field[idx].word}  ( ${field[idx].desc} )`,
       from: "opponent"
     }
-    setMessages([...messages, newMyMessage, newOthersMessage]);
+    setMessages([...messages, newMyMessage]);
+setTimeout(()=>setMessages([...messages, newMyMessage, newOpponentMessage]), 300);
     return null;
     // return field[idx].word;
   }
@@ -72,7 +73,10 @@ function App() {
       word: newWord,
       from: "player"
     }
-    setMessages([...messages, newMyMessage]);
+    
+    replyFromOpponent(newMyMessage);
+
+    // setMessages([...messages, newMyMessage]);
   }
 
   return (
