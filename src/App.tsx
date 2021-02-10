@@ -9,19 +9,24 @@ import writeData from "./writeData";
 
 type Message = {
   word: string;
-  whose: string;
-}
-
-const scrollBottom = () => {
-  const chatsWrapper = document.getElementById("js_chats_wrapper");
-  if(chatsWrapper) {
-    const lastBalloon = chatsWrapper.lastElementChild;
-    if(lastBalloon) lastBalloon.scrollIntoView({ behavior: "smooth", block: "end" });
-  }
+  from: string;
 }
 
 function App() {
-  const [messages, setMessages] = useState<Message[]>(jsonData.messages);
+  const [messages, setMessages] = useState<Message[]>(jsonData);
+
+  useEffect(() => {
+    // if(!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
+        authDomain: "wordchaingame-3e0fc.firebaseapp.com",
+        projectId: "wordchaingame-3e0fc",
+        storageBucket: "wordchaingame-3e0fc.appspot.com",
+        messagingSenderId: "307489909046",
+        appId: "1:307489909046:web:4bb2441c4c44a671406b97"
+      });
+    // }
+  }, [])
 
   useEffect(() => {
     console.log(messages);
@@ -31,17 +36,7 @@ function App() {
     // 負け判定
   }, [messages]);
 
-  const updateMessage = async (newMyMessage: Message) => {
-    if(!firebase.apps.length) {
-      firebase.initializeApp({
-        apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
-        authDomain: "wordchaingame-3e0fc.firebaseapp.com",
-        projectId: "wordchaingame-3e0fc",
-        storageBucket: "wordchaingame-3e0fc.appspot.com",
-        messagingSenderId: "307489909046",
-        appId: "1:307489909046:web:4bb2441c4c44a671406b97"
-      });
-    }
+  const replyFromOpponent = async (newMyMessage: Message) => {
     const db = firebase.firestore();
     const lastChar = newMyMessage.word.slice(-1);
     console.log(lastChar);
@@ -56,20 +51,28 @@ function App() {
     const field = await doc.get("a")
     const idx = Math.floor(Math.random() * field.length)
     const newOthersMessage: Message = {
-          word: `${field[idx].word}  ( ${field[idx].desc} )`,
-          whose: "others"
+      word: `${field[idx].word}  ( ${field[idx].desc} )`,
+      from: "opponent"
     }
     setMessages([...messages, newMyMessage, newOthersMessage]);
     return null;
     // return field[idx].word;
   }
-   
+
+  const scrollBottom = () => {
+    const chatsWrapper = document.getElementById("js_chats_wrapper");
+    if(chatsWrapper) {
+      const lastBalloon = chatsWrapper.lastElementChild;
+      if(lastBalloon) lastBalloon.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }
+
   const handleWordAdd = (newWord: string) => {
     const newMyMessage: Message = {
       word: newWord,
-      whose: "mine"
+      from: "player"
     }
-    updateMessage(newMyMessage);
+    setMessages([...messages, newMyMessage]);
   }
 
   return (
