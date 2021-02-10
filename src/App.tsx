@@ -12,14 +12,6 @@ type Message = {
   whose: string;
 }
 
-const fetchWord = async (char: string) => {
-  const db = firebase.firestore();
-  const ref = await db.collection("words").doc(char);
-  const doc = await ref.get()
-  console.log(doc.get("a")[0].word);
-  // TODO インデックスは乱数
-}
-
 function App() {
   const [messages, setMessages] = useState(jsonData.messages);
 
@@ -28,27 +20,39 @@ function App() {
     // 負け判定
   }, [messages]);
 
-  useEffect(() => {
-    const firebaseConfig = {
-      apiKey: "AIzaSyCOIXzz4vmffj94FLMWhEX0mE4t0UMTsxc",
-      authDomain: "wordchaingame-3e0fc.firebaseapp.com",
-      projectId: "wordchaingame-3e0fc",
-      storageBucket: "wordchaingame-3e0fc.appspot.com",
-      messagingSenderId: "307489909046",
-      appId: "1:307489909046:web:4bb2441c4c44a671406b97"
-    };
-    firebase.initializeApp(firebaseConfig);
-  },[]);
+  const fetchWord = (char: string) => {
+    if(firebase.app.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
+        authDomain: "wordchaingame-3e0fc.firebaseapp.com",
+        projectId: "wordchaingame-3e0fc",
+        storageBucket: "wordchaingame-3e0fc.appspot.com",
+        messagingSenderId: "307489909046",
+        appId: "1:307489909046:web:4bb2441c4c44a671406b97"
+      });
+    }
+    (async () => {
+      const db = firebase.firestore();
+      const doc = await db.collection("words").doc(char).get();
+      const field = doc.get("a")
+      const idx = Math.floor(Math.random() * field.length)
+    })
+    return field[idx].word;
+  }  
 
-  const handleTextAdd = (newWord: string) => {
+  const handleWordAdd = (newWord: string) => {
     const newMessage: Message = {
       word: newWord,
       whose: "mine"
     }
-    // TODO text -> word に全て直す
     const lastChar = newWord.slice(-1);
-    const opponentWord = fetchWord(lastChar);
     setMessages([...messages, newMessage]);
+    const opponentWord = fetchWord(lastChar);
+    const newOpponentMessage: Message = {
+      word: opponentWord,
+      whose: "others"
+    }
+    setMessages([...messages, opponentWord]);
   }
 
   return (
@@ -58,7 +62,7 @@ function App() {
           <Chat key={idx} message={message} />
         ))}
       </div>
-      <Input onTextAdd={handleTextAdd} />
+      <Input onWordAdd={handleWordAdd} />
     </div>
   );
 }

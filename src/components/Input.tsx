@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import '../assets/styles/Input.css';
 
 type Props = {
-    onTextAdd: (text: string) => void
+    onWordAdd: (text: string) => void
 };
 
 const Input = (props: Props) => {
-    const [inputText, setInputText] = useState("");
+    const [inputWord, setInputWord] = useState("");
 
-    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInputText(e.target.value);
+    const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputWord(e.target.value);
     }
 
-    const handleTextAdd = (text: string) => {
-        props.onTextAdd(text);
-        setInputText("");
+    const handleWordAdd = (text: string) => {
+        props.onWordAdd(text);
+        setInputWord("");
     }
 
     return (
@@ -22,10 +22,10 @@ const Input = (props: Props) => {
             <input
                 className="input_textBox"
                 type="text"
-                value={inputText}
-                onChange={handleTextChange}
+                value={inputWord}
+                onChange={handleWordChange}
             />
-            <button className="input_button" onClick={() => handleTextAdd(inputText)}>SEND</button>
+            <button className="input_button" onClick={() => handleWordAdd(inputWord)}>SEND</button>
         </div>
     )
 }
