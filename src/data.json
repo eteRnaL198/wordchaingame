@@ -1,11 +1,11 @@
 {
     "messages": [
         {
-            "text": "しりとりはじめ",
+            "word": "しりとりはじめ",
             "whose": "others"
         },
         {
-            "text": "めだか",
+            "word": "めだか",
             "whose": "mine"
         }
     ]

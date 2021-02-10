@@ -8,29 +8,16 @@ import writeData from "./writeData";
 //  writeData();
 
 type Message = {
-  text: string;
+  word: string;
   whose: string;
 }
 
-
 const fetchWord = async (char: string) => {
-  const firebaseConfig = {
-    apiKey: "AIzaSyCOIXzz4vmffj94FLMWhEX0mE4t0UMTsxc",
-    authDomain: "wordchaingame-3e0fc.firebaseapp.com",
-    projectId: "wordchaingame-3e0fc",
-    storageBucket: "wordchaingame-3e0fc.appspot.com",
-    messagingSenderId: "307489909046",
-    appId: "1:307489909046:web:4bb2441c4c44a671406b97"
-  };
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore(app);
-  const docRef = db.collection("words").doc("k");
-  docRef.get().then((doc) => {
-    console.log(doc);
-  }).catch((err) => {
-    console.error(err);
-  })
-
+  const db = firebase.firestore();
+  const ref = await db.collection("words").doc(char);
+  const doc = await ref.get()
+  console.log(doc.get("a")[0].word);
+  // TODO インデックスは乱数
 }
 
 function App() {
@@ -41,16 +28,26 @@ function App() {
     // 負け判定
   }, [messages]);
 
-  const handleTextAdd = (newText: string) => {
+  useEffect(() => {
+    const firebaseConfig = {
+      apiKey: "AIzaSyCOIXzz4vmffj94FLMWhEX0mE4t0UMTsxc",
+      authDomain: "wordchaingame-3e0fc.firebaseapp.com",
+      projectId: "wordchaingame-3e0fc",
+      storageBucket: "wordchaingame-3e0fc.appspot.com",
+      messagingSenderId: "307489909046",
+      appId: "1:307489909046:web:4bb2441c4c44a671406b97"
+    };
+    firebase.initializeApp(firebaseConfig);
+  },[]);
+
+  const handleTextAdd = (newWord: string) => {
     const newMessage: Message = {
-      text: newText,
+      word: newWord,
       whose: "mine"
     }
-
-    const lastChar = newText.slice(-1);
-    fetchWord(lastChar);
-
-    console.log(lastChar);
+    // TODO text -> word に全て直す
+    const lastChar = newWord.slice(-1);
+    const opponentWord = fetchWord(lastChar);
     setMessages([...messages, newMessage]);
   }
 

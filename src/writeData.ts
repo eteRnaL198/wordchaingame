@@ -43,20 +43,20 @@ const writeData = () => {
 
         docRef = db.collection("words").doc("t");
         await docRef.set({
-            ta: [{word:"ターゲット",pron:"たーげっと"},{word:"鯛",pron:"たい"},{word:"体当たり",pron:"たいあたり"},{word:"体育",pron:"たいいく"},{word:"体温計",pron:"たいおんけい"},{word:"大会",pron:"たいかい"},{word:"対決",pron:"たいけつ"},{word:"太鼓",pron:"たいこ"},{word:"体脂肪",pron:"たいしぼう"}],
-            ti: [{word:"チアリーダー",pron:"ちありーだー"},{word:"地位",pron:"ちい"},{word:"地域",pron:"ちいき"},{word:"チーズ",pron:"ちーず"},{word:"チーター",pron:"ちーたー"},{word:"チーム",pron:"ちーむ"},{word:"知恵",pron:"ちえ"},{word:"チェア",pron:"ちぇあ"},{word:"チェス",pron:"ちぇす"}],
-            tu: [{word:"ツアー",pron:"つあー"},{word:"追跡",pron:"ついせき"},{word:"ツイッター",pron:"ついったー"},{word:"ツインテール",pron:"ついんてーる"},{word:"ツー",pron:"つー"},{word:"通学",pron:"つうがく"},{word:"ツー ショット",pron:"つーしょっと"},{word:"通信販売",pron:"つうしんはんばい"}],
-            te: [{word:"手足",pron:"てあし"},{word:"手当",pron:"てあて"},{word:"手洗",pron:"てあらい"},{word:"ティーカップ",pron:"てぃーかっぷ"},{word:"定休日",pron:"ていきゅうび"},{word:"テイクアウト",pron:"ていくあうと"},{word:"抵抗",pron:"ていこう"},{word:"亭主",pron:"ていしゅ"}],
-            to: [{word:"トイレ",pron:"といれ"},{word:"トイレットペーパー",pron:"といれっとぺーぱー"},{word:"唐辛子",pron:"とうがらし"},{word:"陶器",pron:"とうき"},{word:"投球",pron:"とうきゅう"},{word:"闘牛",pron:"とうぎゅう"},{word:"東京タワー",pron:"とうきょうたわー"}],
+            a: [{word:"ターゲット",pron:"たーげっと"},{word:"鯛",pron:"たい"},{word:"体当たり",pron:"たいあたり"},{word:"体育",pron:"たいいく"},{word:"体温計",pron:"たいおんけい"},{word:"大会",pron:"たいかい"},{word:"対決",pron:"たいけつ"},{word:"太鼓",pron:"たいこ"},{word:"体脂肪",pron:"たいしぼう"},{word:"タラバガニ",pron:"たらばがに"},],
+            i: [{word:"チアリーダー",pron:"ちありーだー"},{word:"地位",pron:"ちい"},{word:"地域",pron:"ちいき"},{word:"チーズ",pron:"ちーず"},{word:"チーター",pron:"ちーたー"},{word:"チーム",pron:"ちーむ"},{word:"知恵",pron:"ちえ"},{word:"チェア",pron:"ちぇあ"},{word:"チェス",pron:"ちぇす"},{word:"チョコレート",pron:"ちょこれーと"}],
+            u: [{word:"ツアー",pron:"つあー"},{word:"追跡",pron:"ついせき"},{word:"ツイッター",pron:"ついったー"},{word:"ツインテール",pron:"ついんてーる"},{word:"通学",pron:"つうがく"},{word:"通信販売",pron:"つうしんはんばい"},{word:"吊り橋",pron:"つりばし"},{word:"釣針",pron:"つりばり"},{word:"鶴",pron:"つる"},{word:"剣",pron:"つるぎ"},],
+            e: [{word:"手足",pron:"てあし"},{word:"手当",pron:"てあて"},{word:"手洗",pron:"てあらい"},{word:"ティーカップ",pron:"てぃーかっぷ"},{word:"定休日",pron:"ていきゅうび"},{word:"テイクアウト",pron:"ていくあうと"},{word:"抵抗",pron:"ていこう"},{word:"亭主",pron:"ていしゅ"},{word:"手袋",pron:"てぶくろ"},{word:"テレビ",pron:"てれび"},],
+            o: [{word:"トイレ",pron:"といれ"},{word:"トイレットペーパー",pron:"といれっとぺーぱー"},{word:"唐辛子",pron:"とうがらし"},{word:"陶器",pron:"とうき"},{word:"投球",pron:"とうきゅう"},{word:"闘牛",pron:"とうぎゅう"},{word:"東京タワー",pron:"とうきょうたわー"},{word:"トランプ",pron:"とらんぷ"},{word:"鳥",pron:"とり"},{word:"トンネル",pron:"とんねる"}],
         });
 
         docRef = db.collection("words").doc("n");
         await docRef.set({
-            a: [{word:"ナースコール",pron:"なーすこーる"},{word:"内科",pron:"ないか"},{word:"内緒",pron:"ないしょ"},{word:"内職",pron:"ないしょく"},{word:"内臓",pron:"ないぞう"},{word:"ナイト",pron:"ないと"},{word:"ナイフ",pron:"ないふ"},{word:"内部",pron:"ないぶ"},{word:"内容",pron:"ないよう"}],
+            a: [{word:"ナースコール",pron:"なーすこーる"},{word:"内科",pron:"ないか"},{word:"内緒",pron:"ないしょ"},{word:"内職",pron:"ないしょく"},{word:"内臓",pron:"ないぞう"},{word:"ナイト",pron:"ないと"},{word:"ナイフ",pron:"ないふ"},{word:"内部",pron:"ないぶ"},{word:"内容",pron:"ないよう"},{word:"生菓子",pron:"なまがし"}],
             i: [{word:"臭い",pron:"におい"},{word:"二階",pron:"にかい"},{word:"似顔絵",pron:"にがおえ"},{word:"苦み",pron:"にがみ"},{word:"二期作",pron:"にきさく"},{word:"肉",pron:"にく"},{word:"逃げ場",pron:"にげば"},{word:"煮込みハンバーグ",pron:"にこみはんばーぐ"},{word:"濁り",pron:"にごり"}],
             u: [{word:"縫い糸",pron:"ぬいいと"},{word:"ぬいぐるみ",pron:"ぬいぐるみ"},{word:"縫い代",pron:"ぬいしろ"},{word:"縫い針",pron:"ぬいばり"},{word:"縫い目",pron:"ぬいめ"},{word:"縫い物",pron:"ぬいもの"},{word:"ヌー",pron:"ぬー"},{word:"ヌードル",pron:"ぬーどる"},{word:"糠",pron:"ぬか"}],
             e: [{word:"値上がり",pron:"ねあがり"},{word:"値上げ",pron:"ねあげ"},{word:"寝汗",pron:"ねあせ"},{word:"寝息",pron:"ねいき"},{word:"ネイルアート",pron:"ねいるあーと"},{word:"音色",pron:"ねいろ"},{word:"願い事",pron:"ねがいごと"},{word:"寝返り",pron:"ねがえり"},{word:"寝顔",pron:"ねがお"}],
-            o: [{word:"ノイズ",pron:"のいず"},{word:"野苺",pron:"のいちご"},{word:"脳",pron:"のう"}],
+            o: [{word:"ノイズ",pron:"のいず"},{word:"野苺",pron:"のいちご"},{word:"脳",pron:"のう"},{word:"農業",pron:"のうぎょう"},{word:"ノート",pron:"のーと"},{word:"野原",pron:"のはら"},{word:"飲み会",pron:"のみかい"},{word:"海苔巻き",pron:"のりまき"},{word:"乗り物",pron:"のりもの"},{word:"ノルウエー",pron:"のるうぇー"},],
         })
 
         docRef = db.collection("words").doc("h");
@@ -95,7 +95,7 @@ const writeData = () => {
 
         docRef = db.collection("words").doc("w");
         await docRef.set({
-          wa: [{word:"ワールドカップ",pron:"わーるどかっぷ"},{word:"ワイシャツ",pron:"わいしゃつ"},{word:"ワイドショー",pron:"わいどしょー"},{word:"ワイパー",pron:"わいぱー"},{word:"Wi-Fi",pron:"わいふ"},{word:"ワイヤ－",pron:"わいやー"},{word:"ワイヤレス",pron:"わいやれす"},{word:"賄賂",pron:"わいろ"}],
+          a: [{word:"ワールドカップ",pron:"わーるどかっぷ"},{word:"ワイシャツ",pron:"わいしゃつ"},{word:"ワイドショー",pron:"わいどしょー"},{word:"ワイパー",pron:"わいぱー"},{word:"Wi-Fi",pron:"わいふ"},{word:"ワイヤ－",pron:"わいやー"},{word:"ワイヤレス",pron:"わいやれす"},{word:"賄賂",pron:"わいろ"}],
         })
 
         docRef = db.collection("words").doc("g");

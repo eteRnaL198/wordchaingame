@@ -4,7 +4,7 @@ import '../assets/styles/Chat.css';
 type Props = {
   className?: string;
   message: {
-    text: string;
+    word: string;
     whose: string;
   }
 };
@@ -12,7 +12,7 @@ type Props = {
 const Chat = (props: Props) => {
     return (
       <div className="chat_wrapper">
-        <div className={`chat_balloon ${props.message.whose}`}>{props.message.text}</div>
+        <div className={`chat_balloon ${props.message.whose}`}>{props.message.word}</div>
       </div>
     )
 }
