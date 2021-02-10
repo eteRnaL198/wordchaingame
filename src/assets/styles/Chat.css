@@ -4,7 +4,8 @@
 }
 
 .chat_balloon {
-    border: 3px solid #ddd;
+    background: #ddd;
+    border: 3px solid #999;
     border-radius: 8px;
     padding: 16px;
 }
