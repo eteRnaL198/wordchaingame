@@ -10,6 +10,7 @@ type Props = {
 };
 
 const Chat = (props: Props) => {
+  
   return (
     <div className="chat_wrapper" id="js_chat_wrapper">
       <div className={`chat_balloon ${props.message.whose}`}>{props.message.word}</div>
