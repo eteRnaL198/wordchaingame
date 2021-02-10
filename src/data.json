@@ -1,10 +1,8 @@
-[
-    {
-        "word": "全て ひらがな で入力してね",
-        "whose": "others"
-    },
-    {
-        "word": "しりとりはじめ",
-        "whose": "others"
-    }
-]
+{
+    "messages": [
+        {
+            "word": "しりとりはじめ",
+            "whose": "others"
+        }
+    ]
+}
