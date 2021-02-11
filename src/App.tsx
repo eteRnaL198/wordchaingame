@@ -11,15 +11,9 @@ type Message = {
   from: string;
 }
 
-const useInitMessages = () => {
-  const [messages, setMessages] = useState();
-  // TODO カスタムフックで管理、最初のセリフをfirestoreから取得する
-  return [messages, setMessages];
-}
-
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [placeholderText, setPlaceholderText] = useState<string>("名前を入力してください");
+  const [placeholderText, setPlaceholderText] = useState<string>();
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -34,8 +28,8 @@ function App() {
     }
     (async () => {
       const db = firebase.firestore();
-      const docRef = db.collection("dialogs").doc("start");
-      await docRef.get().then((doc) => {
+      const dialogsDoc = db.collection("dialogs").doc("start");
+      await dialogsDoc.get().then((doc) => {
         const initMessages: Message[] = [
           {
             word: "こんにちは！",
@@ -47,6 +41,7 @@ function App() {
           }
         ]
         setMessages(initMessages);
+        printReply(initMessages, "Enter your name !");
       })
       .catch((err) => {
         console.error(err);
@@ -59,14 +54,40 @@ function App() {
     return () => {
       scrollBottom();
     }
-    // 負け判定
   }, [messages]);
 
-  const printReply = (newPlayerMessage: Message, newOpponentMessage: Message, text: string) => {
+  const printReply = (newMessages: Message[], text: string) => {
     setTimeout(() => {
-      setMessages([...messages, newPlayerMessage, newOpponentMessage]);
+      setMessages([...messages, ...newMessages]);
       setPlaceholderText(text);
     }, 250);
+  }
+
+  const getLastChar = (word: string): string => {
+    let char = word.slice(-1);
+    if(char === "ー") char = word.slice(-2)[0];
+    return char;
+  }
+
+  const judgeWord = (newWord: string): boolean => {
+    console.log(newWord.slice(0));
+    const newPlayerMessage = {
+      word: newWord,
+      from: "player"
+    }
+    const newOpponentMessage = (newWord: string): Message => ({
+        word: newWord,
+        from: "opponent"
+    })
+    if(newWord.slice(-1) === 'ん') {
+      printReply([newPlayerMessage, newOpponentMessage("ん で終わってるよ")], "Thank you for playing !!");
+      return false;
+    } else if(placeholderText && newWord.slice(1)[0] === placeholderText.slice(-2)[0]) {
+      printReply([newPlayerMessage, newOpponentMessage("で始まってないよ")], "Thank you for playing !!");
+      return false;
+    } else {
+      return true;
+    }
   }
 
   const replyNextWord = async (newPlayerMessage: Message) => {
@@ -75,27 +96,23 @@ function App() {
     await wordsDoc.get().then((doc) => {
       const data = doc.data();
       if(data) {
-        const playerLastChar = newPlayerMessage.word.slice(-1);
+        const playerLastChar = getLastChar(newPlayerMessage.word);
         const elem = data[playerLastChar];
         const idx = Math.floor(Math.random() * elem.length)
         const newOpponentMessage = {
           word: `${elem[idx].word}  ( ${elem[idx].desc} )`,
           from: "opponent"
         }
-        const opponentLastChar = (): string => {
-          let char = elem[idx].word.slice(-1);
-          if(char === "ー") char = elem[idx].word.slice(-2)[0];
-          return char;
-        }
-        printReply(newPlayerMessage, newOpponentMessage, `${opponentLastChar()} から始まる単語を入力`);
+        const opponentLastChar = getLastChar(elem[idx].word);
+        printReply([newPlayerMessage, newOpponentMessage], `Start with 「${opponentLastChar}」`);
       }
     })
     .catch(() => {
       const newOpponentMessage = {
-        word: "エラー発生！",
+        word: "エラー発生！再度入力してね！",
         from: "opponent"
       }
-      printReply(newPlayerMessage, newOpponentMessage, "error !");
+      printReply([newPlayerMessage, newOpponentMessage], "ERROR !");
       return null;
     })
 
@@ -111,20 +128,22 @@ function App() {
   }
 
   const handleWordAdd = (newWord: string) => {
-    const newPlayerMessage: Message = {
-      word: newWord,
-      from: "player"
+    if(newWord.match(/^[ぁ-んー]*$/)) {
+      const newPlayerMessage: Message = {
+        word: newWord,
+        from: "player"
+      }
+      setMessages([...messages, newPlayerMessage]);
+      if(judgeWord(newWord)) {
+        replyNextWord(newPlayerMessage);
+      }
+    } else {
+      const newOpponentMessage = {
+        word: "ひらがな で入力してね！",
+        from: "opponent"
+      }
+      printReply([newOpponentMessage], "Only accept ひらがな");
     }
-    // ひらがな チェック
-    setMessages([...messages, newPlayerMessage]);
-    // const check = () => チェック
-    // if( 重複してたら ) {
-    //   負け処理
-    // } else {
-    //   相手の次の返信
-    // }
-    replyNextWord(newPlayerMessage);
-    // 重複チェック
   }
 
   return (
