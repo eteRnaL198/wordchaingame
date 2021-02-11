@@ -1,12 +1,13 @@
 .chat_wrapper {
     display: flex;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .chat_balloon {
     background: #ddd;
     border: 3px solid #999;
     border-radius: 8px;
+    max-width: 70%;
     padding: 16px;
 }
 

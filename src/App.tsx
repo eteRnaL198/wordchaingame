@@ -12,11 +12,18 @@ type Message = {
   from: string;
 }
 
+const useInitMessages = () => {
+  const [messages, setMessages] = useState(jsonData);
+  // TODO カスタムフックで管理、最初のセリフをfirestoreから取得する
+  return [messages, setMessages];
+}
+
 function App() {
   const [messages, setMessages] = useState<Message[]>(jsonData);
+  const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
 
   useEffect(() => {
-    // if(!firebase.apps.length) {
+    if(!firebase.apps.length) {
       firebase.initializeApp({
         apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
         authDomain: "wordchaingame-3e0fc.firebaseapp.com",
@@ -25,11 +32,10 @@ function App() {
         messagingSenderId: "307489909046",
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
-    // }
+    }
   }, [])
 
   useEffect(() => {
-    console.log(messages);
     return () => {
       scrollBottom();
     }
@@ -47,17 +53,19 @@ function App() {
         return null;
       })
     if(!doc) return null;
-    // const doc = await db.collection("words").doc(char).get();
     const field = await doc.get("a")
+    // TODO ↑get({...})
     const idx = Math.floor(Math.random() * field.length)
     const newOpponentMessage: Message = {
       word: `${field[idx].word}  ( ${field[idx].desc} )`,
       from: "opponent"
     }
     setMessages([...messages, newMyMessage]);
-setTimeout(()=>setMessages([...messages, newMyMessage, newOpponentMessage]), 300);
+    setTimeout(() => {
+      setMessages([...messages, newMyMessage, newOpponentMessage]);
+      setOpponentLastChar(field[idx].word.slice(-1));
+    }, 300);
     return null;
-    // return field[idx].word;
   }
 
   const scrollBottom = () => {
@@ -75,8 +83,6 @@ setTimeout(()=>setMessages([...messages, newMyMessage, newOpponentMessage]), 300
     }
     
     replyFromOpponent(newMyMessage);
-
-    // setMessages([...messages, newMyMessage]);
   }
 
   return (
@@ -86,7 +92,7 @@ setTimeout(()=>setMessages([...messages, newMyMessage, newOpponentMessage]), 300
           <Chat key={idx} message={message} />
         ))}
       </div>
-      <Input onWordAdd={handleWordAdd} lastChar={"a"} />
+      <Input onWordAdd={handleWordAdd} lastChar={opponentLastChar} />
     </div>
   );
 }
