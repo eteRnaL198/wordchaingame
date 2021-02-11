@@ -22,7 +22,7 @@ const Input = (props: Props) => {
         <div className="input_wrapper">
             <input
                 className="input_textBox"
-                placeholder={`「${props.lastChar}」から始まる単語を入力`}
+                placeholder={props.lastChar}
                 type="text"
                 value={inputWord}
                 onChange={handleWordChange}

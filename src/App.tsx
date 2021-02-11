@@ -19,7 +19,7 @@ const useInitMessages = () => {
 
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
+  const [placeholderText, setPlaceholderText] = useState<string>("名前を入力してください");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -62,45 +62,43 @@ function App() {
     // 負け判定
   }, [messages]);
 
-  const replyFromOpponent = async (newMyMessage: Message) => {
+  const printReply = (newPlayerMessage: Message, newOpponentMessage: Message, text: string) => {
+    setTimeout(() => {
+      setMessages([...messages, newPlayerMessage, newOpponentMessage]);
+      setPlaceholderText(text);
+    }, 250);
+  }
+
+  const replyNextWord = async (newPlayerMessage: Message) => {
     const db = firebase.firestore();
-    const docRef = db.collection("words").doc("2DJuqr2dqiRVJUSK5ugx");
-    await docRef.get().then((doc) => {
+    const wordsDoc = db.collection("words").doc("2DJuqr2dqiRVJUSK5ugx");
+    await wordsDoc.get().then((doc) => {
       const data = doc.data();
       if(data) {
-        const lastChar = newMyMessage.word.slice(-1);
-        const newOpponentMessage = (): Message => {
-          if(data[lastChar]) {
-            const elem = data[lastChar];
-            const idx = Math.floor(Math.random() * elem.length)
-            return {
-              word: `${elem[idx].word}  ( ${elem[idx].desc} )`,
-              from: "opponent"
-            }
-          } else {
-            return {
-              word: "思いつかない... 君の勝ち！",
-              from: "opponent"
-            }
-            // TODO firestoreから取ってくる
-          }
+        const playerLastChar = newPlayerMessage.word.slice(-1);
+        const elem = data[playerLastChar];
+        const idx = Math.floor(Math.random() * elem.length)
+        const newOpponentMessage = {
+          word: `${elem[idx].word}  ( ${elem[idx].desc} )`,
+          from: "opponent"
         }
-        setMessages([...messages, newMyMessage]);
-        setTimeout(() => {
-          setMessages([...messages, newMyMessage, newOpponentMessage()]);
-          // setOpponentLastChar(elem[idx].word.slice(-1));
-          setOpponentLastChar("a");
-        }, 250);
-
+        const opponentLastChar = (): string => {
+          let char = elem[idx].word.slice(-1);
+          if(char === "ー") char = elem[idx].word.slice(-2)[0];
+          return char;
+        }
+        printReply(newPlayerMessage, newOpponentMessage, `${opponentLastChar()} から始まる単語を入力`);
       }
-      return doc;
     })
-    .catch((err: string) => {
-      console.error(err);
+    .catch(() => {
+      const newOpponentMessage = {
+        word: "エラー発生！",
+        from: "opponent"
+      }
+      printReply(newPlayerMessage, newOpponentMessage, "error !");
       return null;
     })
 
-    if(!docRef) return null;
     return null;
   }
 
@@ -113,11 +111,20 @@ function App() {
   }
 
   const handleWordAdd = (newWord: string) => {
-    const newMyMessage: Message = {
+    const newPlayerMessage: Message = {
       word: newWord,
       from: "player"
     }
-    replyFromOpponent(newMyMessage);
+    // ひらがな チェック
+    setMessages([...messages, newPlayerMessage]);
+    // const check = () => チェック
+    // if( 重複してたら ) {
+    //   負け処理
+    // } else {
+    //   相手の次の返信
+    // }
+    replyNextWord(newPlayerMessage);
+    // 重複チェック
   }
 
   return (
@@ -127,7 +134,7 @@ function App() {
           <Chat key={idx} message={message} />
         ))}
       </div>
-      <Input onWordAdd={handleWordAdd} lastChar={opponentLastChar} />
+      <Input onWordAdd={handleWordAdd} lastChar={placeholderText} />
     </div>
   );
 }
