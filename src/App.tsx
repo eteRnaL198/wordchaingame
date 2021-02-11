@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './assets/styles/App.css';
 import { Chat, Input } from "./components/index";
-import jsonData from "./data.json";
 import firebase from "firebase";
 import writeData from "./writeData";
 
@@ -13,13 +12,13 @@ type Message = {
 }
 
 const useInitMessages = () => {
-  const [messages, setMessages] = useState(jsonData);
+  const [messages, setMessages] = useState();
   // TODO カスタムフックで管理、最初のセリフをfirestoreから取得する
   return [messages, setMessages];
 }
 
 function App() {
-  const [messages, setMessages] = useState<Message[]>(jsonData);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
 
   useEffect(() => {
@@ -33,6 +32,27 @@ function App() {
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
     }
+    (async () => {
+      const db = firebase.firestore();
+      const docRef = db.collection("dialogs").doc("start");
+      await docRef.get().then((doc) => {
+        const initMessages: Message[] = [
+          {
+            word: "こんにちは！",
+            from: "opponent"
+          },
+          {
+            word: doc.get("word"),
+            from: "opponent"
+          }
+        ]
+        setMessages(initMessages);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+    })();
+
   }, [])
 
   useEffect(() => {
@@ -45,28 +65,42 @@ function App() {
   const replyFromOpponent = async (newMyMessage: Message) => {
     const db = firebase.firestore();
     const docRef = db.collection("words").doc("2DJuqr2dqiRVJUSK5ugx");
-    await docRef.get().then((res) => res)
+    await docRef.get().then((doc) => {
+      const data = doc.data();
+      if(data) {
+        const lastChar = newMyMessage.word.slice(-1);
+        const newOpponentMessage = (): Message => {
+          if(data[lastChar]) {
+            const elem = data[lastChar];
+            const idx = Math.floor(Math.random() * elem.length)
+            return {
+              word: `${elem[idx].word}  ( ${elem[idx].desc} )`,
+              from: "opponent"
+            }
+          } else {
+            return {
+              word: "思いつかない... 君の勝ち！",
+              from: "opponent"
+            }
+            // TODO firestoreから取ってくる
+          }
+        }
+        setMessages([...messages, newMyMessage]);
+        setTimeout(() => {
+          setMessages([...messages, newMyMessage, newOpponentMessage()]);
+          // setOpponentLastChar(elem[idx].word.slice(-1));
+          setOpponentLastChar("a");
+        }, 250);
+
+      }
+      return doc;
+    })
     .catch((err: string) => {
       console.error(err);
       return null;
     })
 
-    const lastChar = newMyMessage.word.slice(-1);
-    const field = docRef.get(lastChar);
-    
-    const idx = Math.floor(Math.random() * data.length)
-    const newOpponentMessage: Message = {
-      word: `${data[idx].word}  ( ${data[idx].desc} )`,
-      from: "opponent"
-    }
-    setMessages([...messages, newMyMessage]);
-    setTimeout(() => {
-      setMessages([...messages, newMyMessage, newOpponentMessage]);
-      setOpponentLastChar(data[idx].word.slice(-1));
-    }, 300);      
-
     if(!docRef) return null;
-    // TODO ↑get({...})
     return null;
   }
 
@@ -83,7 +117,6 @@ function App() {
       word: newWord,
       from: "player"
     }
-    
     replyFromOpponent(newMyMessage);
   }
 
