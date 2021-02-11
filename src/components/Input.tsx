@@ -3,7 +3,7 @@ import '../assets/styles/Input.css';
 
 type Props = {
     onWordAdd: (text: string) => void
-    lastChar: string
+    lastChar?: string
 };
 
 const Input = (props: Props) => {

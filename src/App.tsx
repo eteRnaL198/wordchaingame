@@ -7,7 +7,7 @@ import writeData from "./writeData";
 //  writeData();
 
 type Message = {
-  word: string;
+  text: string;
   from: string;
 }
 
@@ -30,22 +30,10 @@ function App() {
       const db = firebase.firestore();
       const dialogsDoc = db.collection("dialogs").doc("start");
       await dialogsDoc.get().then((doc) => {
-        const initMessages: Message[] = [
-          {
-            word: "こんにちは！",
-            from: "opponent"
-          },
-          {
-            word: doc.get("word"),
-            from: "opponent"
-          }
-        ]
-        setMessages(initMessages);
-        printReply(initMessages, "Enter your name !");
+        // printReply([doc.get("greeting"), doc.get("registration")], "Enter your name !");
+        printReply([doc.get("greeting"), doc.get("first")], "Start with 「め」");
       })
-      .catch((err) => {
-        console.error(err);
-      })
+      .catch(() => replyConnectError());
     })();
 
   }, [])
@@ -66,57 +54,63 @@ function App() {
   const getLastChar = (word: string): string => {
     let char = word.slice(-1);
     if(char === "ー") char = word.slice(-2)[0];
+    // TODO 小さい文字も
     return char;
   }
 
-  const judgeWord = (newWord: string): boolean => {
-    console.log(newWord.slice(0));
+  const judgePlayerWord = (newWord: string): boolean => {
     const newPlayerMessage = {
-      word: newWord,
+      text: newWord,
       from: "player"
     }
     const newOpponentMessage = (newWord: string): Message => ({
-        word: newWord,
+        text: newWord,
         from: "opponent"
     })
     if(newWord.slice(-1) === 'ん') {
-      printReply([newPlayerMessage, newOpponentMessage("ん で終わってるよ")], "Thank you for playing !!");
+      printReply([newPlayerMessage, newOpponentMessage("ん で終わってるよ 君の負け！")], "Thank you for playing !!");
       return false;
-    } else if(placeholderText && newWord.slice(1)[0] === placeholderText.slice(-2)[0]) {
-      printReply([newPlayerMessage, newOpponentMessage("で始まってないよ")], "Thank you for playing !!");
+    } else if(placeholderText && newWord.slice(0)[0] !== placeholderText.slice(-2)[0]) {
+      printReply([newPlayerMessage, newOpponentMessage("で始まってないよ 君の負け！")], "Thank you for playing !!");
       return false;
     } else {
       return true;
     }
   }
 
+  const replyConnectError = (newPlayerMessage?: Message) => {
+    const newOpponentMessage = {
+      text: "エラー発生！インターネットの接続状況を確認してね",
+      from: "opponent"
+    }
+    printReply([newPlayerMessage as Message, newOpponentMessage], "ERROR !");
+  }
+
   const replyNextWord = async (newPlayerMessage: Message) => {
     const db = firebase.firestore();
-    const wordsDoc = db.collection("words").doc("2DJuqr2dqiRVJUSK5ugx");
+    const wordsDoc = db.collection("words").doc("49cDTcDttW3Tpj3DMYA0");
     await wordsDoc.get().then((doc) => {
       const data = doc.data();
       if(data) {
-        const playerLastChar = getLastChar(newPlayerMessage.word);
+        const playerLastChar = getLastChar(newPlayerMessage.text);
         const elem = data[playerLastChar];
         const idx = Math.floor(Math.random() * elem.length)
         const newOpponentMessage = {
-          word: `${elem[idx].word}  ( ${elem[idx].desc} )`,
+          text: `${elem[idx].text}  ( ${elem[idx].desc} )`,
           from: "opponent"
         }
-        const opponentLastChar = getLastChar(elem[idx].word);
+        const opponentLastChar = getLastChar(elem[idx].text);
         printReply([newPlayerMessage, newOpponentMessage], `Start with 「${opponentLastChar}」`);
       }
     })
-    .catch(() => {
-      const newOpponentMessage = {
-        word: "エラー発生！再度入力してね！",
-        from: "opponent"
-      }
-      printReply([newPlayerMessage, newOpponentMessage], "ERROR !");
-      return null;
-    })
+    .catch(() => replyConnectError(newPlayerMessage))
 
     return null;
+  }
+
+  const replyResult = async (newPlayerMessage: Message) => {
+    const db = firebase.firestore();
+    const dialogsDoc = db.collection("dialogs").doc("lose");
   }
 
   const scrollBottom = () => {
@@ -130,16 +124,17 @@ function App() {
   const handleWordAdd = (newWord: string) => {
     if(newWord.match(/^[ぁ-んー]*$/)) {
       const newPlayerMessage: Message = {
-        word: newWord,
+        text: newWord,
         from: "player"
       }
       setMessages([...messages, newPlayerMessage]);
-      if(judgeWord(newWord)) {
+      if(judgePlayerWord(newWord)) {
+        // 重複チェック
         replyNextWord(newPlayerMessage);
       }
     } else {
       const newOpponentMessage = {
-        word: "ひらがな で入力してね！",
+        text: "ひらがな で入力してね",
         from: "opponent"
       }
       printReply([newOpponentMessage], "Only accept ひらがな");

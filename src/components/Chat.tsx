@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
 import '../assets/styles/Chat.css';
 
 type Props = {
   className?: string;
   message: {
-    word: string;
+    text: string;
     from: string;
   }
 };
@@ -12,7 +11,7 @@ type Props = {
 const Chat = (props: Props) => {
   return (
     <div className="chat_wrapper">
-      <div className={`chat_balloon ${props.message.from}`}>{props.message.word}</div>
+      <div className={`chat_balloon ${props.message.from}`}>{props.message.text}</div>
     </div>
   )
 }
