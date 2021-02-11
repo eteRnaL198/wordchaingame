@@ -43,28 +43,31 @@ function App() {
   }, [messages]);
 
   const replyFromOpponent = async (newMyMessage: Message) => {
-    const db = firebase.firestore();
     const lastChar = newMyMessage.word.slice(-1);
-    console.log(lastChar);
-    const doc = await db.collection("words").doc(lastChar).get()
-      .then((res) => res)
-      .catch((err) => {
-        console.error(err);
-        return null;
-      })
-    if(!doc) return null;
-    const field = await doc.get("a")
+    const db = firebase.firestore();
+    const docRef = db.collection("words").doc("2DJuqr2dqiRVJUSK5ugx");
+    await docRef.get().then((doc) => {
+      const data = doc.data();
+      console.log(data);
+      if(data) {
+        // const idx = Math.floor(Math.random() * data.length)
+        // const newOpponentMessage: Message = {
+        //   word: `${data[idx].word}  ( ${data[idx].desc} )`,
+        //   from: "opponent"
+        // }
+        // setMessages([...messages, newMyMessage]);
+        // setTimeout(() => {
+        //   setMessages([...messages, newMyMessage, newOpponentMessage]);
+        //   setOpponentLastChar(data[idx].word.slice(-1));
+        // }, 300);      
+      }
+    })
+    .catch((err: string) => {
+      console.error(err);
+      return null;
+    })
+    if(!docRef) return null;
     // TODO ↑get({...})
-    const idx = Math.floor(Math.random() * field.length)
-    const newOpponentMessage: Message = {
-      word: `${field[idx].word}  ( ${field[idx].desc} )`,
-      from: "opponent"
-    }
-    setMessages([...messages, newMyMessage]);
-    setTimeout(() => {
-      setMessages([...messages, newMyMessage, newOpponentMessage]);
-      setOpponentLastChar(field[idx].word.slice(-1));
-    }, 300);
     return null;
   }
 
