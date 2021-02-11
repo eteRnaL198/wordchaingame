@@ -1,4 +1,6 @@
 import firebase from "firebase";
+import setData from "./setData";
+
 
 const writeData = () => {
     (async () => {

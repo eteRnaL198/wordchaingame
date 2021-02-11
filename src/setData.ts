@@ -5,7 +5,9 @@ const data = {
     ぜ: [{desc:"税",text:"ぜい"},{desc:"贅沢",text:"ぜいたく"},{desc:"贅肉",text:"ぜいにく"},{desc:"ゼウス",text:"ぜうす"},{desc:"絶景",text:"ぜっけい"},{desc:"絶壁",text:"ぜっぺき"},{desc:"ゼリー",text:"ぜりー"},{desc:"前屈",text:"ぜんくつ"},{desc:"全校集会",text:"ぜんこうしゅうかい"},{desc:"全国大会",text:"ぜんこくたいかい"},{desc:"喘息",text:"ぜんそく"},{desc:"ゼンマイ",text:"ぜんまい"},],
     ぞ: [{desc:"象",text:"ぞう"},{desc:"臓器",text:"ぞうき"},{desc:"雑木林",text:"ぞうきばやし"},{desc:"雑炊",text:"ぞうすい"},{desc:"雑煮",text:"ぞうに"},{desc:"草履",text:"ぞうり"},{desc:"ゾンビ",text:"ぞんび"},],
 
-    だ
+    // だ
 }
+
+export default data;
 
 // TODO 単語写す https://xn--68j8a5fb.net/
