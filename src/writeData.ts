@@ -26,7 +26,7 @@ const writeData = () => {
           こ: [{desc:"コアラ",text:"こあら"},{desc:"鯉",text:"こい"},{desc:"高校",text:"こうこう"},{desc:"広告",text:"こうこく"},{desc:"工作",text:"こうさく"},{desc:"子牛",text:"こうし"},{desc:"公式",text:"こうしき"},{desc:"校舎",text:"こうしゃ"},{desc:"高速道路",text:"こうそくどうろ"},{desc:"紅茶",text:"こうちゃ"},{desc:"校庭",text:"こうてい"},{desc:"行動",text:"こうどう"},{desc:"校内",text:"こうない"},{desc:"購入",text:"こうにゅう"},],
 
           さ: [{desc:"サーカス",text:"さーかす"},{desc:"サービス",text:"さーびす"},{desc:"再会",text:"さいかい"},{desc:"災害",text:"さいがい"},{desc:"最強",text:"さいきょう"},{desc:"細工",text:"さいく"},{desc:"最後",text:"さいご"},{desc:"最高",text:"さいこう"},{desc:"サイコパス",text:"さいこぱす"},{desc:"サイコロ",text:"さいころ"},{desc:"最初",text:"さいしょ"},{desc:"サイズ",text:"さいず"},{desc:"賽銭箱",text:"さいせんばこ"},{desc:"サイダー",text:"さいだー"}],
-          し: [{desc:"試合",text:"しあい"},{desc:"飼育",text:"しいく"},{desc:"シーソー",text:"しーそー"},{desc:"椎茸",text:"しいたけ"},{desc:"シートベルト",text:"しーとべると"},{desc:"塩",text:"しお"},{desc:"塩焼き",text:"しおやき"},{desc:"鹿",text:"しか"},{desc:"司会",text:"しかい"},{desc:"視界",text:"しかい"},{desc:"市外",text:"しがい"},{desc:"四角",text:"しかく"},{desc:"資格",text:"しかく"},{desc:"仕掛け",text:"しかけ"}],
+          し: [{desc:"試合",text:"しあい"},{desc:"飼育",text:"しいく"},{desc:"シーソー",text:"しーそー"},{desc:"椎茸",text:"しいたけ"},{desc:"シートベルト",text:"しーとべると"},{desc:"塩",text:"しお"},{desc:"塩焼き",text:"しおやき"},{desc:"鹿",text:"しか"},{desc:"視界",text:"しかい"},{desc:"市外",text:"しがい"},{desc:"資格",text:"しかく"},{desc:"仕掛け",text:"しかけ"}],
           す: [{desc:"巣穴",text:"すあな"},{desc:"スイーツ",text:"すいーつ"},{desc:"水泳",text:"すいえい"},{desc:"すいか",text:"すいか"},{desc:"水車",text:"すいしゃ"},{desc:"スイス",text:"すいす"},{desc:"彗星",text:"すいせい"},{desc:"水素",text:"すいそ"},{desc:"水槽",text:"すいそう"},{desc:"スイッチ",text:"すいっち"},],
           せ: [{desc:"成果",text:"せいか"},{desc:"聖火",text:"せいか"},{desc:"正解",text:"せいかい"},{desc:"正確",text:"せいかく"},{desc:"性格",text:"せいかく"},{desc:"生活",text:"せいかつ"},{desc:"正義",text:"せいぎ"},{desc:"生後",text:"せいご"},{desc:"成功",text:"せいこう"},{desc:"星座",text:"せいざ"}],
           そ: [{desc:"双眼鏡",text:"そうがんきょう"},{desc:"葬儀",text:"そうぎ"},{desc:"遭遇",text:"そうぐう"},{desc:"送迎",text:"そうげい"},{desc:"送迎バス",text:"そうげいばす"},{desc:"倉庫",text:"そうこ"},{desc:"走行",text:"そうこう"},{desc:"総合格闘技",text:"そうごうかくとうぎ"},{desc:"操作",text:"そうさ"},],
@@ -66,6 +66,12 @@ const writeData = () => {
           ろ: [{desc:"ロイヤルミルクティー",text:"ろいやるみるくてぃー"},{desc:"廊下",text:"ろうか"},{desc:"老人ホーム",text:"ろうじんほーむ"},{desc:"ロウソク",text:"ろうそく"},{desc:"労働",text:"ろうどう"},{desc:"ローキック",text:"ろーきっく"},{desc:"ロースハム",text:"ろーすはむ"},],
 
           わ: [{desc:"ワールドカップ",text:"わーるどかっぷ"},{desc:"ワイシャツ",text:"わいしゃつ"},{desc:"ワイドショー",text:"わいどしょー"},{desc:"ワイパー",text:"わいぱー"},{desc:"Wi-Fi",text:"わいふ"},{desc:"ワイヤ－",text:"わいやー"},{desc:"ワイヤレス",text:"わいやれす"},{desc:"賄賂",text:"わいろ"}],
+
+          が: [{desc:"ガーゼ",text:"がーぜ"},{desc:"ガーデニング",text:"がーでにんぐ"},{desc:"ガード",text:"がーど"},{desc:"ガーネット",text:"がーねっと"},{desc:"ガーリック",text:"がーりっく"},{desc:"外食",text:"がいしょく"},{desc:"害虫",text:"がいちゅう"},{desc:"学者",text:"がくしゃ"},{desc:"学習",text:"がくしゅう"},{desc:"画質",text:"がしつ"},{desc:"画集",text:"がしゅう"},{desc:"ガス",text:"がす"},{desc:"ガラクタ",text:"がらくた"},{desc:"ガラス",text:"がらす"},{desc:"眼科",text:"がんか"},{desc:"岩石",text:"がんせき"},{desc:"岩盤浴",text:"がんばんよく"},],
+          ぎ: [{desc:"儀式",text:"ぎしき"},{desc:"義手",text:"ぎしゅ"},{desc:"技術",text:"ぎじゅつ"},{desc:"ギター",text:"ぎたー"},{desc:"ギブス",text:"ぎぶす"},{desc:"義務教育",text:"ぎむきょういく"},{desc:"ギャグ",text:"ぎゃぐ"},{desc:"牛肉",text:"ぎゅうにく"},{desc:"牛乳",text:"ぎゅうにゅう"},{desc:"餃子",text:"ぎょうざ"},{desc:"魚肉ソーセージ",text:"ぎょにくそーせーじ"},{desc:"ギリシャ神話",text:"ぎりしゃしんわ"},{desc:"銀座",text:"ぎんざ"},],
+          ぐ: [{desc:"グアム",text:"ぐあむ"},{desc:"Google",text:"ぐーぐる"},{desc:"愚痴",text:"ぐち"},{desc:"グッズ",text:"ぐっず"},{desc:"グラウンド",text:"ぐらうんど"},{desc:"グラフィック",text:"ぐらふぃっく"},{desc:"グランドピアノ",text:"ぐらんどぴあの"},{desc:"グリム童話",text:"ぐりむどうわ"},{desc:"グルメ",text:"ぐるめ"},{desc:"グレープジュース",text:"ぐれーぷじゅーす"},{desc:"グローブ",text:"ぐろーぶ"},{desc:"軍艦巻",text:"ぐんかんまき"},{desc:"軍隊",text:"ぐんたい"},],
+          げ: [{desc:"芸術",text:"げいじゅつ"},{desc:"ゲートボール",text:"げーとぼーる"},{desc:"ゲーム",text:"げーむ"},{desc:"外科医",text:"げかい"},{desc:"劇場",text:"げきじょう"},{desc:"撃退",text:"げきたい"},{desc:"撃破",text:"げきは"},{desc:"ゲジゲジ",text:"げじげじ"},{desc:"下水道",text:"げすいどう"},{desc:"月曜日",text:"げつようび"},{desc:"ゲテモノ",text:"げてもの"},{desc:"解毒剤",text:"げどくざい"},{desc:"限界",text:"げんかい"},{desc:"幻覚",text:"げんかく"},{desc:"弦楽器",text:"げんがっき"},{desc:"原石",text:"げんせき"},{desc:"幻想",text:"げんそう"},{desc:"現代",text:"げんだい"},{desc:"玄米",text:"げんまい"},],
+          ご: [{desc:"豪族",text:"ごうぞく"},{desc:"強奪",text:"ごうだつ"},{desc:"豪邸",text:"ごうてい"},{desc:"強盗",text:"ごうとう"},{desc:"ゴーカート",text:"ごーかーと"},{desc:"ゴーヤチャンプルー",text:"ごーやちゃんぷるー"},{desc:"ゴール",text:"ごーる"},{desc:"ゴーグル",text:"ごーぐる"},{desc:"ゴキブリ",text:"ごきぶり"},{desc:"極楽",text:"ごくらく"},{desc:"ゴジラ",text:"ごじら"},{desc:"ゴボウ",text:"ごぼう"},{desc:"胡麻",text:"ごま"},{desc:"ごみ",text:"ごみ"},{desc:"ゴリラ",text:"ごりら"},{desc:"ゴルフ",text:"ごるふ"},{desc:"ゴンドラ",text:"ごんどら"},],
 
         })
         .then(() => {
@@ -121,4 +127,5 @@ export default writeData;
 
 
 // TODO 単語写す https://xn--68j8a5fb.net/
+// setData.ts
 // TODO 少ない単語補充

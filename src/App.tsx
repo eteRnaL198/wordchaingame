@@ -58,20 +58,28 @@ function App() {
     return char;
   }
 
-  const judgePlayerWord = (newWord: string): boolean => {
-    const newPlayerMessage = {
-      text: newWord,
-      from: "player"
+  const isRepeated = (newMessage: Message): boolean => {
+    const tempMessages = messages.filter(message => message.text === newMessage.text)
+    if(tempMessages.length) {
+      return true
+    } else {
+      return false
     }
-    const newOpponentMessage = (newWord: string): Message => ({
-        text: newWord,
+  }
+
+  const judgePlayerMessage = (newPlayerMessage: Message): boolean => {
+    // TODO is** の方がいいかも？ チャー とかにも注意
+    const newOpponentMessage = (newText: string): Message => ({
+        text: newText,
         from: "opponent"
     })
-    if(newWord.slice(-1) === 'ん') {
+    if(newPlayerMessage.text.slice(-1) === 'ん') {
       printReply([newPlayerMessage, newOpponentMessage("ん で終わってるよ 君の負け！")], "Thank you for playing !!");
       return false;
-    } else if(placeholderText && newWord.slice(0)[0] !== placeholderText.slice(-2)[0]) {
+    } else if(placeholderText && newPlayerMessage.text.slice(0)[0] !== placeholderText.slice(-2)[0]) {
       printReply([newPlayerMessage, newOpponentMessage("で始まってないよ 君の負け！")], "Thank you for playing !!");
+      return false;
+    } else if(isRepeated(newPlayerMessage)) {
       return false;
     } else {
       return true;
@@ -128,8 +136,7 @@ function App() {
         from: "player"
       }
       setMessages([...messages, newPlayerMessage]);
-      if(judgePlayerWord(newWord)) {
-        // 重複チェック
+      if(judgePlayerMessage(newPlayerMessage)) {
         replyNextWord(newPlayerMessage);
       }
     } else {
