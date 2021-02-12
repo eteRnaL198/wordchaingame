@@ -15,6 +15,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [placeholderText, setPlaceholderText] = useState<string>();
   const [playerName, setPlayerName] = useState<string>("player");
+  // const [playerMessage, setPlayerMessage] = useState<Message>();
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -27,10 +28,9 @@ function App() {
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
     }
+    // TODO 最初のplayerMessageをなんとかする
     // replyDialog(newPlayerMessage, "start", "first");
     // replyDialog(newPlayerMessage, "start", "registration");
-    replyDialog("start", "first");
-    replyDialog("start", "registration");
   }, [])
 
   useEffect(() => {
@@ -53,8 +53,8 @@ function App() {
     return char;
   }
 
-  const isRepeated = (newMessage: Message): boolean => {
-    const tempMessages = messages.filter(message => message.text === newMessage.text)
+  const isRepeated = (targetMessage: Message): boolean => {
+    const tempMessages = messages.filter(message => message.text === targetMessage.text)
     if(tempMessages.length) {
       return true
     } else {
@@ -91,12 +91,13 @@ function App() {
     printReply([newPlayerMessage as Message, newOpponentMessage], "ERROR !");
   }
 
-  const replyDialog = async (docName: string, fieldName: string) => {
+  const replyDialog = async (newPlayerMessage: Message, docName: string, fieldName: string) => {
+    // 自分のメッセージ残るように
     const db = firebase.firestore();
     const dialogsDoc = db.collection("dialogs").doc(docName);
     await dialogsDoc.get().then( async (doc) => {
       const field = await doc.get(fieldName);
-      printReply([field.message], field.placeholderText);
+      printReply([newPlayerMessage, field.message], field.placeholderText);
     })
     .catch(() => replyConnectError());
   }
@@ -108,14 +109,14 @@ function App() {
       const data = doc.data();
       if(data) {
         const playerLastChar = getLastChar(newPlayerMessage.text);
-        const elem = data[playerLastChar];
-        const idx = Math.floor(Math.random() * elem.length)
+        const wordsArr = data[playerLastChar];
+        const idx = Math.floor(Math.random() * wordsArr.length);
         const newOpponentMessage = {
-          text: `${elem[idx].text}  ( ${elem[idx].desc} )`,
+          text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
           from: "opponent"
         }
-        const opponentLastChar = getLastChar(elem[idx].text);
-        console.log("replyNextWord: " + messages[messages.length-1].text);
+        const opponentLastChar = getLastChar(wordsArr[idx].text);
+        // ひらがな以外入力後 尻を保つように
         printReply([newPlayerMessage, newOpponentMessage], `Start with 「${opponentLastChar}」`);
       }
     })
@@ -132,13 +133,14 @@ function App() {
     }
   }
 
-  const handleWordAdd = (newWord: string) => {
+  const handlePlayerWordAdd = (newWord: string) => {
     if(newWord.match(/^[ぁ-んー]*$/)) {
       const newPlayerMessage: Message = {
         text: newWord,
         from: "player"
       }
       setMessages([...messages, newPlayerMessage]);
+      // setPlayerMessage(newPlayerMessage);
       if(judgePlayerMessage(newPlayerMessage)) {
         replyNextWord(newPlayerMessage);
       }
@@ -150,7 +152,6 @@ function App() {
       }
       printReply([newOpponentMessage], "Only accept ひらがな");
     }
-
   }
 
   return (
@@ -160,7 +161,7 @@ function App() {
           <Chat key={idx} message={message} playerName={playerName} />
         ))}
       </div>
-      <Input onWordAdd={handleWordAdd} lastChar={placeholderText} />
+      <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />
     </div>
   );
 }
