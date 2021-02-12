@@ -10,6 +10,9 @@ type Props = {
 };
 
 const Chat = (props: Props) => {
+  if(props.message.text === "") {
+    return null;
+  }
   return (
     <div className={`chat_wrapper ${props.message.from}`}>
       <span className="chat_icon">{(props.message.from === "player") ? props.playerName : "太郎"}</span>

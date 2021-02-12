@@ -15,7 +15,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [placeholderText, setPlaceholderText] = useState<string>();
   const [playerName, setPlayerName] = useState<string>("player");
-  // const [playerMessage, setPlayerMessage] = useState<Message>();
+  const [opponentLastChar, setOpponentLastChar] = useState<string>("");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -28,9 +28,13 @@ function App() {
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
     }
-    // TODO 最初のplayerMessageをなんとかする
-    // replyDialog(newPlayerMessage, "start", "first");
-    // replyDialog(newPlayerMessage, "start", "registration");
+    const emptyMessage = {
+      text: "",
+      from: "player"
+    }
+    // ↑外でも使うから スコープ広げようかな
+    replyDialog(emptyMessage, "start", "first");
+    replyDialog(emptyMessage, "start", "registration");
   }, [])
 
   useEffect(() => {
@@ -72,7 +76,7 @@ function App() {
       // TODO replyDialog を使う
       printReply([newPlayerMessage, getNewOpponentMessage("ん で終わってるよ 君の負け！")], "Thank you for playing !!");
       return false;
-    } else if(placeholderText && newPlayerMessage.text.slice(0)[0] !== placeholderText.slice(-2)[0]) {
+    } else if(placeholderText && newPlayerMessage.text.slice(0)[0] !== opponentLastChar ) {
       printReply([newPlayerMessage, getNewOpponentMessage(`で始まってないよ 君の負け！`)], "Thank you for playing !!");
       return false;
     } else if(isRepeated(newPlayerMessage)) {
@@ -92,7 +96,7 @@ function App() {
   }
 
   const replyDialog = async (newPlayerMessage: Message, docName: string, fieldName: string) => {
-    // 自分のメッセージ残るように
+    // 自分のメッセージ残るように、連続で送れるように
     const db = firebase.firestore();
     const dialogsDoc = db.collection("dialogs").doc(docName);
     await dialogsDoc.get().then( async (doc) => {
@@ -115,9 +119,9 @@ function App() {
           text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
           from: "opponent"
         }
-        const opponentLastChar = getLastChar(wordsArr[idx].text);
-        // ひらがな以外入力後 尻を保つように
-        printReply([newPlayerMessage, newOpponentMessage], `Start with 「${opponentLastChar}」`);
+        const newOpponentLastChar = getLastChar(wordsArr[idx].text);
+        setOpponentLastChar(newOpponentLastChar);
+        printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
       }
     })
     .catch(() => replyConnectError(newPlayerMessage))
@@ -135,22 +139,20 @@ function App() {
 
   const handlePlayerWordAdd = (newWord: string) => {
     if(newWord.match(/^[ぁ-んー]*$/)) {
-      const newPlayerMessage: Message = {
+      const newPlayerMessage = {
         text: newWord,
         from: "player"
       }
       setMessages([...messages, newPlayerMessage]);
-      // setPlayerMessage(newPlayerMessage);
       if(judgePlayerMessage(newPlayerMessage)) {
         replyNextWord(newPlayerMessage);
       }
     } else {
-      // TODO replyDialog にする
-      const newOpponentMessage = {
-        text: "ひらがな で入力してね",
-        from: "opponent"
+      const emptyMessage = {
+        text: "",
+        from: "player"
       }
-      printReply([newOpponentMessage], "Only accept ひらがな");
+      replyDialog(emptyMessage, "err", "kanaErr");
     }
   }
 
