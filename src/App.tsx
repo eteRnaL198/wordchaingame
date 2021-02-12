@@ -27,10 +27,6 @@ function App() {
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
     }
-    const newPlayerMessage = {
-      text: "",
-      from: "player"
-    }
     // replyDialog(newPlayerMessage, "start", "first");
     // replyDialog(newPlayerMessage, "start", "registration");
     replyDialog("start", "first");
@@ -68,18 +64,19 @@ function App() {
 
   const judgePlayerMessage = (newPlayerMessage: Message): boolean => {
     // TODO is** の方がいいかも？ チャー とかにも注意
-    const newOpponentMessage = (newText: string): Message => ({
+    const getNewOpponentMessage = (newText: string): Message => ({
         text: newText,
         from: "opponent"
     })
     if(newPlayerMessage.text.slice(-1) === 'ん') {
       // TODO replyDialog を使う
-      printReply([newPlayerMessage, newOpponentMessage("ん で終わってるよ 君の負け！")], "Thank you for playing !!");
+      printReply([newPlayerMessage, getNewOpponentMessage("ん で終わってるよ 君の負け！")], "Thank you for playing !!");
       return false;
     } else if(placeholderText && newPlayerMessage.text.slice(0)[0] !== placeholderText.slice(-2)[0]) {
-      printReply([newPlayerMessage, newOpponentMessage(`で始まってないよ 君の負け！`)], "Thank you for playing !!");
+      printReply([newPlayerMessage, getNewOpponentMessage(`で始まってないよ 君の負け！`)], "Thank you for playing !!");
       return false;
     } else if(isRepeated(newPlayerMessage)) {
+      printReply([newPlayerMessage, getNewOpponentMessage(`既に言ったよ 君の負け！`)], "Thank you for playing !!");
       return false;
     } else {
       return true;
@@ -88,7 +85,7 @@ function App() {
 
   const replyConnectError = (newPlayerMessage?: Message) => {
     const newOpponentMessage = {
-      text: "エラー発生！インターネットの接続状況を確認してね",
+      text: "エラー発生！",
       from: "opponent"
     }
     printReply([newPlayerMessage as Message, newOpponentMessage], "ERROR !");
@@ -118,6 +115,7 @@ function App() {
           from: "opponent"
         }
         const opponentLastChar = getLastChar(elem[idx].text);
+        console.log("replyNextWord: " + messages[messages.length-1].text);
         printReply([newPlayerMessage, newOpponentMessage], `Start with 「${opponentLastChar}」`);
       }
     })
@@ -152,6 +150,7 @@ function App() {
       }
       printReply([newOpponentMessage], "Only accept ひらがな");
     }
+
   }
 
   return (
