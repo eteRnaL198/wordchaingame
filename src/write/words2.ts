@@ -1,0 +1,19 @@
+const words2 = {
+    が: [{desc:"ガーゼ",text:"がーぜ"},{desc:"ガーデニング",text:"がーでにんぐ"},{desc:"ガード",text:"がーど"},{desc:"ガーネット",text:"がーねっと"},{desc:"ガーリック",text:"がーりっく"},{desc:"外食",text:"がいしょく"},{desc:"害虫",text:"がいちゅう"},{desc:"学者",text:"がくしゃ"},{desc:"学習",text:"がくしゅう"},{desc:"画質",text:"がしつ"},{desc:"画集",text:"がしゅう"},{desc:"ガス",text:"がす"},{desc:"ガラクタ",text:"がらくた"},{desc:"ガラス",text:"がらす"},{desc:"眼科",text:"がんか"},{desc:"岩石",text:"がんせき"},{desc:"岩盤浴",text:"がんばんよく"},],
+    ぎ: [{desc:"儀式",text:"ぎしき"},{desc:"義手",text:"ぎしゅ"},{desc:"技術",text:"ぎじゅつ"},{desc:"ギター",text:"ぎたー"},{desc:"ギブス",text:"ぎぶす"},{desc:"義務教育",text:"ぎむきょういく"},{desc:"ギャグ",text:"ぎゃぐ"},{desc:"牛肉",text:"ぎゅうにく"},{desc:"牛乳",text:"ぎゅうにゅう"},{desc:"餃子",text:"ぎょうざ"},{desc:"魚肉ソーセージ",text:"ぎょにくそーせーじ"},{desc:"ギリシャ神話",text:"ぎりしゃしんわ"},{desc:"銀座",text:"ぎんざ"},],
+    ぐ: [{desc:"グアム",text:"ぐあむ"},{desc:"Google",text:"ぐーぐる"},{desc:"愚痴",text:"ぐち"},{desc:"グッズ",text:"ぐっず"},{desc:"グラウンド",text:"ぐらうんど"},{desc:"グラフィック",text:"ぐらふぃっく"},{desc:"グランドピアノ",text:"ぐらんどぴあの"},{desc:"グリム童話",text:"ぐりむどうわ"},{desc:"グルメ",text:"ぐるめ"},{desc:"グレープジュース",text:"ぐれーぷじゅーす"},{desc:"グローブ",text:"ぐろーぶ"},{desc:"軍艦巻",text:"ぐんかんまき"},{desc:"軍隊",text:"ぐんたい"},],
+    げ: [{desc:"芸術",text:"げいじゅつ"},{desc:"ゲートボール",text:"げーとぼーる"},{desc:"ゲーム",text:"げーむ"},{desc:"外科医",text:"げかい"},{desc:"劇場",text:"げきじょう"},{desc:"撃退",text:"げきたい"},{desc:"撃破",text:"げきは"},{desc:"ゲジゲジ",text:"げじげじ"},{desc:"下水道",text:"げすいどう"},{desc:"月曜日",text:"げつようび"},{desc:"ゲテモノ",text:"げてもの"},{desc:"解毒剤",text:"げどくざい"},{desc:"限界",text:"げんかい"},{desc:"幻覚",text:"げんかく"},{desc:"弦楽器",text:"げんがっき"},{desc:"原石",text:"げんせき"},{desc:"幻想",text:"げんそう"},{desc:"現代",text:"げんだい"},{desc:"玄米",text:"げんまい"},],
+    ご: [{desc:"豪族",text:"ごうぞく"},{desc:"強奪",text:"ごうだつ"},{desc:"豪邸",text:"ごうてい"},{desc:"強盗",text:"ごうとう"},{desc:"ゴーカート",text:"ごーかーと"},{desc:"ゴーヤチャンプルー",text:"ごーやちゃんぷるー"},{desc:"ゴール",text:"ごーる"},{desc:"ゴーグル",text:"ごーぐる"},{desc:"ゴキブリ",text:"ごきぶり"},{desc:"極楽",text:"ごくらく"},{desc:"ゴジラ",text:"ごじら"},{desc:"ゴボウ",text:"ごぼう"},{desc:"胡麻",text:"ごま"},{desc:"ごみ",text:"ごみ"},{desc:"ゴリラ",text:"ごりら"},{desc:"ゴルフ",text:"ごるふ"},{desc:"ゴンドラ",text:"ごんどら"},],
+  
+    ざ: [{desc:"在庫",text:"ざいこ"},{desc:"在校生",text:"ざいこうせい"},{desc:"在宅",text:"ざいたく"},{desc:"財閥",text:"ざいばつ"},{desc:"財宝",text:"ざいほう"},{desc:"財務省",text:"ざいむしょう"},{desc:"雑魚",text:"ざこ"},{desc:"座高",text:"ざこう"},{desc:"座敷童",text:"ざしきわらし"},{desc:"雑貨",text:"ざっか"},{desc:"残業",text:"ざんぎょう"},{desc:"残念賞",text:"ざんねんしょう"},],
+    じ: [{desc:"ジーンズ",text:"じーんず"},{desc:"自衛隊",text:"じえいたい"},{desc:"ジェットコースター",text:"じぇっとこーすたー"},{desc:"ジェラート",text:"じぇらーと"},{desc:"持久走",text:"じきゅうそう"},{desc:"地獄",text:"じごく"},{desc:"時刻表",text:"じこくひょう"},{desc:"自室",text:"じしつ"},{desc:"事実",text:"じじつ"},{desc:"辞書",text:"じしょ"},{desc:"地蔵",text:"じぞう"},{desc:"自宅",text:"じたく"},{desc:"自転車",text:"じてんしゃ"},{desc:"自動ドア",text:"じどうどあ"},{desc:"自販機",text:"じはんき"},{desc:"ジャガイモ",text:"じゃがいも"},{desc:"蛇口",text:"じゃぐち"},{desc:"神社",text:"じんじゃ"},{desc:"ジンジャーエール",text:"じんじゃーえーる"},],
+    ず: [{desc:"図体",text:"ずうたい"},{desc:"頭蓋骨",text:"ずがいこつ"},{desc:"図工",text:"ずこう"},{desc:"ズッキーニ",text:"ずっきーに"},{desc:"頭脳",text:"ずのう"},{desc:"ズワイガニ",text:"ずわいがに"},{desc:"寸胴",text:"ずんどう"},],
+    ぜ: [{desc:"税",text:"ぜい"},{desc:"贅沢",text:"ぜいたく"},{desc:"贅肉",text:"ぜいにく"},{desc:"ゼウス",text:"ぜうす"},{desc:"絶景",text:"ぜっけい"},{desc:"絶壁",text:"ぜっぺき"},{desc:"ゼリー",text:"ぜりー"},{desc:"前屈",text:"ぜんくつ"},{desc:"全校集会",text:"ぜんこうしゅうかい"},{desc:"全国大会",text:"ぜんこくたいかい"},{desc:"喘息",text:"ぜんそく"},{desc:"ゼンマイ",text:"ぜんまい"},],
+    ぞ: [{desc:"象",text:"ぞう"},{desc:"臓器",text:"ぞうき"},{desc:"雑木林",text:"ぞうきばやし"},{desc:"雑炊",text:"ぞうすい"},{desc:"雑煮",text:"ぞうに"},{desc:"草履",text:"ぞうり"},{desc:"ゾンビ",text:"ぞんび"},],
+
+    // だ
+}
+
+export default words2;
+
+// TODO 単語写す https://xn--68j8a5fb.net/

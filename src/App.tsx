@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './assets/styles/App.css';
 import { Chat, Input } from "./components/index";
 import firebase from "firebase";
-import writeData from "./writeData";
+import writeData from "./write/writeData";
 
 //  writeData();
 
@@ -27,23 +27,21 @@ function App() {
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
     }
-    (async () => {
-      const db = firebase.firestore();
-      const dialogsDoc = db.collection("dialogs").doc("start");
-      await dialogsDoc.get().then((doc) => {
-        // printReply([doc.get("greeting"), doc.get("registration")], "Enter your name !");
-        printReply([doc.get("greeting"), doc.get("first")], "Start with 「め」");
-      })
-      .catch(() => replyConnectError());
-    })();
-
+    const newPlayerMessage = {
+      text: "",
+      from: "player"
+    }
+    // replyDialog(newPlayerMessage, "start", "first");
+    // replyDialog(newPlayerMessage, "start", "registration");
+    replyDialog("start", "first");
+    replyDialog("start", "registration");
   }, [])
 
   useEffect(() => {
     return () => {
       scrollBottom();
     }
-  }, [messages]);
+  });
 
   const printReply = (newMessages: Message[], text: string) => {
     setTimeout(() => {
@@ -75,10 +73,11 @@ function App() {
         from: "opponent"
     })
     if(newPlayerMessage.text.slice(-1) === 'ん') {
+      // TODO replyDialog を使う
       printReply([newPlayerMessage, newOpponentMessage("ん で終わってるよ 君の負け！")], "Thank you for playing !!");
       return false;
     } else if(placeholderText && newPlayerMessage.text.slice(0)[0] !== placeholderText.slice(-2)[0]) {
-      printReply([newPlayerMessage, newOpponentMessage("で始まってないよ 君の負け！")], "Thank you for playing !!");
+      printReply([newPlayerMessage, newOpponentMessage(`で始まってないよ 君の負け！`)], "Thank you for playing !!");
       return false;
     } else if(isRepeated(newPlayerMessage)) {
       return false;
@@ -87,16 +86,22 @@ function App() {
     }
   }
 
-  const judgeOpponentMessage = (newOpponentMessage: Message) => {
-
-  }
-
   const replyConnectError = (newPlayerMessage?: Message) => {
     const newOpponentMessage = {
       text: "エラー発生！インターネットの接続状況を確認してね",
       from: "opponent"
     }
     printReply([newPlayerMessage as Message, newOpponentMessage], "ERROR !");
+  }
+
+  const replyDialog = async (docName: string, fieldName: string) => {
+    const db = firebase.firestore();
+    const dialogsDoc = db.collection("dialogs").doc(docName);
+    await dialogsDoc.get().then( async (doc) => {
+      const field = await doc.get(fieldName);
+      printReply([field.message], field.placeholderText);
+    })
+    .catch(() => replyConnectError());
   }
 
   const replyNextWord = async (newPlayerMessage: Message) => {
@@ -121,11 +126,6 @@ function App() {
     return null;
   }
 
-  const replyResult = async (newPlayerMessage: Message) => {
-    const db = firebase.firestore();
-    const dialogsDoc = db.collection("dialogs").doc("lose");
-  }
-
   const scrollBottom = () => {
     const chatsWrapper = document.getElementById("js_chats_wrapper");
     if(chatsWrapper) {
@@ -145,6 +145,7 @@ function App() {
         replyNextWord(newPlayerMessage);
       }
     } else {
+      // TODO replyDialog にする
       const newOpponentMessage = {
         text: "ひらがな で入力してね",
         from: "opponent"

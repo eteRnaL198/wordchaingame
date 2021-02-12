@@ -12,7 +12,7 @@ type Props = {
 const Chat = (props: Props) => {
   return (
     <div className={`chat_wrapper ${props.message.from}`}>
-      <span className="chat_icon">{(props.message.from === "player") ? props.playerName : "hori"}</span>
+      <span className="chat_icon">{(props.message.from === "player") ? props.playerName : "太郎"}</span>
       <div className={`chat_balloon`}>{props.message.text}</div>
     </div>
   )

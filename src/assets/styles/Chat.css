@@ -3,9 +3,9 @@
     margin-bottom: 16px;
 }
 
-.chat_icon {
+/* .chat_icon {
 
-}
+} */
 
 .chat_balloon {
     background: #ddd;
@@ -16,6 +16,6 @@
 }
 
 .player {
-    /* margin-left: auto; */
-    align-content: flex-end;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
 }
