@@ -3,14 +3,19 @@
     margin-bottom: 16px;
 }
 
+.chat_icon {
+
+}
+
 .chat_balloon {
     background: #ddd;
     border: 3px solid #999;
     border-radius: 8px;
     max-width: 70%;
-    padding: 16px;
+    padding: 8px;
 }
 
 .player {
-    margin-left: auto;
+    /* margin-left: auto; */
+    align-content: flex-end;
 }

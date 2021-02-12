@@ -14,6 +14,7 @@ type Message = {
 function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [placeholderText, setPlaceholderText] = useState<string>();
+  const [playerName, setPlayerName] = useState<string>("player");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -86,6 +87,10 @@ function App() {
     }
   }
 
+  const judgeOpponentMessage = (newOpponentMessage: Message) => {
+
+  }
+
   const replyConnectError = (newPlayerMessage?: Message) => {
     const newOpponentMessage = {
       text: "エラー発生！インターネットの接続状況を確認してね",
@@ -152,7 +157,7 @@ function App() {
     <div className="main">
       <div className="chats_wrapper" id="js_chats_wrapper">
         {messages.map((message, idx) => (
-          <Chat key={idx} message={message} />
+          <Chat key={idx} message={message} playerName={playerName} />
         ))}
       </div>
       <Input onWordAdd={handleWordAdd} lastChar={placeholderText} />
