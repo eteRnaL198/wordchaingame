@@ -29,6 +29,4 @@ const writeData = () => {
 export default writeData;
 
 
-// TODO 単語写す https://xn--68j8a5fb.net/
-// setData.ts
 // TODO 少ない単語補充

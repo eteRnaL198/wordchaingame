@@ -77,7 +77,7 @@ const dialogs = {
       ],
       placeholderText: "Thank you for playing !",
     },
-    repeated: {
+    duplicated: {
       message: [
         {
           text: "既に言ったよ",
@@ -89,7 +89,6 @@ const dialogs = {
         },
       ],
       placeholderText: "Thank you for playing !",
-
     }
   },
 }

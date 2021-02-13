@@ -50,16 +50,15 @@ function App() {
   }
 
   const getLastChar = (word: string): string => {
-    let char = word.slice(-1);
-    // while()
-    // if(char === "ー") char = word.slice(-2)[0];
-    // if(newWord.match(/^[ぁ-んー]*$/)) {
-    // TODO ひらがなになるまで下げる
-    // チャー とかにも注意
-    return char;
+    const regex = /[^ぁぃぅぇぉっゃゅょゎ・ー][あ-ゔ]*$/;
+    let idx = word.length - 1;
+    while(!regex.test(word[idx])) {
+      idx--;
+    }
+    return word[idx];
   }
 
-  const isRepeated = (targetMessage: Message): boolean => {
+  const isDuplicated = (targetMessage: Message): boolean => {
     const tempMessages = messages.filter(message => message.text === targetMessage.text)
     if(tempMessages.length > 0) {
       return true
@@ -73,8 +72,8 @@ function App() {
       return "endWithN"
     } else if(newPlayerMessage.text.slice(0)[0] !== opponentLastChar ) {
       return "wrongStart";
-    } else if(isRepeated(newPlayerMessage)) {
-      return "repeated";
+    } else if(isDuplicated(newPlayerMessage)) {
+      return "duplicated";
     } else {
       return "continue";
     }
@@ -95,7 +94,7 @@ function App() {
       const field = await doc.get(fieldName);
       if(field.message.length > 0) {
         printReply([newPlayerMessage, ...field.message], field.placeholderText);
-        // ** の負け！
+        // TODO ** の負け！
       } else {
         printReply([newPlayerMessage, field.message], field.placeholderText);
         // ** の負け！
@@ -112,19 +111,23 @@ function App() {
       if(data) {
         const playerLastChar = getLastChar(newPlayerMessage.text);
         const wordsArr = data[playerLastChar];
-        const idx = Math.floor(Math.random() * wordsArr.length);
-        const newOpponentMessage = {
-          text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
-          from: "opponent"
-        }
-        if(isRepeated(newOpponentMessage)) {
+        if(!wordsArr) {
           replyDialog(newPlayerMessage, "win", "noIdea");
         } else {
-          const newOpponentLastChar = getLastChar(wordsArr[idx].text);
-          setOpponentLastChar(newOpponentLastChar);
-          printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
-          return doc;
-        };
+          const idx = Math.floor(Math.random() * wordsArr.length);
+          const newOpponentMessage = {
+            text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
+            from: "opponent"
+          }
+          if(isDuplicated(newOpponentMessage)) {
+            replyDialog(newPlayerMessage, "win", "noIdea");
+          } else {
+            const newOpponentLastChar = getLastChar(wordsArr[idx].text);
+            setOpponentLastChar(newOpponentLastChar);
+            printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
+            return doc;
+          };
+        }
       }
     })
     .catch(() => replyConnectError(newPlayerMessage));
@@ -139,7 +142,7 @@ function App() {
   }
 
   const handlePlayerWordAdd = (newWord: string) => {
-    if(newWord.match(/^[ぁ-んー]*$/)) {
+    if(newWord.match(/^[ぁ-ゔ・ー]*$/)) {
       const newPlayerMessage = {
         text: newWord,
         from: "player"
