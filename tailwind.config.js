@@ -3,10 +3,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     height: {
-      '1/5': '20%',
-      '4/5': '80%',
-      'full': '100%',
-      'max': '100vh',
+      // '1/10': '10%',
+      // '4/5': '80%',
+      // 'full': '100%',
+      // 'screen': '100vh',
     }
   },
   variants: {
@@ -14,3 +14,5 @@ module.exports = {
   },
   plugins: [],
 }
+
+

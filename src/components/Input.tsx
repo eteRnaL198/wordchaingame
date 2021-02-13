@@ -29,7 +29,7 @@ const Input = (props: Props) => {
     //   />
     //   <button className="input_button" onClick={() => handlePlayerWordAdd(inputWord)}>SEND</button>
     // </div>
-  <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0 h-4/5">
+  <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0 h-1/10">
     <div className="relative flex">
       <input
         className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3 mr-3"

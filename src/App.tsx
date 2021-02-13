@@ -134,9 +134,9 @@ function App() {
   }
 
   const scrollBottom = () => {
-    const chatsWrapper = document.getElementById("js_chats_wrapper");
-    if(chatsWrapper) {
-      const lastBalloon = chatsWrapper.lastElementChild;
+    const messages = document.getElementById("messages");
+    if(messages) {
+      const lastBalloon = messages.lastElementChild;
       if(lastBalloon) lastBalloon.scrollIntoView({ behavior: "smooth", block: "end" });
     }
   }
@@ -172,8 +172,9 @@ function App() {
     //   </div>
     //   <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />
     // </div>
-    <div className="main h-full">
-      <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+    <div className="h-full">
+      <header className="border-b-2 border-gray-200 flex h-1/10 items-center px-4 sm:mb-0 text-gray-700 text-2xl ">Word Chain Message offline</header>
+      <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {messages.map((message, idx) => (
           <Chat key={idx} message={message} playerName={playerName} />
         ))}
