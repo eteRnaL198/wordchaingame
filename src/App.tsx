@@ -164,16 +164,10 @@ function App() {
   }
 
   return (
-    // <div className="main">
-    //   <div className="chats_wrapper" id="js_chats_wrapper">
-    //     {messages.map((message, idx) => (
-    //       <Chat key={idx} message={message} playerName={playerName} />
-    //     ))}
-    //   </div>
-    //   <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />
-    // </div>
     <div className="h-full">
-      <header className="border-b-2 border-gray-200 flex h-1/10 items-center px-4 sm:mb-0 text-gray-700 text-2xl ">Word Chain Message offline</header>
+      <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sm:mb-0 text-gray-700 text-2xl ">
+        ←Back  Word Chain Message offline
+      </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {messages.map((message, idx) => (
           <Chat key={idx} message={message} playerName={playerName} />
