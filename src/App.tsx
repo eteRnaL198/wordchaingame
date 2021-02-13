@@ -164,8 +164,16 @@ function App() {
   }
 
   return (
-    <div className="main">
-      <div className="chats_wrapper" id="js_chats_wrapper">
+    // <div className="main">
+    //   <div className="chats_wrapper" id="js_chats_wrapper">
+    //     {messages.map((message, idx) => (
+    //       <Chat key={idx} message={message} playerName={playerName} />
+    //     ))}
+    //   </div>
+    //   <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />
+    // </div>
+    <div className="main h-full">
+      <div id="messages" className="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {messages.map((message, idx) => (
           <Chat key={idx} message={message} playerName={playerName} />
         ))}

@@ -1,11 +1,10 @@
-.chat_wrapper {
+/* .chat_wrapper {
     display: flex;
     margin-bottom: 16px;
 }
 
-/* .chat_icon {
-
-} */
+.chat_icon {
+}
 
 .chat_balloon {
     background: #ddd;
@@ -19,3 +18,5 @@
     flex-direction: row-reverse;
     justify-content: flex-start;
 }
+
+*/
