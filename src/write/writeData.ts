@@ -21,6 +21,7 @@ const writeData = () => {
         await db.collection("dialogs").doc("start").set(dialogs.start);
         await db.collection("dialogs").doc("err").set(dialogs.err);
         await db.collection("dialogs").doc("lose").set(dialogs.lose);
+        await db.collection("dialogs").doc("win").set(dialogs.win);
         
     })();
 }

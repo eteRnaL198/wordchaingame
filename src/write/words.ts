@@ -29,7 +29,7 @@ const words = {
   ね: [{desc:"値上がり",text:"ねあがり"},{desc:"値上げ",text:"ねあげ"},{desc:"寝汗",text:"ねあせ"},{desc:"寝息",text:"ねいき"},{desc:"ネイルアート",text:"ねいるあーと"},{desc:"音色",text:"ねいろ"},{desc:"願い事",text:"ねがいごと"},{desc:"寝返り",text:"ねがえり"},{desc:"寝顔",text:"ねがお"}],
   の: [{desc:"ノイズ",text:"のいず"},{desc:"野苺",text:"のいちご"},{desc:"脳",text:"のう"},{desc:"農業",text:"のうぎょう"},{desc:"ノート",text:"のーと"},{desc:"野原",text:"のはら"},{desc:"飲み会",text:"のみかい"},{desc:"海苔巻き",text:"のりまき"},{desc:"乗り物",text:"のりもの"},{desc:"ノルウエー",text:"のるうぇー"},],
 
-  は: [{desc:"ハート",text:"はーと"},{desc:"ハーモニカ",text:"はーもにか"},{desc:"灰",text:"はい"},{desc:"肺",text:"はい"}],
+  は: [{desc:"ハート",text:"はーと"},{desc:"ハーモニカ",text:"はーもにか"},{desc:"灰色",text:"はいいろ"},{desc:"肺",text:"はい"}],
   ひ: [{desc:"贔屓",text:"ひいき"},{desc:"ヒーター",text:"ひーたー"},{desc:"ヒーロー",text:"ひーろー"},{desc:"冷え症",text:"ひえしょう"},{desc:"控室",text:"ひかえしつ"}],
   ふ: [{desc:"ファイア",text:"ふぁいあ"},{desc:"ファイト",text:"ふぁいと"},{desc:"ファイナル",text:"ふぁいなる"},{desc:"ファイル",text:"ふぁいる"},{desc:"ファスナー",text:"ふぁすなー"},{desc:"ファックス",text:"ふぁっくす"}],
   へ: [{desc:"ヘアアクセサリー",text:"へああくせさりー"},{desc:"陛下",text:"へいか"},{desc:"閉会式",text:"へいかいしき"},{desc:"兵器",text:"へいき"},{desc:"平均台",text:"へいきんだい"},{desc:"平行四辺形",text:"へいこうしへんけい"}],

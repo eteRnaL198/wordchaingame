@@ -15,7 +15,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [placeholderText, setPlaceholderText] = useState<string>();
   const [playerName, setPlayerName] = useState<string>("player");
-  const [opponentLastChar, setOpponentLastChar] = useState<string>("");
+  const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -32,9 +32,8 @@ function App() {
       text: "",
       from: "player"
     }
-    // ↑外でも使うから スコープ広げようかな
+    // replyDialog(emptyMessage, "start", "init");
     replyDialog(emptyMessage, "start", "first");
-    replyDialog(emptyMessage, "start", "registration");
   }, [])
 
   useEffect(() => {
@@ -52,38 +51,32 @@ function App() {
 
   const getLastChar = (word: string): string => {
     let char = word.slice(-1);
-    if(char === "ー") char = word.slice(-2)[0];
-    // TODO 小さい文字も
+    // while()
+    // if(char === "ー") char = word.slice(-2)[0];
+    // if(newWord.match(/^[ぁ-んー]*$/)) {
+    // TODO ひらがなになるまで下げる
+    // チャー とかにも注意
     return char;
   }
 
   const isRepeated = (targetMessage: Message): boolean => {
     const tempMessages = messages.filter(message => message.text === targetMessage.text)
-    if(tempMessages.length) {
+    if(tempMessages.length > 0) {
       return true
     } else {
       return false
     }
   }
 
-  const judgePlayerMessage = (newPlayerMessage: Message): boolean => {
-    // TODO is** の方がいいかも？ チャー とかにも注意
-    const getNewOpponentMessage = (newText: string): Message => ({
-        text: newText,
-        from: "opponent"
-    })
+  const getJudgePlayerMessage = (newPlayerMessage: Message): string => {
     if(newPlayerMessage.text.slice(-1) === 'ん') {
-      // TODO replyDialog を使う
-      printReply([newPlayerMessage, getNewOpponentMessage("ん で終わってるよ 君の負け！")], "Thank you for playing !!");
-      return false;
-    } else if(placeholderText && newPlayerMessage.text.slice(0)[0] !== opponentLastChar ) {
-      printReply([newPlayerMessage, getNewOpponentMessage(`で始まってないよ 君の負け！`)], "Thank you for playing !!");
-      return false;
+      return "endWithN"
+    } else if(newPlayerMessage.text.slice(0)[0] !== opponentLastChar ) {
+      return "wrongStart";
     } else if(isRepeated(newPlayerMessage)) {
-      printReply([newPlayerMessage, getNewOpponentMessage(`既に言ったよ 君の負け！`)], "Thank you for playing !!");
-      return false;
+      return "repeated";
     } else {
-      return true;
+      return "continue";
     }
   }
 
@@ -96,17 +89,22 @@ function App() {
   }
 
   const replyDialog = async (newPlayerMessage: Message, docName: string, fieldName: string) => {
-    // 自分のメッセージ残るように、連続で送れるように
     const db = firebase.firestore();
     const dialogsDoc = db.collection("dialogs").doc(docName);
     await dialogsDoc.get().then( async (doc) => {
       const field = await doc.get(fieldName);
-      printReply([newPlayerMessage, field.message], field.placeholderText);
+      if(field.message.length > 0) {
+        printReply([newPlayerMessage, ...field.message], field.placeholderText);
+        // ** の負け！
+      } else {
+        printReply([newPlayerMessage, field.message], field.placeholderText);
+        // ** の負け！
+      }
     })
     .catch(() => replyConnectError());
   }
 
-  const replyNextWord = async (newPlayerMessage: Message) => {
+  const replyNextMessage = async (newPlayerMessage: Message) => {
     const db = firebase.firestore();
     const wordsDoc = db.collection("words").doc("49cDTcDttW3Tpj3DMYA0");
     await wordsDoc.get().then((doc) => {
@@ -119,14 +117,17 @@ function App() {
           text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
           from: "opponent"
         }
-        const newOpponentLastChar = getLastChar(wordsArr[idx].text);
-        setOpponentLastChar(newOpponentLastChar);
-        printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
+        if(isRepeated(newOpponentMessage)) {
+          replyDialog(newPlayerMessage, "win", "noIdea");
+        } else {
+          const newOpponentLastChar = getLastChar(wordsArr[idx].text);
+          setOpponentLastChar(newOpponentLastChar);
+          printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
+          return doc;
+        };
       }
     })
-    .catch(() => replyConnectError(newPlayerMessage))
-
-    return null;
+    .catch(() => replyConnectError(newPlayerMessage));
   }
 
   const scrollBottom = () => {
@@ -144,8 +145,11 @@ function App() {
         from: "player"
       }
       setMessages([...messages, newPlayerMessage]);
-      if(judgePlayerMessage(newPlayerMessage)) {
-        replyNextWord(newPlayerMessage);
+      const result = getJudgePlayerMessage(newPlayerMessage);
+      if(result === "continue") {
+        replyNextMessage(newPlayerMessage);
+      } else {
+        replyDialog(newPlayerMessage, "lose", result);
       }
     } else {
       const emptyMessage = {
