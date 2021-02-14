@@ -1,34 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import './assets/styles/App.css';
-import { Play } from "./components/index";
+import '../assets/styles/App.css';
+import { Chat, Input } from "./index";
 import firebase from "firebase";
-import writeData from "./data/writeData";
-
-//  writeData();
 
 type Message = {
   text: string;
   from: string;
 }
 
-function App() {
+const Play = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [placeholderText, setPlaceholderText] = useState<string>();
   const [playerName, setPlayerName] = useState<string>("player");
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
-  // TODO Appはどれを管理するか考える
 
   useEffect(() => {
-    if(!firebase.apps.length) {
-      firebase.initializeApp({
-        apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
-        authDomain: "wordchaingame-3e0fc.firebaseapp.com",
-        projectId: "wordchaingame-3e0fc",
-        storageBucket: "wordchaingame-3e0fc.appspot.com",
-        messagingSenderId: "307489909046",
-        appId: "1:307489909046:web:4bb2441c4c44a671406b97"
-      });
-    }
     const emptyMessage = {
       text: "",
       from: "player"
@@ -165,10 +151,18 @@ function App() {
   }
 
   return (
-    <>
-      <Play />
-    </>
+    <div className="h-full">
+      <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sticky sm:mb-0 text-gray-700 text-2xl ">
+        ←Back  Word Chain Message offline
+      </header>
+      <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+        {messages.map((message, idx) => (
+          <Chat key={idx} message={message} playerName={playerName} />
+        ))}
+      </div>
+      <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />
+    </div>
   );
 }
 
-export default App;
+export default Play;

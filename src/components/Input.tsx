@@ -33,7 +33,7 @@ const Input = (props: Props) => {
     <div className="relative flex">
       {/*  複数行送れるようにする */}
       <input
-        className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-full py-3 mr-3"
+        className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 pr-4 bg-gray-200 rounded-full py-3 mr-3"
         onChange={handlePlayerWordChange}
         placeholder={props.placeholderText}
         type="text"
