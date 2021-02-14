@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import '../assets/styles/App.css';
 import { Chat, Input } from "./index";
 import firebase from "firebase";
 
 type Props = {
   handleMessageAdd: (messages: Message[]) => void
-  messages: Message[], // TODO props.messagesにする
+  mainScreen: string,
+  messages: Message[],
+  onMenuOpenChange: () => void
 };
 
 type Message = {
@@ -18,12 +19,23 @@ const Play = (props: Props) => {
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
 
   useEffect(() => {
+    if(!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
+        authDomain: "wordchaingame-3e0fc.firebaseapp.com",
+        projectId: "wordchaingame-3e0fc",
+        storageBucket: "wordchaingame-3e0fc.appspot.com",
+        messagingSenderId: "307489909046",
+        appId: "1:307489909046:web:4bb2441c4c44a671406b97"
+      });
+    }
     const emptyMessage = {
       text: "",
       from: "player"
     }
     // replyDialog(emptyMessage, "start", "init");
     replyDialog(emptyMessage, "start", "first");
+
   }, [])
 
   useEffect(() => {
@@ -155,9 +167,13 @@ const Play = (props: Props) => {
   }
 
   return (
+    (props.mainScreen !== "Play") ? null :
     <div className="h-full">
       <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sticky sm:mb-0 text-gray-700 text-2xl ">
-        ←Back  Word Chain Message offline
+        John 🏠
+        {/* TODO 🏠 戻るボタン */}
+        {/* TODO キャラの名前表示 */}
+        <button onClick={()=>props.onMenuOpenChange()}>Menu</button>
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {props.messages.map((message, idx) => (

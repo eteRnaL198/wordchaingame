@@ -1,4 +1,3 @@
-import '../assets/styles/Chat.css';
 import OpponentIcon from '../assets/img/opponent.jpg'
 
 type Props = {
@@ -10,11 +9,9 @@ type Props = {
 };
 
 const Chat = (props: Props) => {
-  if(props.message.text === "") {
-    return null;
-    // TODO こっちではなく Playのreturn map中でnull返す
-  }
+
   return (
+    (props.message.text === "") ? null :
     <>
     <div className="chat-message" id="js_chat-message">
          <div className={`flex items-end ${(props.message.from === "player") ? "justify-end" : ""}`}>

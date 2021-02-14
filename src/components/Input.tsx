@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import '../assets/styles/Input.css';
 
 type Props = {
   onPlayerWordAdd: (text: string) => void

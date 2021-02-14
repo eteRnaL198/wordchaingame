@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './assets/styles/App.css';
-import { Play } from "./components/index";
+import { Play, Home, Menu } from "./components/index";
 import firebase from "firebase";
 import writeData from "./data/writeData";
 
@@ -12,9 +11,10 @@ type Message = {
 }
 
 function App() {
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [playerName, setPlayerName] = useState<string>("player"); // TODO playerName? username?
   const [messages, setMessages] = useState<Message[]>([]);
+  const [mainScreen, setMainScreen] = useState<string>("Home");
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string>("");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -29,11 +29,6 @@ function App() {
     }
   }, [])
 
-  useEffect(() => {
-    return () => {
-    }
-  });
-
   const isDuplicated = (targetMessage: Message): boolean => {
     const tempMessages = messages.filter(message => message.text === targetMessage.text)
     if(tempMessages.length > 0) {
@@ -43,13 +38,19 @@ function App() {
     }
   }
 
-  return isPlaying ? (
-    <Play handleMessageAdd={setMessages} messages={messages}/>
-  ) : (
+  const handleMainScreenChange = (screen: string) => {
+    setMainScreen(screen);
+  }
+
+  const handleMenuOpenChange = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
+  return (
     <>
-      {/* <Home />
-      <Informations />
-      <Friends /> */}
+      <Menu isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} onMenuOpenChange={handleMenuOpenChange}/>
+      <Play handleMessageAdd={setMessages} mainScreen={mainScreen} messages={messages} onMenuOpenChange={handleMenuOpenChange}/>
+      <Home mainScreen={mainScreen} onMenuOpenChange={handleMenuOpenChange}/>
     </>
   )
 }
