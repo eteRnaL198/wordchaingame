@@ -3,7 +3,6 @@ import OpponentIcon from '../assets/img/opponent.jpg'
 
 type Props = {
   className?: string;
-  playerName: string;
   message: {
     text: string;
     from: string;
@@ -13,6 +12,7 @@ type Props = {
 const Chat = (props: Props) => {
   if(props.message.text === "") {
     return null;
+    // TODO こっちではなく Playのreturn map中でnull返す
   }
   return (
     <>

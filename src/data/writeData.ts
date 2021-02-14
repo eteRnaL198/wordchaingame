@@ -2,6 +2,7 @@ import firebase from "firebase";
 import dialogs from "./dialogs";
 import words from "./words";
 import words2 from "./words2";
+import news from "./news";
 
 const writeData = () => {
     (async () => {
@@ -22,6 +23,8 @@ const writeData = () => {
         await db.collection("dialogs").doc("err").set(dialogs.err);
         await db.collection("dialogs").doc("lose").set(dialogs.lose);
         await db.collection("dialogs").doc("win").set(dialogs.win);
+
+        // await db.collection("") 通常firebaseサイトから更新
         
     })();
 }

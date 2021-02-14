@@ -12,11 +12,9 @@ type Message = {
 }
 
 function App() {
+  const [isPlaying, setIsPlaying] = useState<boolean>(true);
+  const [playerName, setPlayerName] = useState<string>("player"); // TODO playerName? username?
   const [messages, setMessages] = useState<Message[]>([]);
-  const [placeholderText, setPlaceholderText] = useState<string>();
-  const [playerName, setPlayerName] = useState<string>("player");
-  const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
-  // TODO Appはどれを管理するか考える
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -29,35 +27,12 @@ function App() {
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
     }
-    const emptyMessage = {
-      text: "",
-      from: "player"
-    }
-    // replyDialog(emptyMessage, "start", "init");
-    replyDialog(emptyMessage, "start", "first");
   }, [])
 
   useEffect(() => {
     return () => {
-      scrollBottom();
     }
   });
-
-  const printReply = (newMessages: Message[], text: string) => {
-    setTimeout(() => {
-      setMessages([...messages, ...newMessages]);
-      setPlaceholderText(text);
-    }, 250);
-  }
-
-  const getLastChar = (word: string): string => {
-    const regex = /[^ぁぃぅぇぉっゃゅょゎ・ー][あ-ゔ]*$/;
-    let idx = word.length - 1;
-    while(!regex.test(word[idx])) {
-      idx--;
-    }
-    return word[idx];
-  }
 
   const isDuplicated = (targetMessage: Message): boolean => {
     const tempMessages = messages.filter(message => message.text === targetMessage.text)
@@ -68,107 +43,15 @@ function App() {
     }
   }
 
-  const getJudgePlayerMessage = (newPlayerMessage: Message): string => {
-    if(newPlayerMessage.text.slice(-1) === 'ん') {
-      return "endWithN"
-    } else if(newPlayerMessage.text.slice(0)[0] !== opponentLastChar ) {
-      return "wrongStart";
-    } else if(isDuplicated(newPlayerMessage)) {
-      return "duplicated";
-    } else {
-      return "continue";
-    }
-  }
-
-  const replyConnectError = (newPlayerMessage?: Message) => {
-    const newOpponentMessage = {
-      text: "エラー発生！",
-      from: "opponent"
-    }
-    printReply([newPlayerMessage as Message, newOpponentMessage], "ERROR !");
-  }
-
-  const replyDialog = async (newPlayerMessage: Message, docName: string, fieldName: string) => {
-    const db = firebase.firestore();
-    const dialogsDoc = db.collection("dialogs").doc(docName);
-    await dialogsDoc.get().then( async (doc) => {
-      const field = await doc.get(fieldName);
-      if(field.message.length > 0) {
-        printReply([newPlayerMessage, ...field.message], field.placeholderText);
-        // TODO ** の負け！
-      } else {
-        printReply([newPlayerMessage, field.message], field.placeholderText);
-        // ** の負け！
-      }
-    })
-    .catch(() => replyConnectError());
-  }
-
-  const replyNextMessage = async (newPlayerMessage: Message) => {
-    const db = firebase.firestore();
-    const wordsDoc = db.collection("words").doc("49cDTcDttW3Tpj3DMYA0");
-    await wordsDoc.get().then((doc) => {
-      const data = doc.data();
-      if(data) {
-        const playerLastChar = getLastChar(newPlayerMessage.text);
-        const wordsArr = data[playerLastChar];
-        if(!wordsArr) {
-          replyDialog(newPlayerMessage, "win", "noIdea");
-        } else {
-          const idx = Math.floor(Math.random() * wordsArr.length);
-          const newOpponentMessage = {
-            text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
-            from: "opponent"
-          }
-          if(isDuplicated(newOpponentMessage)) {
-            replyDialog(newPlayerMessage, "win", "noIdea");
-          } else {
-            const newOpponentLastChar = getLastChar(wordsArr[idx].text);
-            setOpponentLastChar(newOpponentLastChar);
-            printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
-            return doc;
-          };
-        }
-      }
-    })
-    .catch(() => replyConnectError(newPlayerMessage));
-  }
-
-  const scrollBottom = () => {
-    const messages = document.getElementById("messages");
-    if(messages) {
-      const lastBalloon = messages.lastElementChild;
-      if(lastBalloon) lastBalloon.scrollIntoView({ behavior: "smooth", block: "end" });
-    }
-  }
-
-  const handlePlayerWordAdd = (newWord: string) => {
-    if(newWord.match(/^[ぁ-ゔ・ー]*$/)) {
-      const newPlayerMessage = {
-        text: newWord,
-        from: "player"
-      }
-      setMessages([...messages, newPlayerMessage]);
-      const result = getJudgePlayerMessage(newPlayerMessage);
-      if(result === "continue") {
-        replyNextMessage(newPlayerMessage);
-      } else {
-        replyDialog(newPlayerMessage, "lose", result);
-      }
-    } else {
-      const emptyMessage = {
-        text: "",
-        from: "player"
-      }
-      replyDialog(emptyMessage, "err", "kanaErr");
-    }
-  }
-
-  return (
+  return isPlaying ? (
+    <Play handleMessageAdd={setMessages} messages={messages}/>
+  ) : (
     <>
-      <Play />
+      {/* <Home />
+      <Informations />
+      <Friends /> */}
     </>
-  );
+  )
 }
 
 export default App;

@@ -3,15 +3,18 @@ import '../assets/styles/App.css';
 import { Chat, Input } from "./index";
 import firebase from "firebase";
 
+type Props = {
+  handleMessageAdd: (messages: Message[]) => void
+  messages: Message[], // TODO props.messagesにする
+};
+
 type Message = {
   text: string;
   from: string;
 }
 
-const Play = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+const Play = (props: Props) => {
   const [placeholderText, setPlaceholderText] = useState<string>();
-  const [playerName, setPlayerName] = useState<string>("player");
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
 
   useEffect(() => {
@@ -27,11 +30,12 @@ const Play = () => {
     return () => {
       scrollBottom();
     }
+    // TODO ↑これコールバックにする必要ある？ 直じゃダメなの？
   });
 
   const printReply = (newMessages: Message[], text: string) => {
     setTimeout(() => {
-      setMessages([...messages, ...newMessages]);
+      props.handleMessageAdd([...props.messages, ...newMessages]);
       setPlaceholderText(text);
     }, 250);
   }
@@ -46,7 +50,7 @@ const Play = () => {
   }
 
   const isDuplicated = (targetMessage: Message): boolean => {
-    const tempMessages = messages.filter(message => message.text === targetMessage.text)
+    const tempMessages = props.messages.filter(message => message.text === targetMessage.text)
     if(tempMessages.length > 0) {
       return true
     } else {
@@ -134,7 +138,7 @@ const Play = () => {
         text: newWord,
         from: "player"
       }
-      setMessages([...messages, newPlayerMessage]);
+      props.handleMessageAdd([...props.messages, newPlayerMessage]);
       const result = getJudgePlayerMessage(newPlayerMessage);
       if(result === "continue") {
         replyNextMessage(newPlayerMessage);
@@ -156,8 +160,8 @@ const Play = () => {
         ←Back  Word Chain Message offline
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-        {messages.map((message, idx) => (
-          <Chat key={idx} message={message} playerName={playerName} />
+        {props.messages.map((message, idx) => (
+          <Chat key={idx} message={message} />
         ))}
       </div>
       <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />

@@ -19,19 +19,8 @@ const Input = (props: Props) => {
   }
 
   return (
-    // <div className="input_wrapper">
-    //   <input
-    //     className="input_textBox"
-    //     placeholder={props.placeholderText}
-    //     type="text"
-    //     value={inputWord}
-    //     onChange={handlePlayerWordChange}
-    //   />
-    //   <button className="input_button" onClick={() => handlePlayerWordAdd(inputWord)}>SEND</button>
-    // </div>
   <div className="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0 h-1/10">
     <div className="relative flex">
-      {/*  複数行送れるようにする */}
       <input
         className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 pr-4 bg-gray-200 rounded-full py-3 mr-3"
         onChange={handlePlayerWordChange}
