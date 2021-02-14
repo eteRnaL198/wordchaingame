@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './assets/styles/App.css';
 import { Chat, Input } from "./components/index";
 import firebase from "firebase";
-import writeData from "./write/writeData";
+import writeData from "./data/writeData";
 
 //  writeData();
 
@@ -165,9 +165,10 @@ function App() {
 
   return (
     <div className="h-full">
-      <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sm:mb-0 text-gray-700 text-2xl ">
+      <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sticky sm:mb-0 text-gray-700 text-2xl ">
         ←Back  Word Chain Message offline
       </header>
+        {/* TODO iphone キーボード 表示どうなる？  */}
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {messages.map((message, idx) => (
           <Chat key={idx} message={message} playerName={playerName} />
