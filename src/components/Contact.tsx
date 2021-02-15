@@ -43,13 +43,13 @@ const Contact = (props: Props) => {
   return (
     <div className="flex flex-col mx-auto  w-4/5">
       <textarea
-        className="w-full py-2 pl-4 rounded-2xl" rows={3} placeholder="感想 意見 などご自由に"
+        className="bg-white py-2 pl-4 rounded-2xl shadow-md w-full" rows={3} placeholder="感想・意見 などご自由に"
         value={text}
         onChange={(e)=>handleTextChange(e)}
       >
       </textarea>
       <button
-        className="bg-blue-400 font-bold mt-4 mx-auto rounded-full py-1 text-white w-2/5"
+        className="bg-blue-400 font-bold mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
         onClick={()=>{handleTextSubmit()}}
       >
         submit

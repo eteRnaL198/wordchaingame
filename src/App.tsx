@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Play, Home, Menu } from "./components/index";
+import { Play, Home, Menu, Login } from "./components/index";
 import firebase from "firebase";
 import writeData from "./data/writeData";
 
@@ -14,7 +14,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [mainScreen, setMainScreen] = useState<string>("Home");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [username, setUsername] = useState<string>("eternal198");
+  const [username, setUsername] = useState<string>("hoge");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -37,7 +37,7 @@ function App() {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  const handleUsernameSave = (newName: string) => {
+  const handleUsername = (newName: string) => {
     setUsername(newName);
   }
 
@@ -46,6 +46,7 @@ function App() {
       <Menu isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} onMenuOpenChange={handleMenuOpenChange}/>
       <Home mainScreen={mainScreen} onMenuOpenChange={handleMenuOpenChange} username={username}/>
       <Play handleMessageAdd={setMessages} mainScreen={mainScreen} messages={messages} onMenuOpenChange={handleMenuOpenChange}/>
+      <Login username={username} />
     </>
   )
 }

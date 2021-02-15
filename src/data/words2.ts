@@ -16,8 +16,16 @@ const words2 = {
     で: [{desc:"ディズニーランド",text:"でぃずにーらんど"},{desc:"ディスプレイ",text:"でぃすぷれい"},{desc:"ディフェンス",text:"でぃふぇんす"},{desc:"溺死",text:"できし"},{desc:"出来レース",text:"できれーす"},{desc:"デザート",text:"でざーと"},{desc:"デザイナー",text:"でざいなー"},{desc:"デジカメ",text:"でじかめ"},{desc:"デスクトップ",text:"ですくとっぷ"},{desc:"デッドボール",text:"でっどぼーる"},{desc:"デニム",text:"でにむ"},{desc:"デパート",text:"でぱーと"},{desc:"デビル",text:"でびる"},{desc:"デミグラスソース",text:"でみぐらすそーす"},{desc:"電球",text:"でんきゅう"},{desc:"電車",text:"でんしゃ"},{desc:"電子レンジ",text:"でんしれんじ"},{desc:"電話",text:"でんわ"},],
     ど: [{desc:"ドア",text:"どあ"},{desc:"ドイツ",text:"どいつ"},{desc:"動画",text:"どうが"},{desc:"同級生",text:"どうきゅうせい"},{desc:"洞察力",text:"どうさつりょく"},{desc:"銅像",text:"どうぞう"},{desc:"動物",text:"どうぶつ"},{desc:"ドーナツ",text:"どーなつ"},{desc:"毒",text:"どく"},{desc:"読者",text:"どくしゃ"},{desc:"土下座",text:"どげざ"},{desc:"土星",text:"どせい"},{desc:"ドブネズミ",text:"どぶねずみ"},{desc:"ドライカレー",text:"どらいかれー"},{desc:"ドラクエ",text:"どらくえ"},{desc:"ドラマ",text:"どらま"},{desc:"どら焼き",text:"どらやき"},{desc:"ドリブル",text:"どりぶる"},{desc:"奴隷",text:"どれい"},{desc:"泥棒",text:"どろぼう"},],
 
-    ば: [
-    ],
+    ば: [{desc:"バーガー",text:"ばーがー"},{desc:"バイク",text:"ばいく"},{desc:"バイタル",text:"ばいたる"},{desc:"バイト",text:"ばいと"},{desc:"麦芽",text:"ばくが"},{desc:"爆竹",text:"ばくちく"},{desc:"幕府",text:"ばくふ"},{desc:"バケツ",text:"ばけつ"},{desc:"馬車",text:"ばしゃ"},{desc:"バジル",text:"ばじる"},{desc:"バスケットボール",text:"ばすけっとぼーる"},{desc:"バスタオル",text:"ばすたおる"},{desc:"バック",text:"ばっく"},{desc:"バッテリー",text:"ばってりー"},{desc:"バナナ",text:"ばなな"},{desc:"バニラアイス",text:"ばにらあいす"},{desc:"バラ",text:"ばら"},{desc:"バリ島",text:"ばりとう"},{desc:"バンコク",text:"ばんこく"},{desc:"晩飯",text:"ばんめし"},],
+    び: [{desc:"ビーカー",text:"びーかー"},{desc:"BGM",text:"びーじーえむ"},{desc:"ビー玉",text:"びーだま"},{desc:"ビーチ",text:"びーち"},{desc:"ビーフカレー",text:"びーふかれー"},{desc:"ビーム",text:"びーむ"},{desc:"ビギナー",text:"びぎなー"},{desc:"ビジネス",text:"びじねす"},{desc:"ビスケット",text:"びすけっと"},{desc:"微生物",text:"びせいぶつ"},{desc:"尾てい骨",text:"びていこつ"},{desc:"ビニール",text:"びにーる"},{desc:"ビビンバ",text:"びびんば"},{desc:"病気",text:"びょうき"},{desc:"ビリヤード",text:"びりやーど"},{desc:"琵琶湖",text:"びわこ"},{desc:"ビンゴ",text:"びんご"},],
+    ぶ: [{desc:"無愛想",text:"ぶあいそう"},{desc:"ブーケ",text:"ぶーけ"},{desc:"ブーツ",text:"ぶーつ"},{desc:"部活",text:"ぶかつ"},{desc:"武器",text:"ぶき"},{desc:"武士",text:"ぶし"},{desc:"部族",text:"ぶぞく"},{desc:"豚バラ",text:"ぶたばら"},{desc:"仏教",text:"ぶっきょう"},{desc:"ぶどう",text:"ぶどう"},{desc:"ブランコ",text:"ぶらんこ"},{desc:"ブルーハワイ",text:"ぶるーはわい"},{desc:"ブレザー",text:"ぶれざー"},{desc:"ブロッコリー",text:"ぶろっこりー"},{desc:"文化祭",text:"ぶんかさい"},{desc:"分度器",text:"ぶんどき"},],
+    べ: [{desc:"ベイクドチーズケーキ",text:"べいくどちーずけーき"},{desc:"米軍基地",text:"べいぐんきち"},{desc:"ベイマックス",text:"べいまっくす"},{desc:"ベーキングパウダー",text:"べーきんぐぱうだー"},{desc:"ベースボール",text:"べーすぼーる"},{desc:"べっこう飴",text:"べっこうあめ"},{desc:"ベッド",text:"べっど"},{desc:"ベトナム",text:"べとなむ"},{desc:"ベニヤ板",text:"べにやいた"},{desc:"ベネズエラ",text:"べねずえら"},{desc:"ベビーカステラ",text:"べびーかすてら"},{desc:"ベランダ",text:"べらんだ"},{desc:"ベルギー",text:"べるぎー"},{desc:"ベレー帽",text:"べれーぼう"},{desc:"弁護士",text:"べんごし"},{desc:"便座",text:"べんざ"},{desc:"ベンチプレス",text:"べんちぷれす"},{desc:"便秘",text:"べんぴ"},],
+    ぼ: [{desc:"ボイコット",text:"ぼいこっと"},{desc:"ボイスレコーダー",text:"ぼいすれこーだー"},{desc:"棒",text:"ぼう"},{desc:"望遠鏡",text:"ぼうえんきょう"},{desc:"防御",text:"ぼうぎょ"},{desc:"帽子",text:"ぼうし"},{desc:"坊主",text:"ぼうず"},{desc:"暴走族",text:"ぼうそうぞく"},{desc:"防弾チョッキ",text:"ぼうだんちょっき"},{desc:"忘年会",text:"ぼうねんかい"},{desc:"亡霊",text:"ぼうれい"},{desc:"ボードゲーム",text:"ぼーどげーむ"},{desc:"ボクサー",text:"ぼくさー"},{desc:"ボクシング",text:"ぼくしんぐ"},{desc:"ボス",text:"ぼす"},{desc:"盆踊り",text:"ぼんおどり"},{desc:"盆栽",text:"ぼんさい"},{desc:"ボンネット",text:"ぼんねっと"},{desc:"煩悩",text:"ぼんのう"},],
+
+    ぱ: [
+        
+    ]
+
 }
 
 export default words2;

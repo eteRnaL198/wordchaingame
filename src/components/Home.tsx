@@ -26,28 +26,27 @@ const Home = (props: Props) => {
   const news = {
     contents: [
       {
-        title: "始め方",
-        subTitle: "How To Start",
+        title: "遊び方",
+        subTitle: "How To Play",
         day: "2020.2.15",
-        text: "名前を登録する。(名前の登録は一度までです。変更すると履歴が消えます)\n" +
-              "右上のボタンからメニューを開き、相手を選ぶ",
+        text: "右上のボタンからメニューを開き、相手を選ぶ (3人の語彙力には差がある)",
       },
       {
         title: "ルール",
         subTitle: "Rules",
         day: "2020.2.15",
-        text: "濁音はそのまま"
+        text: "・濁音, 半濁音はそのまま\n・長音, 捨て仮名 は1つ前\n例)  でっぱ: ぱ, ちーたー: た, ぷっちょ: ち"
       },
       {
-        title: "利用者が10人いったらアプデします",
+        title: "登録者が10人いったらアプデします",
         subTitle: "Update",
         day: "2020.2.15",
-        text: "名前変更\n" +
-              "オンラインでみんなと会話\n" +
-              "ダークモード\n" +
-              "オフラインモード 相手追加\n" +
-              "そもそものしりとりをやめる\n" +
-              "など その他要望があれば"
+        text: "・名前変更\n" +
+              "・オンラインでみんなと会話\n" +
+              "・ダークモード\n" +
+              "・対戦相手の追加\n" +
+              "・そもそものしりとりをやめる\n" +
+              "など その他要望があれば上のContactからお願いします"
       },
       {
         title: "開発者からのお願い",
@@ -78,7 +77,7 @@ const Home = (props: Props) => {
           </button>
         </div>
       </header>
-      <main className="h-full overflow-y-scroll relative">
+      <main className="h-full overflow-y-scroll">
       <section className="mt-3">
           <p className="font-medium mb-3 ml-5 tracking-wide text-gray-500 text-3xl">
             Profile
@@ -97,7 +96,7 @@ const Home = (props: Props) => {
           <p className="font-medium mb-3 ml-5 sticky tracking-wide text-gray-500 text-3xl">
             News
           </p>
-          <div className="max-h-full overflow-y-scroll">
+          <div className="max-h-full">
             {news.contents.map((content,idx)=> (
               <News key={idx} content={content} />
             ))}
