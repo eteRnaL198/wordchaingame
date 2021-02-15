@@ -18,8 +18,8 @@ const Input = (props: Props) => {
   }
 
   return (
-  <div className="border-t-2 border-gray-200 h-1/10 px-4 pt-4">
-    <div className="relative flex">
+  <div className="border-t-2 border-gray-200 flex flex-col h-1/10 justify-center px-4">
+    <div className="flex">
       <input
         className="w-full focus:outline-none focus:placeholder-gray-400 mr-3 text-gray-700 placeholder-gray-600 pl-4 pr-4 bg-gray-200 rounded-full "
         onChange={handlePlayerWordChange}

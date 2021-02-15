@@ -14,7 +14,7 @@ function App() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [mainScreen, setMainScreen] = useState<string>("Home");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string>("");
+  const [username, setUsername] = useState<string>("eternal198");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -29,15 +29,6 @@ function App() {
     }
   }, [])
 
-  const isDuplicated = (targetMessage: Message): boolean => {
-    const tempMessages = messages.filter(message => message.text === targetMessage.text)
-    if(tempMessages.length > 0) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   const handleMainScreenChange = (screen: string) => {
     setMainScreen(screen);
   }
@@ -46,10 +37,14 @@ function App() {
     setIsMenuOpen(!isMenuOpen);
   }
 
+  const handleUsernameSave = (newName: string) => {
+    setUsername(newName);
+  }
+
   return (
     <>
       <Menu isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} onMenuOpenChange={handleMenuOpenChange}/>
-      <Home mainScreen={mainScreen} onMenuOpenChange={handleMenuOpenChange}/>
+      <Home mainScreen={mainScreen} onMenuOpenChange={handleMenuOpenChange} username={username}/>
       <Play handleMessageAdd={setMessages} mainScreen={mainScreen} messages={messages} onMenuOpenChange={handleMenuOpenChange}/>
     </>
   )

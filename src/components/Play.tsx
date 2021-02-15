@@ -170,10 +170,14 @@ const Play = (props: Props) => {
     (props.mainScreen !== "Play") ? null :
     <div className="h-full">
       <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sticky sm:mb-0 text-gray-700 text-2xl ">
-        John 🏠
-        {/* TODO 🏠 戻るボタン */}
+        John 
         {/* TODO キャラの名前表示 */}
-        <button onClick={()=>props.onMenuOpenChange()}>Menu</button>
+        <button
+          className="absolute right-3"
+          onClick={()=>props.onMenuOpenChange()}
+        >
+          open
+        </button>
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {props.messages.map((message, idx) => (

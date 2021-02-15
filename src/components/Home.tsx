@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import firebase from "firebase";
-import { News, Profile } from "./index";
+import { News, Contact } from "./index";
 
 type Props = {
   mainScreen: string,
-  onMenuOpenChange: () => void
+  onMenuOpenChange: () => void,
+  username: string,
 }
 
 const Home = (props: Props) => {
+
   useEffect(() => {
     if(!firebase.apps.length) {
       firebase.initializeApp({
@@ -24,11 +26,11 @@ const Home = (props: Props) => {
   const news = {
     contents: [
       {
-        title: "遊び方",
-        subTitle: "How To Play",
+        title: "始め方",
+        subTitle: "How To Start",
         day: "2020.2.15",
-        text: "名前を登録する。\n" +
-              "メニューから相手を選んで始める",
+        text: "名前を登録する。(名前の登録は一度までです。変更すると履歴が消えます)\n" +
+              "右上のボタンからメニューを開き、相手を選ぶ",
       },
       {
         title: "ルール",
@@ -40,7 +42,8 @@ const Home = (props: Props) => {
         title: "利用者が10人いったらアプデします",
         subTitle: "Update",
         day: "2020.2.15",
-        text: "オンラインでみんなと会話\n" +
+        text: "名前変更\n" +
+              "オンラインでみんなと会話\n" +
               "ダークモード\n" +
               "オフラインモード 相手追加\n" +
               "そもそものしりとりをやめる\n" +
@@ -57,7 +60,7 @@ const Home = (props: Props) => {
       },
     ]
   }
-
+  
   return (
     (props.mainScreen !== "Home") ? null:
     <div className="bg-gray-100 flex flex-col h-screen">
@@ -76,11 +79,19 @@ const Home = (props: Props) => {
         </div>
       </header>
       <main className="h-full overflow-y-scroll relative">
-        <section className="mt-3">
+      <section className="mt-3">
           <p className="font-medium mb-3 ml-5 tracking-wide text-gray-500 text-3xl">
             Profile
           </p>
-          <Profile />
+          <p className="flex mx-auto tracking-wide text-2xl text-gray-600 w-4/5">
+            username: {props.username}
+          </p>
+        </section>
+        <section className="mt-3">
+          <p className="font-medium mb-3 ml-5 tracking-wide text-gray-500 text-3xl">
+            Contact
+          </p>
+          <Contact username={props.username}/>
         </section>
         <section className="mt-3">
           <p className="font-medium mb-3 ml-5 sticky tracking-wide text-gray-500 text-3xl">
