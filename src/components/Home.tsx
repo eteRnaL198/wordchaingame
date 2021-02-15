@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import firebase from "firebase";
-import { News } from "./index";
+import { News, Profile } from "./index";
 
 type Props = {
   mainScreen: string,
@@ -26,25 +26,30 @@ const Home = (props: Props) => {
       {
         title: "遊び方",
         subTitle: "How To Play",
-        text: "名前を登録する。" +
-              "メニューから相手を選んで始める"
+        day: "2020.2.15",
+        text: "名前を登録する。\n" +
+              "メニューから相手を選んで始める",
       },
       {
         title: "ルール",
         subTitle: "Rules",
-        text: "長音はそのまま"
+        day: "2020.2.15",
+        text: "濁音はそのまま"
       },
       {
         title: "利用者が10人いったらアプデします",
         subTitle: "Update",
-        text: "オンラインでみんなと会話" +
-              "ダークモード" +
-              "オフラインモード 相手追加" +
-              "その他 要望があれば"
+        day: "2020.2.15",
+        text: "オンラインでみんなと会話\n" +
+              "ダークモード\n" +
+              "オフラインモード 相手追加\n" +
+              "そもそものしりとりをやめる\n" +
+              "など その他要望があれば"
       },
       {
         title: "開発者からのお願い",
         subTitle: "Do Me a Favor",
+        day: "2020.2.15",
         text: "技術の練習のためてきとーに作るつもりでしたが 間違えて凝ってしまいました。みなさん遊んでください" +
               "開発者へ のところから感想や改善案などを送ってくださると励みになります" + 
               "こーゆーアプリが欲しいとかあれば言ってください。作ります" +
@@ -55,18 +60,39 @@ const Home = (props: Props) => {
 
   return (
     (props.mainScreen !== "Home") ? null:
-    <div className="flex flex-col h-screen">
-      <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sticky sm:mb-0 text-gray-700 text-2xl ">
-        <h1>Word Chain Talker  ver1.0</h1>
-        {/* TODO タイトル決める */}
-        <button onClick={() => props.onMenuOpenChange()}>Menu</button>
+    <div className="bg-gray-100 flex flex-col h-screen">
+      <header className="bg-white flex justify-center h-1/10 items-center px-4 rounded-b-xl sticky shadow z-10">
+        <div className="flex items-end">
+          <h1 className="text-gray-700 text-2xl">
+            Word Chain Talker
+          </h1>
+          {/* TODO タイトル決める */}
+          <p className="flex-end ml-3 text-gray-500 text-md">
+            ver1.0
+          </p>
+          <button className="absolute right-2" onClick={() => props.onMenuOpenChange()}>
+            open
+          </button>
+        </div>
       </header>
-      <div className="bg-gray-100 h-full overflow-y-auto">
-        <p className="">お知らせ</p>
-        {news.contents.map((content,idx)=> (
-          <News key={idx} content={content} />
-        ))}
-      </div>
+      <main className="h-full overflow-y-scroll relative">
+        <section className="mt-3">
+          <p className="font-medium mb-3 ml-5 tracking-wide text-gray-500 text-3xl">
+            Profile
+          </p>
+          <Profile />
+        </section>
+        <section className="mt-3">
+          <p className="font-medium mb-3 ml-5 sticky tracking-wide text-gray-500 text-3xl">
+            News
+          </p>
+          <div className="max-h-full overflow-y-scroll">
+            {news.contents.map((content,idx)=> (
+              <News key={idx} content={content} />
+            ))}
+          </div>
+        </section>
+      </main>
     </div>
   )
 

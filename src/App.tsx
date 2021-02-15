@@ -49,8 +49,8 @@ function App() {
   return (
     <>
       <Menu isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} onMenuOpenChange={handleMenuOpenChange}/>
-      <Play handleMessageAdd={setMessages} mainScreen={mainScreen} messages={messages} onMenuOpenChange={handleMenuOpenChange}/>
       <Home mainScreen={mainScreen} onMenuOpenChange={handleMenuOpenChange}/>
+      <Play handleMessageAdd={setMessages} mainScreen={mainScreen} messages={messages} onMenuOpenChange={handleMenuOpenChange}/>
     </>
   )
 }

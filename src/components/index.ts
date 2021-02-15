@@ -4,3 +4,4 @@ export { default as Chat } from "./Chat";
 export { default as Input } from "./Input";
 export { default as Home } from "./Home";
 export { default as News } from "./News";
+export { default as Profile } from "./Profile";
