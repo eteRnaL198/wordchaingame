@@ -15,28 +15,36 @@ type UserData = {
 }
 
 function App() {
-  const [messages, setMessages] = useState<Message[]>([]);
   const [mainScreen, setMainScreen] = useState<string>("Home");
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [userData, setUserData] = useState<UserData>({username: "", messageHistory:[]});
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
+  const [userData, setUserData] = useState<UserData>({username: "eteRnaL198", messageHistory:[]});
+  // TODO 初期値戻す
 
   const handleMainScreenChange = (screen: string) => {
     setMainScreen(screen);
-  }
-
-  const handleMenuOpenChange = () => {
-    setIsMenuOpen(!isMenuOpen);
   }
 
   const handleUserData = (data: UserData) => {
     setUserData(data);
   }
 
+  const handleMessageSave = (newMessages: Message[]) => {
+    const newData = {
+      username: userData.username,
+      messageHistory: newMessages,
+    }
+    setUserData(newData);
+  }
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
   return (
     <>
-      <Menu isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} onMenuOpenChange={handleMenuOpenChange}/>
-      <Home mainScreen={mainScreen} onMenuOpenChange={handleMenuOpenChange} userData={userData}/>
-      <Play handleMessageAdd={setMessages} mainScreen={mainScreen} messages={messages} onMenuOpenChange={handleMenuOpenChange}/>
+      <Menu handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} />
+      <Home handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} mainScreen={mainScreen} userData={userData} />
+      <Play handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} mainScreen={mainScreen} messageHistory={userData.messageHistory} handleMessageSave={handleMessageSave}/>
       <Login userData={userData} onUserData={handleUserData} />
     </>
   )

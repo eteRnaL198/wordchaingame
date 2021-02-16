@@ -17,6 +17,7 @@ type Message = {
 
 const Contact = (props: Props) => {
   const [text, setText] = useState("");
+  const [placeHolderText, setPlaceHolderText] = useState("感想・意見・バグの報告\nなどをお願いします");
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -33,6 +34,7 @@ const Contact = (props: Props) => {
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setText(e.target.value);
+      setPlaceHolderText("感想・意見などご自由に");
   }
 
   const handleTextSubmit = async () => {
@@ -44,16 +46,16 @@ const Contact = (props: Props) => {
       from: props.userData.username,
     }
     console.log(comment);
-    // const db = firebase.firestore();
-    // await db.collection("comment").add(comment);
-    // TODO ↑書き込みONにする
+    const db = firebase.firestore();
+    await db.collection("comment").add(comment);
     setText("");
+    setPlaceHolderText("ありがとうございます！\n送信が完了しました");
   }
 
   return (
     <div className="flex flex-col mx-auto  w-4/5">
       <textarea
-        className="bg-white py-2 pl-4 rounded-2xl shadow-md w-full" rows={3} placeholder="感想・意見 などご自由に"
+        className="bg-white py-2 pl-4 rounded-2xl shadow-md w-full" rows={3} placeholder={placeHolderText}
         value={text}
         onChange={(e)=>handleTextChange(e)}
       >

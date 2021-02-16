@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Chat, Input } from "./index";
+import { Chat, Input, ToggleMenuButton } from "./index";
 import firebase from "firebase";
 
 type Props = {
-  handleMessageAdd: (messages: Message[]) => void
+  handleMenuToggle: () => void,
+  isMenuOpen: boolean,
   mainScreen: string,
-  messages: Message[],
-  onMenuOpenChange: () => void
+  messageHistory: Message[],
+  handleMessageSave: (newMessage: Message[]) => void,
+  // TODO ↑いらない
 };
 
 type Message = {
@@ -15,8 +17,9 @@ type Message = {
 }
 
 const Play = (props: Props) => {
-  const [placeholderText, setPlaceholderText] = useState<string>();
+  const [messages, setMessages] = useState<Message[]>(props.messageHistory);
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
+  const [placeholderText, setPlaceholderText] = useState<string>();
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -33,9 +36,10 @@ const Play = (props: Props) => {
       text: "",
       from: "player"
     }
-    // replyDialog(emptyMessage, "start", "init");
     replyDialog(emptyMessage, "start", "first");
 
+    return () => console.log("messages were saved");
+    // TODO セーブのタイミング ここで良さそう
   }, [])
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const Play = (props: Props) => {
 
   const printReply = (newMessages: Message[], text: string) => {
     setTimeout(() => {
-      props.handleMessageAdd([...props.messages, ...newMessages]);
+      handleMessageAdd([...messages, ...newMessages]);
       setPlaceholderText(text);
     }, 250);
   }
@@ -59,7 +63,7 @@ const Play = (props: Props) => {
   }
 
   const isDuplicated = (targetMessage: Message): boolean => {
-    const sameMessages = props.messages.filter(message => message.text === targetMessage.text)
+    const sameMessages = messages.filter(message => message.text === targetMessage.text)
     if(sameMessages.length > 0) {
       return true
     } else {
@@ -94,10 +98,8 @@ const Play = (props: Props) => {
       const field = await doc.get(fieldName);
       if(field.message.length > 0) {
         printReply([newPlayerMessage, ...field.message], field.placeholderText);
-        // TODO ** の負け！
       } else {
         printReply([newPlayerMessage, field.message], field.placeholderText);
-        // ** の負け！
       }
     })
     .catch(() => replyConnectError());
@@ -141,13 +143,17 @@ const Play = (props: Props) => {
     }
   }
 
+  const handleMessageAdd = (newMessages: Message[]): void => {
+    setMessages(newMessages);
+  }
+
   const handlePlayerWordAdd = (newWord: string) => {
     if(newWord.match(/^[ぁ-ゔ・ー]*$/)) {
       const newPlayerMessage = {
         text: newWord,
         from: "player"
       }
-      props.handleMessageAdd([...props.messages, newPlayerMessage]);
+      handleMessageAdd([...messages, newPlayerMessage]);
       const result = getJudgePlayerMessage(newPlayerMessage);
       if(result === "continue") {
         replyNextMessage(newPlayerMessage);
@@ -165,19 +171,14 @@ const Play = (props: Props) => {
 
   return (
     (props.mainScreen !== "Play") ? null :
-    <div className="h-full">
-      <header className="border-b-2 border-gray-200 flex justify-center items-center h-1/10 px-4 sticky sm:mb-0 text-gray-700 text-2xl ">
+    <div className="h-screen">
+      <header className="border-b-2 border-gray-200 flex justify-between items-center h-1/10 px-4 sticky text-gray-700 text-4xl">
         John 
         {/* TODO キャラの名前表示 */}
-        <button
-          className="absolute right-3"
-          onClick={()=>props.onMenuOpenChange()}
-        >
-          open
-        </button>
+        <ToggleMenuButton handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen} />
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-        {props.messages.map((message, idx) => (
+        {messages.map((message, idx) => (
           <Chat key={idx} message={message} />
         ))}
       </div>

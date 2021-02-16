@@ -1,6 +1,8 @@
+import { useState } from "react";
+
 type Props = {
+  handleMenuToggle: () => void
   isMenuOpen: boolean
-  onMenuOpenChange: () => void
   onMainScreenChange: (screen: string) => void
 }
 
@@ -8,13 +10,13 @@ const Menu = (props: Props) => {
 
   return (
     <div className="relative z-20">
-      <div className={`absolute duration-500 h-screen w-full ${(props.isMenuOpen) ? "" : "hidden"} `} onClick={()=>{props.onMenuOpenChange()}}></div>
+      <div className={`absolute duration-500 h-screen w-full ${(props.isMenuOpen) ? "" : "hidden"} `} onClick={()=>{props.handleMenuToggle()}}></div>
       <div className={`absolute bg-gray-200 duration-500 flex-col h-screen rounded-r-5xl shadow-2xl w-4/5 ${(props.isMenuOpen) ? "left-0" : "-left-full"}`}>
         <header className="flex justify-center items-center h-1/10 px-4 sticky text-2xl">
           <p>Menu</p>
         </header>
         <button
-          onClick={()=>{props.onMainScreenChange("Home"); props.onMenuOpenChange()}}
+          onClick={()=>{props.onMainScreenChange("Home"); props.handleMenuToggle()}}
           className="bg-gray-300 flex items-center justify-center mx-auto py-1 rounded-full text-gray-700 w-3/5"
           >
           <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5 mr-2" >
@@ -22,24 +24,24 @@ const Menu = (props: Props) => {
           </svg>
           HOME
         </button>
-        <button onClick={()=>{props.onMainScreenChange("Play"); props.onMenuOpenChange()}} className="bg-white border flex items-center mx-auto mt-3 p-2 rounded-xl shadow w-4/5">
+        <button onClick={()=>{props.onMainScreenChange("Play");props.handleMenuToggle()}} className="bg-white border flex h-16 items-center mx-auto mt-3 p-2 rounded-xl shadow w-4/5">
           <span className="flex items-center space-x-4">👦</span>
             <span className="font-semibold text-gray-700">
               John
             </span>
             <span className="text-sm text-gray-500">
-              You: Thanks, sounds good! . 8hr
+              Hello!
             </span>
         </button>
-        <button onClick={()=>{props.onMainScreenChange("Play"); props.onMenuOpenChange()}} className="bg-white border flex items-center mx-auto mt-3 p-2 rounded-xl shadow w-4/5">
+        {/* <button onClick={()=>{props.onMainScreenChange("Play");props.handleMenuToggle()}} className="bg-white border flex items-center mx-auto mt-3 p-2 rounded-xl shadow w-4/5">
           <span className="flex items-center space-x-4">👨</span>
             <span className="font-semibold text-gray-700">
               Steve
             </span>
             <span className="text-sm text-gray-500">
-              You: Thanks, sounds good! . 8hr
+              コンニチハ！
             </span>
-        </button>
+        </button> */}
       </div>
     </div>
   )

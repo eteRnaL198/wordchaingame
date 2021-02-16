@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase";
-import { News, Contact } from "./index";
+import { News, Contact, ToggleMenuButton } from "./index";
 
 type Props = {
+  handleMenuToggle: () => void,
+  isMenuOpen: boolean,
   mainScreen: string,
-  onMenuOpenChange: () => void,
   userData: UserData,
 }
 
@@ -34,12 +35,14 @@ const Home = (props: Props) => {
   }, [])
 
   const news = {
+    // TODO firebaseに書き込む
     contents: [
       {
         title: "遊び方",
         subTitle: "How To Play",
         day: "2020.2.15",
-        text: "画面右上のボタンからメニューを開き、相手を選ぶ",
+        text: "画面右上のボタンからメニューを開き、相手を選ぶ\nトーク履歴は...",
+        // TODO 記録の保存方法記入
       },
       {
         title: "ルール",
@@ -56,6 +59,7 @@ const Home = (props: Props) => {
               "・ダークモード\n" +
               "・対戦相手の追加\n" +
               "・処理速度の改善\n" +
+              "・バグ修正\n" +
               "など その他要望があれば上のContactからお願いします"
       },
       {
@@ -73,7 +77,7 @@ const Home = (props: Props) => {
   return (
     (props.mainScreen !== "Home") ? null:
     <div className="bg-gray-100 flex flex-col h-screen">
-      <header className="bg-white flex justify-center h-1/10 items-center px-4 rounded-b-xl sticky shadow z-10">
+      <header className="bg-white box-border flex justify-between h-1/10 items-center px-4 rounded-b-xl sticky shadow z-10">
         <div className="flex items-end">
           <h1 className="text-gray-700 text-2xl">
             Word Chain Talker
@@ -82,18 +86,19 @@ const Home = (props: Props) => {
           <p className="flex-end ml-3 text-gray-500 text-md">
             ver1.0
           </p>
-          <button className="absolute right-2" onClick={() => props.onMenuOpenChange()}>
-            open
-          </button>
         </div>
+        <ToggleMenuButton handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen} />
       </header>
-      <main className="h-full overflow-y-scroll">
-      <section className="mt-3">
+      <main className="h-9/10 overflow-y-scroll">
+        <section className="mt-3">
           <p className="font-medium mb-3 ml-5 tracking-wide text-gray-500 text-3xl">
             Profile
           </p>
           <p className="flex mx-auto tracking-wide text-2xl text-gray-600 w-4/5">
             username: {props.userData.username}
+            {/* 会話をした回数 */}
+            {/* 最短の回数 */}
+            {/* 最高続いた回数 */}
           </p>
         </section>
         <section className="mt-3">
