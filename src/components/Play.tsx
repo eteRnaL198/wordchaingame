@@ -39,10 +39,7 @@ const Play = (props: Props) => {
   }, [])
 
   useEffect(() => {
-    return () => {
-      scrollBottom();
-    }
-    // TODO ↑これコールバックにする必要ある？ 直じゃダメなの？
+    scrollBottom();
   });
 
   const printReply = (newMessages: Message[], text: string) => {
@@ -62,8 +59,8 @@ const Play = (props: Props) => {
   }
 
   const isDuplicated = (targetMessage: Message): boolean => {
-    const tempMessages = props.messages.filter(message => message.text === targetMessage.text)
-    if(tempMessages.length > 0) {
+    const sameMessages = props.messages.filter(message => message.text === targetMessage.text)
+    if(sameMessages.length > 0) {
       return true
     } else {
       return false

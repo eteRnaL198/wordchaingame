@@ -1,4 +1,12 @@
 @tailwind base;
+@layer base {
+  button:focus {
+    @apply outline-none;
+  }
+  input:focus {
+    @apply outline-none;
+  }
+}
 @tailwind components;
 @tailwind utilities;
 
@@ -8,6 +16,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  outline: none;
 }
 
 code {

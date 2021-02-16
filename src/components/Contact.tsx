@@ -2,7 +2,17 @@ import { useEffect, useState } from 'react';
 import firebase from 'firebase';
 
 type Props = {
-  username: string
+  userData: UserData;
+}
+
+type UserData = {
+  username: string,
+  messageHistory: Message[],
+}
+
+type Message = {
+  text: string;
+  from: string;
 }
 
 const Contact = (props: Props) => {
@@ -31,7 +41,7 @@ const Contact = (props: Props) => {
       from: string;
     } = {
       text: text,
-      from: props.username,
+      from: props.userData.username,
     }
     console.log(comment);
     // const db = firebase.firestore();
