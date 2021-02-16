@@ -14,6 +14,17 @@ type UserData = {
   messageHistory: Message[],
 }
 
+type Data = {
+  username: string,
+  record: {
+    wins: number,
+    shortest: number,
+    longest: number,
+    losses: number,
+  }
+
+}
+
 function App() {
   const [mainScreen, setMainScreen] = useState<string>("Home");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
