@@ -7,12 +7,12 @@ type Props = {
 
 type UserData = {
   username: string,
-  messageHistory: Message[],
-}
-
-type Message = {
-  text: string;
-  from: string;
+  record: {
+    wins: number,
+    shortest: number,
+    longest: number,
+    losses: number,
+  },
 }
 
 const Contact = (props: Props) => {
@@ -45,28 +45,36 @@ const Contact = (props: Props) => {
       text: text,
       from: props.userData.username,
     }
-    console.log(comment);
     const db = firebase.firestore();
-    await db.collection("comment").add(comment);
-    setText("");
-    setPlaceHolderText("ありがとうございます！\n送信が完了しました");
+    const doc = await db.collection("contact").doc("1rkj1EAEYPUMsPZivdzK").get();
+    const comments = await doc.get("comments");
+    await db.collection("contact").doc("1rkj1EAEYPUMsPZivdzK")
+      .set({"comments":[...comments, comment]}, {merge: true}).then(() => {
+        setPlaceHolderText("ありがとうございます！\n送信が完了しました");
+        setText("");
+      })
   }
 
   return (
-    <div className="flex flex-col mx-auto  w-4/5">
-      <textarea
-        className="bg-white py-2 pl-4 rounded-2xl shadow-md w-full" rows={3} placeholder={placeHolderText}
-        value={text}
-        onChange={(e)=>handleTextChange(e)}
-      >
-      </textarea>
-      <button
-        className="bg-blue-400 font-bold mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
-        onClick={()=>{handleTextSubmit()}}
-      >
-        submit
-      </button>
-    </div>
+    <section className="mt-3">
+      <p className="font-medium mb-3 ml-5 tracking-wide text-gray-500 text-3xl">
+        Contact
+      </p>
+      <div className="flex flex-col mx-auto  w-4/5">
+        <textarea
+          className="bg-white py-2 pl-4 rounded-2xl shadow-md w-full" rows={3} placeholder={placeHolderText}
+          value={text}
+          onChange={(e)=>handleTextChange(e)}
+          >
+        </textarea>
+        <button
+          className="bg-blue-400 font-bold mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
+          onClick={()=>{handleTextSubmit()}}
+          >
+          submit
+        </button>
+      </div>
+    </section>
   )
 }
 

@@ -8,12 +8,12 @@ type Props = {
 
 type UserData = {
   username: string,
-  messageHistory: Message[],
-}
-
-type Message = {
-  text: string;
-  from: string;
+  record: {
+    wins: number,
+    shortest: number,
+    longest: number,
+    losses: number,
+  },
 }
 
 const Login = (props: Props) => {
@@ -47,7 +47,7 @@ const Login = (props: Props) => {
     await doc.get().then(async (doc) =>{
       const data = {
         username: await doc.get("username"),
-        messageHistory: await doc.get("messageHistory"),
+        record: await doc.get("record"),
       }
       tempData = data;
     })
@@ -83,7 +83,12 @@ const Login = (props: Props) => {
     } else {
       const newData = {
         username: text,
-        messageHistory: [],
+        record: {
+          wins: 0,
+          shortest: 0,
+          longest: 0,
+          losses: 0,
+        },
       }
       registUser(newData);
       props.onUserData(newData);

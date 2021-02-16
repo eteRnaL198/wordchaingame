@@ -13,6 +13,7 @@ const Menu = (props: Props) => {
         <header className="flex justify-center items-center h-1/10 px-4 sticky text-2xl">
           <p>Menu</p>
         </header>
+        {/* HomeButton */}
         <button
           onClick={()=>{props.onMainScreenChange("Home"); props.handleMenuToggle()}}
           className="bg-gray-300 flex font-bold items-center justify-center mx-auto py-1 rounded-full text-gray-700 w-3/5"

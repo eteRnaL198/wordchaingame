@@ -6,4 +6,7 @@ export { default as Home } from "./Home";
 export { default as News } from "./News";
 export { default as Contact } from "./Contact";
 export { default as Login } from "./Login";
-export { default as ToggleMenuButton} from "./ToggleMenuButton";
+export { default as ToggleMenuButton } from "./ToggleMenuButton";
+export { default as HomeHeader } from "./HomeHeader";
+export { default as Profile } from "./Profile";
+export { default as Article } from "./Article";

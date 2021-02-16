@@ -1,26 +1,74 @@
-type Props = {
-  content: Content
-}
+import { useEffect } from "react";
+import firebase from "firebase";
+import { Article } from "./index";
 
-type Content = {
-  title: string,
-  subTitle: string,
-  day: string,
-  text: string
-}
+const News = () => {
+  useEffect(() => {
+    if(!firebase.apps.length) {
+      firebase.initializeApp({
+        apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
+        authDomain: "wordchaingame-3e0fc.firebaseapp.com",
+        projectId: "wordchaingame-3e0fc",
+        storageBucket: "wordchaingame-3e0fc.appspot.com",
+        messagingSenderId: "307489909046",
+        appId: "1:307489909046:web:4bb2441c4c44a671406b97"
+      });
+    }
+  }, [])
 
-const News = (props: Props) => {
+  const news = {
+    // TODO firebaseに書き込む
+    contents: [
+      {
+        title: "遊び方",
+        subTitle: "How To Play",
+        day: "2020.2.15",
+        text: "画面右上のボタンからメニューを開き、相手を選ぶ\nトーク履歴は...",
+        // TODO 記録の保存方法記入, 記録の説明
+      },
+      {
+        title: "ルール",
+        subTitle: "Rules",
+        day: "2020.2.15",
+        text: "・入力はひらがなのみ ( 同音異義語は負け )\n・濁音, 半濁音はそのまま\n・長音, 捨て仮名 は1つ前\n例)\nでっぱ: ぱ\nちーたー: た\nぷっちょ: ち"
+      },
+      {
+        title: "登録者が10人いったらアプデします",
+        subTitle: "Update",
+        day: "2020.2.15",
+        text: "・名前変更可能\n" +
+              "・オンラインモード追加\n" +
+              "・ダークモード追加\n" +
+              "・対戦相手追加\n" +
+              "・pc表示追加\n" +
+              "・処理速度改善\n" +
+              "・バグ修正\n" +
+              "など その他要望があれば上のContactからお願いします"
+      },
+      {
+        title: "開発者から",
+        subTitle: "From Dev",
+        day: "2020.2.15",
+        text: "技術の練習のためてきとーに作るつもりでしたが 間違えて凝ってしまいました。みなさん遊んでください\n" +
+              "Contactから感想や改善案などを送ってくださると励みになります\n" + 
+              "こーゆーアプリが欲しいとかあれば言ってください。作ります\n" +
+              "打倒C*ubHouse!"
+      },
+    ]
+  }
+  
+
   return (
-    <article className="bg-white m-auto mb-4 px-10 py-6 rounded-lg shadow-md w-4/5">
-      <div className="flex justify-between">
-        <span className="font-light text-gray-600">{props.content.day}</span>
-        <span className="bg-blue-400 font-bold px-3 py-1 rounded-full text-white text-sm">{props.content.subTitle}</span>
+    <section className="mt-3">
+      <p className="font-medium mb-3 ml-5 sticky tracking-wide text-gray-500 text-3xl">
+        News
+      </p>
+      <div className="max-h-full">
+        {news.contents.map((content,idx)=> (
+          <Article key={idx} content={content} />
+          ))}
       </div>
-      <div className="mt-2">
-        <h3 className="font-bold mb-2 text-gray-700 text-xl">{props.content.title}</h3>
-        <p className="mt-2 text-grey-600 whitespace-pre-line">{props.content.text}</p>
-      </div>
-    </article>
+    </section>
   )
 }
 

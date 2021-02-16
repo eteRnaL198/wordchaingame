@@ -4,32 +4,31 @@ import writeData from "./data/writeData";
 
 //  writeData();
 
-type Message = {
-  text: string;
-  from: string;
-}
-
 type UserData = {
-  username: string,
-  messageHistory: Message[],
-}
-
-type Data = {
   username: string,
   record: {
     wins: number,
     shortest: number,
     longest: number,
     losses: number,
-  }
-
+  },
 }
+
+const tempData = {
+  username: "eteRnaL198",
+  record: {
+    wins: 0,
+    shortest: 0,
+    longest: 0,
+    losses: 0,
+  },
+}
+// TODO 消す
 
 function App() {
   const [mainScreen, setMainScreen] = useState<string>("Home");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
-  const [userData, setUserData] = useState<UserData>({username: "eteRnaL198", messageHistory:[]});
-  // TODO 初期値戻す
+  const [userData, setUserData] = useState<UserData>(tempData);
 
   const handleMainScreenChange = (screen: string) => {
     setMainScreen(screen);

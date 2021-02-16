@@ -6,6 +6,9 @@
   input:focus {
     @apply outline-none;
   }
+  textarea:focus {
+    @apply outline-none;
+  }
 }
 @tailwind components;
 @tailwind utilities;
