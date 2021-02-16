@@ -28,14 +28,6 @@ function App() {
     setUserData(data);
   }
 
-  const handleMessageSave = (newMessages: Message[]) => {
-    const newData = {
-      username: userData.username,
-      messageHistory: newMessages,
-    }
-    setUserData(newData);
-  }
-
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   }
@@ -44,7 +36,7 @@ function App() {
     <>
       <Menu handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} />
       <Home handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} mainScreen={mainScreen} userData={userData} />
-      <Play handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} mainScreen={mainScreen} messageHistory={userData.messageHistory} handleMessageSave={handleMessageSave}/>
+      <Play handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} mainScreen={mainScreen} />
       <Login userData={userData} onUserData={handleUserData} />
     </>
   )

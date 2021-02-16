@@ -6,9 +6,6 @@ type Props = {
   handleMenuToggle: () => void,
   isMenuOpen: boolean,
   mainScreen: string,
-  messageHistory: Message[],
-  handleMessageSave: (newMessage: Message[]) => void,
-  // TODO ↑いらない
 };
 
 type Message = {
@@ -17,7 +14,7 @@ type Message = {
 }
 
 const Play = (props: Props) => {
-  const [messages, setMessages] = useState<Message[]>(props.messageHistory);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
   const [placeholderText, setPlaceholderText] = useState<string>();
 
@@ -40,6 +37,7 @@ const Play = (props: Props) => {
 
     return () => console.log("messages were saved");
     // TODO セーブのタイミング ここで良さそう
+    // TODO 上書きされてるかチェック
   }, [])
 
   useEffect(() => {

@@ -23,13 +23,9 @@ const writeData = () => {
         await db.collection("dialogs").doc("err").set(dialogs.err);
         await db.collection("dialogs").doc("lose").set(dialogs.lose);
         await db.collection("dialogs").doc("win").set(dialogs.win);
-
-        // await db.collection("") 通常firebaseサイトから更新
-        
     })();
 }
 
 export default writeData;
-
 
 // TODO 少ない単語補充

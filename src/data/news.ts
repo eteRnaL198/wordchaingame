@@ -32,5 +32,4 @@ const news = {
     }
   ]
 }
-// TODO お知らせ書く
 export default news
