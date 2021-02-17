@@ -13,7 +13,7 @@ const words = {
 
   さ: [{desc:"サーカス",text:"さーかす"},{desc:"サービス",text:"さーびす"},{desc:"再会",text:"さいかい"},{desc:"災害",text:"さいがい"},{desc:"最強",text:"さいきょう"},{desc:"細工",text:"さいく"},{desc:"最後",text:"さいご"},{desc:"最高",text:"さいこう"},{desc:"サイコパス",text:"さいこぱす"},{desc:"サイコロ",text:"さいころ"},{desc:"最初",text:"さいしょ"},{desc:"サイズ",text:"さいず"},{desc:"賽銭箱",text:"さいせんばこ"},{desc:"サイダー",text:"さいだー"}],
   し: [{desc:"試合",text:"しあい"},{desc:"飼育",text:"しいく"},{desc:"シーソー",text:"しーそー"},{desc:"椎茸",text:"しいたけ"},{desc:"シートベルト",text:"しーとべると"},{desc:"塩",text:"しお"},{desc:"塩焼き",text:"しおやき"},{desc:"鹿",text:"しか"},{desc:"視界",text:"しかい"},{desc:"市外",text:"しがい"},{desc:"資格",text:"しかく"},{desc:"仕掛け",text:"しかけ"}],
-  す: [{desc:"巣穴",text:"すあな"},{desc:"スイーツ",text:"すいーつ"},{desc:"水泳",text:"すいえい"},{desc:"すいか",text:"すいか"},{desc:"水車",text:"すいしゃ"},{desc:"スイス",text:"すいす"},{desc:"彗星",text:"すいせい"},{desc:"水素",text:"すいそ"},{desc:"水槽",text:"すいそう"},{desc:"スイッチ",text:"すいっち"},],
+  す: [{desc:"巣穴",text:"すあな"},{desc:"スイーツ",text:"すいーつ"},{desc:"水泳",text:"すいえい"},{desc:"西瓜",text:"すいか"},{desc:"水車",text:"すいしゃ"},{desc:"スイス",text:"すいす"},{desc:"彗星",text:"すいせい"},{desc:"水素",text:"すいそ"},{desc:"水槽",text:"すいそう"},{desc:"スイッチ",text:"すいっち"},],
   せ: [{desc:"成果",text:"せいか"},{desc:"聖火",text:"せいか"},{desc:"正解",text:"せいかい"},{desc:"正確",text:"せいかく"},{desc:"性格",text:"せいかく"},{desc:"生活",text:"せいかつ"},{desc:"正義",text:"せいぎ"},{desc:"生後",text:"せいご"},{desc:"成功",text:"せいこう"},{desc:"星座",text:"せいざ"}],
   そ: [{desc:"双眼鏡",text:"そうがんきょう"},{desc:"葬儀",text:"そうぎ"},{desc:"遭遇",text:"そうぐう"},{desc:"送迎",text:"そうげい"},{desc:"送迎バス",text:"そうげいばす"},{desc:"倉庫",text:"そうこ"},{desc:"走行",text:"そうこう"},{desc:"総合格闘技",text:"そうごうかくとうぎ"},{desc:"操作",text:"そうさ"},],
 
@@ -29,7 +29,7 @@ const words = {
   ね: [{desc:"値上がり",text:"ねあがり"},{desc:"値上げ",text:"ねあげ"},{desc:"寝汗",text:"ねあせ"},{desc:"寝息",text:"ねいき"},{desc:"ネイルアート",text:"ねいるあーと"},{desc:"音色",text:"ねいろ"},{desc:"願い事",text:"ねがいごと"},{desc:"寝返り",text:"ねがえり"},{desc:"寝顔",text:"ねがお"}],
   の: [{desc:"ノイズ",text:"のいず"},{desc:"野苺",text:"のいちご"},{desc:"脳",text:"のう"},{desc:"農業",text:"のうぎょう"},{desc:"ノート",text:"のーと"},{desc:"野原",text:"のはら"},{desc:"飲み会",text:"のみかい"},{desc:"海苔巻き",text:"のりまき"},{desc:"乗り物",text:"のりもの"},{desc:"ノルウエー",text:"のるうぇー"},],
 
-  は: [{desc:"ハート",text:"はーと"},{desc:"ハーモニカ",text:"はーもにか"},{desc:"灰色",text:"はいいろ"},{desc:"肺",text:"はい"}],
+  は: [{desc:"ハート",text:"はーと"},{desc:"ハーモニカ",text:"はーもにか"},{desc:"灰色",text:"はいいろ"},{desc:"肺",text:"はい"},],
   ひ: [{desc:"贔屓",text:"ひいき"},{desc:"ヒーター",text:"ひーたー"},{desc:"ヒーロー",text:"ひーろー"},{desc:"冷え症",text:"ひえしょう"},{desc:"控室",text:"ひかえしつ"}],
   ふ: [{desc:"ファイア",text:"ふぁいあ"},{desc:"ファイト",text:"ふぁいと"},{desc:"ファイナル",text:"ふぁいなる"},{desc:"ファイル",text:"ふぁいる"},{desc:"ファスナー",text:"ふぁすなー"},{desc:"ファックス",text:"ふぁっくす"}],
   へ: [{desc:"ヘアアクセサリー",text:"へああくせさりー"},{desc:"陛下",text:"へいか"},{desc:"閉会式",text:"へいかいしき"},{desc:"兵器",text:"へいき"},{desc:"平均台",text:"へいきんだい"},{desc:"平行四辺形",text:"へいこうしへんけい"}],

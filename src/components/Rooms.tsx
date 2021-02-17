@@ -29,6 +29,8 @@ const Rooms = (props: Props) => {
           isMenuOpen={props.isMenuOpen}
           mainScreen={props.mainScreen}
           roomName={friend}
+          handleUserData={props.handleUserData}
+          userData={props.userData}
         />
       ))}
     </>

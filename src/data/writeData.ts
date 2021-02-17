@@ -16,8 +16,8 @@ const writeData = () => {
         });
 
         const db = firebase.firestore();
-        // await db.collection("words").doc("49cDTcDttW3Tpj3DMYA0").set(words);
-        // await db.collection("words").doc("49cDTcDttW3Tpj3DMYA0").set(words2, {merge: true});
+        await db.collection("words").doc("49cDTcDttW3Tpj3DMYA0").set(words);
+        await db.collection("words").doc("49cDTcDttW3Tpj3DMYA0").set(words2, {merge: true});
 
         await db.collection("dialogs").doc("start").set(dialogs.start);
         await db.collection("dialogs").doc("err").set(dialogs.err);

@@ -3,10 +3,12 @@ import { Chat, Input, ToggleMenuButton } from "./index";
 import firebase from "firebase";
 
 type Props = {
+  handleUserData: (newData: UserData) => void,
   handleMenuToggle: () => void,
   isMenuOpen: boolean,
   mainScreen: string,
   roomName: string,
+  userData: UserData,
 };
 
 type Message = {
@@ -15,12 +17,22 @@ type Message = {
   from: string;
 }
 
+type UserData = {
+  username: string,
+  record: {
+    wins: number,
+    shortest: number,
+    losses: number,
+    longest: number,
+  },
+}
+
 const Room = (props: Props) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
   const [placeholderText, setPlaceholderText] = useState<string>();
 
-  let count: number;
+  let count: number = 0;
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -35,11 +47,10 @@ const Room = (props: Props) => {
     }
     const emptyMessage: Message = {
       text: "",
-      type: "empty",
+      type: "dialog",
       from: "player"
     }
     replyDialog(emptyMessage, "start", "first");
-    count = 0;
   }, [])
 
   useEffect(() => {
@@ -116,6 +127,9 @@ const Room = (props: Props) => {
         const wordsArr = data[playerLastChar];
         if(!wordsArr) {
           replyDialog(newPlayerMessage, "win", "noIdea");
+          const tempData = props.userData;
+          tempData.record.wins+=1;
+          props.handleUserData(tempData);
         } else {
           const idx = Math.floor(Math.random() * wordsArr.length);
           const newOpponentMessage: Message = {
@@ -124,7 +138,11 @@ const Room = (props: Props) => {
             from: "opponent"
           }
           if(isDuplicated(newOpponentMessage)) {
+            console.log("no idea, " + newPlayerMessage); // TODO
             replyDialog(newPlayerMessage, "win", "noIdea");
+            const tempData = props.userData;
+            tempData.record.wins+=1;
+            props.handleUserData(tempData);
           } else {
             const newOpponentLastChar = getLastChar(wordsArr[idx].text);
             setOpponentLastChar(newOpponentLastChar);
@@ -162,11 +180,14 @@ const Room = (props: Props) => {
         replyNextMessage(newPlayerMessage);
       } else {
         replyDialog(newPlayerMessage, "lose", result);
+        const tempData = props.userData;
+        tempData.record.losses+=1;
+        props.handleUserData(tempData);
       }
     } else {
       const emptyMessage: Message = {
         text: "",
-        type: "empty",
+        type: "err",
         from: "player"
       }
       replyDialog(emptyMessage, "err", "kanaErr");
@@ -180,11 +201,15 @@ const Room = (props: Props) => {
         <ToggleMenuButton handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen} />
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
-        {messages.map((message, idx) => (
-          message.type === "word" ? 
-          <Chat key={idx} count={count} message={message}/> :
-          <Chat key={idx} message={message}/>
-        ))}
+        {messages.map((message, idx) => {
+          console.log(message.type, message.text);
+          if(message.type === "word") {
+            count+=1;
+            return <Chat key={idx} count={count} message={message}/>
+          } else {
+            return <Chat key={idx} message={message}/>
+          }
+        })}
       </div>
       <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />
     </div>

@@ -3,35 +3,17 @@ const dialogs = {
     first: {
       message: {
         text: "しりとりはじめ",
+        type: "dialog",
         from: "opponent"
       },
       placeholderText: "Start with 「め」",
-    },
-    init: {
-      message: [
-        {
-          text: "こんにちは！",
-          from: "opponent"
-        },
-        {
-          text: "名前を入力してね",
-          from: "opponent"
-        },
-      ],
-      placeholderText: "Enter your name !"
-    },
-    rules: {
-      message: {
-        text: "しりとりのルールは知っているね？",
-        from: "opponent"
-      },
-      placeholderText: ""
     },
   },
   err: {
     kanaErr: {
       message: {
         text: "ひらがな で入力してね",
+        type: "dialog",
         from: "opponent"
       },
       placeholderText: "Only accept Hiragana !"
@@ -41,10 +23,12 @@ const dialogs = {
     message: [
       {
         text: "... 思いつかない",
+        type: "dialog",
         from: "opponent"
       },
       {
         text: "君の勝ち！",
+        type: "dialog",
         from: "opponent"
       },
     ],
@@ -55,10 +39,12 @@ const dialogs = {
       message: [
         {
           text: "ん で終わってるよ",
+          type: "dialog",
           from: "opponent"
         },
         {
           text: "僕の勝ち！",
+          type: "dialog",
           from: "opponent"
         },
       ],
@@ -68,10 +54,12 @@ const dialogs = {
       message: [
         {
           text: "始まりの言葉が間違ってるよ",
+          type: "dialog",
           from: "opponent"
         },
         {
           text: "僕の勝ち！",
+          type: "dialog",
           from: "opponent"
         },
       ],
@@ -81,10 +69,12 @@ const dialogs = {
       message: [
         {
           text: "既に言ったよ",
+          type: "dialog",
           from: "opponent"
         },
         {
           text: "僕の勝ち！",
+          type: "dialog",
           from: "opponent"
         },
       ],
