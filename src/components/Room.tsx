@@ -6,17 +6,21 @@ type Props = {
   handleMenuToggle: () => void,
   isMenuOpen: boolean,
   mainScreen: string,
+  roomName: string,
 };
 
 type Message = {
   text: string;
+  type: string;
   from: string;
 }
 
-const Play = (props: Props) => {
+const Room = (props: Props) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
   const [placeholderText, setPlaceholderText] = useState<string>();
+
+  let count: number;
 
   useEffect(() => {
     if(!firebase.apps.length) {
@@ -29,15 +33,13 @@ const Play = (props: Props) => {
         appId: "1:307489909046:web:4bb2441c4c44a671406b97"
       });
     }
-    const emptyMessage = {
+    const emptyMessage: Message = {
       text: "",
+      type: "empty",
       from: "player"
     }
     replyDialog(emptyMessage, "start", "first");
-
-    return () => console.log("messages were saved");
-    // TODO セーブのタイミング ここで良さそう
-    // TODO 上書きされてるかチェック
+    count = 0;
   }, [])
 
   useEffect(() => {
@@ -84,6 +86,7 @@ const Play = (props: Props) => {
   const replyConnectError = (newPlayerMessage?: Message) => {
     const newOpponentMessage = {
       text: "エラー発生！",
+      type: "error",
       from: "opponent"
     }
     printReply([newPlayerMessage as Message, newOpponentMessage], "ERROR !");
@@ -115,8 +118,9 @@ const Play = (props: Props) => {
           replyDialog(newPlayerMessage, "win", "noIdea");
         } else {
           const idx = Math.floor(Math.random() * wordsArr.length);
-          const newOpponentMessage = {
+          const newOpponentMessage: Message = {
             text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
+            type: "word",
             from: "opponent"
           }
           if(isDuplicated(newOpponentMessage)) {
@@ -147,9 +151,10 @@ const Play = (props: Props) => {
 
   const handlePlayerWordAdd = (newWord: string) => {
     if(newWord.match(/^[ぁ-ゔ・ー]*$/)) {
-      const newPlayerMessage = {
+      const newPlayerMessage: Message = {
         text: newWord,
-        from: "player"
+        type: "word",
+        from: "player",
       }
       handleMessageAdd([...messages, newPlayerMessage]);
       const result = getJudgePlayerMessage(newPlayerMessage);
@@ -159,25 +164,26 @@ const Play = (props: Props) => {
         replyDialog(newPlayerMessage, "lose", result);
       }
     } else {
-      const emptyMessage = {
+      const emptyMessage: Message = {
         text: "",
+        type: "empty",
         from: "player"
       }
       replyDialog(emptyMessage, "err", "kanaErr");
     }
   }
-
   return (
-    (props.mainScreen !== "Play") ? null :
+    (props.mainScreen !== props.roomName) ? null :
     <div className="h-screen">
       <header className="border-b-2 border-gray-200 flex justify-between items-center h-1/10 px-4 sticky text-gray-700 text-4xl">
-        John 
-        {/* TODO キャラの名前表示 */}
+        {props.roomName}
         <ToggleMenuButton handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen} />
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {messages.map((message, idx) => (
-          <Chat key={idx} message={message} />
+          message.type === "word" ? 
+          <Chat key={idx} count={count} message={message}/> :
+          <Chat key={idx} message={message}/>
         ))}
       </div>
       <Input onPlayerWordAdd={handlePlayerWordAdd} placeholderText={placeholderText} />
@@ -185,4 +191,4 @@ const Play = (props: Props) => {
   );
 }
 
-export default Play;
+export default Room;

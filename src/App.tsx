@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, Home, Menu, Login } from "./components/index";
+import { Rooms, Home, Menu, Login } from "./components/index";
 import writeData from "./data/writeData";
 
 //  writeData();
@@ -27,8 +27,10 @@ const tempData = {
 
 function App() {
   const [mainScreen, setMainScreen] = useState<string>("Home");
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(true);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserData>(tempData);
+
+  const friends = ["Peter", "William"];
 
   const handleMainScreenChange = (screen: string) => {
     setMainScreen(screen);
@@ -44,10 +46,30 @@ function App() {
 
   return (
     <>
-      <Menu handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} onMainScreenChange={handleMainScreenChange} />
-      <Home handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} mainScreen={mainScreen} userData={userData} />
-      <Play handleMenuToggle={handleMenuToggle} isMenuOpen={isMenuOpen} mainScreen={mainScreen} />
-      <Login userData={userData} onUserData={handleUserData} />
+      <Menu
+        friends={friends}
+        handleMenuToggle={handleMenuToggle}
+        isMenuOpen={isMenuOpen}
+        onMainScreenChange={handleMainScreenChange}
+      />
+      <Home
+        handleMenuToggle={handleMenuToggle}
+        isMenuOpen={isMenuOpen}
+        mainScreen={mainScreen}
+        userData={userData}
+      />
+      <Rooms
+        friends={friends}
+        handleMenuToggle={handleMenuToggle}
+        handleUserData={handleUserData}
+        isMenuOpen={isMenuOpen}
+        mainScreen={mainScreen}
+        userData={userData}
+      />
+      <Login
+        userData={userData}
+        handleUserData={handleUserData}
+      />
     </>
   )
 }

@@ -18,7 +18,7 @@ const Article = (props: Props) => {
       </div>
       <div className="mt-2">
         <h3 className="font-bold mb-2 text-gray-700 text-xl">{props.content.title}</h3>
-        <p className="mt-2 text-grey-600 whitespace-pre-line">{props.content.text}</p>
+        <p className="mt-2 text-gray-600 whitespace-pre-line">{props.content.text}</p>
       </div>
     </article>
   )

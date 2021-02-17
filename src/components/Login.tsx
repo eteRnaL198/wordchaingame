@@ -3,7 +3,7 @@ import firebase from "firebase";
 
 type Props = {
   userData: UserData
-  onUserData: (data: UserData) => void
+  handleUserData: (data: UserData) => void
 }
 
 type UserData = {
@@ -69,7 +69,7 @@ const Login = (props: Props) => {
   const handleLoginClick = async () => {
     await fetchUserData().then( () => {
       if(typeof tempData.username !== 'undefined') {
-        props.onUserData(tempData);
+        props.handleUserData(tempData);
       } else {
         setWarning("ユーザー情報がありません\nサインアップしてください")
       }
@@ -91,7 +91,7 @@ const Login = (props: Props) => {
         },
       }
       registUser(newData);
-      props.onUserData(newData);
+      props.handleUserData(newData);
     }
   }
 

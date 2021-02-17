@@ -34,7 +34,7 @@ const Contact = (props: Props) => {
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setText(e.target.value);
-      setPlaceHolderText("感想・意見などご自由に");
+      setPlaceHolderText("感想・意見・バグの報告\nなどをお願いします");
   }
 
   const handleTextSubmit = async () => {
@@ -62,14 +62,14 @@ const Contact = (props: Props) => {
       </p>
       <div className="flex flex-col mx-auto  w-4/5">
         <textarea
-          className="bg-white py-2 pl-4 rounded-2xl shadow-md w-full" rows={3} placeholder={placeHolderText}
+          className="bg-white px-10 py-6 rounded-2xl shadow-md w-full" rows={3} placeholder={placeHolderText}
           value={text}
           onChange={(e)=>handleTextChange(e)}
           >
         </textarea>
         <button
           className="bg-blue-400 font-bold mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
-          onClick={()=>{handleTextSubmit()}}
+          onClick={()=>{if(text !== "")handleTextSubmit()}}
           >
           submit
         </button>
