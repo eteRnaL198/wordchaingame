@@ -20,19 +20,21 @@ const dialogs = {
     },
   },
   win: {
-    message: [
-      {
-        text: "... 思いつかない",
-        type: "dialog",
-        from: "opponent"
-      },
-      {
-        text: "君の勝ち！",
-        type: "dialog",
-        from: "opponent"
-      },
-    ],
-    placeholderText: "Thank you for playing !",
+    noIdea: {
+      message: [
+        {
+          text: "... 思いつかない",
+          type: "dialog",
+          from: "opponent"
+        },
+        {
+          text: "君の勝ち！",
+          type: "dialog",
+          from: "opponent"
+        },
+      ],
+      placeholderText: "Thank you for playing !",
+    }
   },
   lose: {
     endWithN: {

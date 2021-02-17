@@ -47,7 +47,7 @@ const Room = (props: Props) => {
     }
     const emptyMessage: Message = {
       text: "",
-      type: "dialog",
+      type: "empty",
       from: "player"
     }
     replyDialog(emptyMessage, "start", "first");
@@ -62,6 +62,12 @@ const Room = (props: Props) => {
       handleMessageAdd([...messages, ...newMessages]);
       setPlaceholderText(text);
     }, 250);
+  }
+
+  const updateData = (key: keyof typeof props.userData.record) => {
+    const tempData = props.userData;
+    tempData.record[key];
+    props.handleUserData(tempData);
   }
 
   const getLastChar = (word: string): string => {
@@ -130,6 +136,7 @@ const Room = (props: Props) => {
           const tempData = props.userData;
           tempData.record.wins+=1;
           props.handleUserData(tempData);
+          // TODO updateData使う
         } else {
           const idx = Math.floor(Math.random() * wordsArr.length);
           const newOpponentMessage: Message = {
@@ -138,11 +145,11 @@ const Room = (props: Props) => {
             from: "opponent"
           }
           if(isDuplicated(newOpponentMessage)) {
-            console.log("no idea, " + newPlayerMessage); // TODO
             replyDialog(newPlayerMessage, "win", "noIdea");
             const tempData = props.userData;
             tempData.record.wins+=1;
             props.handleUserData(tempData);
+          // TODO updateData使う
           } else {
             const newOpponentLastChar = getLastChar(wordsArr[idx].text);
             setOpponentLastChar(newOpponentLastChar);
@@ -183,11 +190,12 @@ const Room = (props: Props) => {
         const tempData = props.userData;
         tempData.record.losses+=1;
         props.handleUserData(tempData);
+          // TODO updateData使う
       }
     } else {
       const emptyMessage: Message = {
         text: "",
-        type: "err",
+        type: "empty",
         from: "player"
       }
       replyDialog(emptyMessage, "err", "kanaErr");
@@ -202,7 +210,6 @@ const Room = (props: Props) => {
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {messages.map((message, idx) => {
-          console.log(message.type, message.text);
           if(message.type === "word") {
             count+=1;
             return <Chat key={idx} count={count} message={message}/>
