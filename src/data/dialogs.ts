@@ -23,13 +23,13 @@ const dialogs = {
     noIdea: {
       message: [
         {
-          text: "... 思いつかない",
+          text: "... 思いつかない\n君の勝ち！",
           type: "dialog",
           from: "opponent"
         },
         {
-          text: "君の勝ち！",
-          type: "dialog",
+          text: "もう一度遊ぼう！\n君の単語から始めるよ",
+          type: "finish",
           from: "opponent"
         },
       ],
@@ -40,13 +40,13 @@ const dialogs = {
     endWithN: {
       message: [
         {
-          text: "ん で終わってるよ",
+          text: "ん で終わってるよ\n僕の勝ち！",
           type: "dialog",
           from: "opponent"
         },
         {
-          text: "僕の勝ち！",
-          type: "dialog",
+          text: "もう一度遊ぼう！\n君の単語から始めるよ",
+          type: "finish",
           from: "opponent"
         },
       ],
@@ -55,13 +55,13 @@ const dialogs = {
     wrongStart: {
       message: [
         {
-          text: "始まりの言葉が間違ってるよ",
+          text: "始まりの言葉が間違ってるよ\n僕の勝ち！",
           type: "dialog",
           from: "opponent"
         },
         {
-          text: "僕の勝ち！",
-          type: "dialog",
+          text: "もう一度遊ぼう！\n君の単語から始めるよ",
+          type: "finish",
           from: "opponent"
         },
       ],
@@ -70,13 +70,13 @@ const dialogs = {
     duplicated: {
       message: [
         {
-          text: "既に言ったよ",
+          text: "既に言ったよ\n僕の勝ち！",
           type: "dialog",
           from: "opponent"
         },
         {
-          text: "僕の勝ち！",
-          type: "dialog",
+          text: "もう一度遊ぼう！\n君の単語から始めるよ",
+          type: "finish",
           from: "opponent"
         },
       ],
@@ -86,4 +86,3 @@ const dialogs = {
 }
 
 export default dialogs
-// TODO dialog 編集

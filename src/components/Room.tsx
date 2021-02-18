@@ -48,7 +48,7 @@ const Room = (props: Props) => {
     }
     const emptyMessage: Message = {
       text: "",
-      type: "reset",
+      type: "start",
       from: "player"
     }
     replyDialog(emptyMessage, "start", "first");
@@ -103,10 +103,10 @@ const Room = (props: Props) => {
   }
 
   const judgePlayerMessage = (newPlayerMessage: Message): string => {
-    if (newPlayerMessage.text === "もういちど") {
-      return "reset";
-    } else if(newPlayerMessage.text.slice(-1) === 'ん') {
+    if(newPlayerMessage.text.slice(-1) === 'ん') {
       return "endWithN"
+    } else if(messages.filter(message => message.type !== "dialog").slice(-1)[0].type === "finish") {
+      return "continue";
     } else if(newPlayerMessage.text.slice(0)[0] !== opponentLastChar ) {
       return "wrongStart";
     } else if(isDuplicated(newPlayerMessage)) {
@@ -154,7 +154,7 @@ const Room = (props: Props) => {
           type: "word",
           from: "opponent",
         }
-        if(isDuplicated(newOpponentMessage)) {
+        if(isDuplicated(newOpponentMessage) && newOpponentMessage.text !== newPlayerMessage.text) {
           finishGame(newPlayerMessage, "win", "noIdea");
         } else {
           const newOpponentLastChar = getLastChar(wordsArr[idx].text);
@@ -198,18 +198,14 @@ const Room = (props: Props) => {
       const operation = judgePlayerMessage(newPlayerMessage);
       if(operation === "continue") {
         replyNextMessage(newPlayerMessage);
-      } else if(operation === "reset") {
-        newPlayerMessage.type = "reset";
-        replyDialog(newPlayerMessage, "start", "first");
-        setOpponentLastChar("め");
       } else {
         finishGame(newPlayerMessage, "lose", operation);
       }
     } else {
       const emptyMessage: Message = {
         text: "",
-        type: "empty",
-        from: "player",
+        type: "dialog",
+        from: "opponent",
       }
       replyDialog(emptyMessage, "err", "kanaErr");
     }
@@ -227,7 +223,7 @@ const Room = (props: Props) => {
           if(message.type === "word") {
             count+=1;
             return <Chat key={idx} count={count} message={message}/>
-          } else if(message.type === "reset") {
+          } else if(message.type === "finish") {
             count = 0;
             return <Chat key={idx} message={message}/>
           } else {
