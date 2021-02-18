@@ -1,11 +1,18 @@
 const dialogs = {
   start: {
     first: {
-      message: {
-        text: "しりとりはじめ",
-        type: "dialog",
-        from: "opponent"
-      },
+      message: [
+        {
+          text: "こんにちは！",
+          type: "dialog",
+          from: "opponent"
+        },
+        {
+          text: "しりとりはじめ",
+          type: "dialog",
+          from: "opponent"
+        },
+      ],
       placeholderText: "Start with 「め」",
     },
   },

@@ -3,6 +3,7 @@ import dialogs from "./dialogs";
 import words from "./words";
 import words2 from "./words2";
 import news from "./news";
+import friends from "./friends"
 
 const writeData = () => {
     (async () => {
@@ -25,9 +26,12 @@ const writeData = () => {
         await db.collection("dialogs").doc("err").set(dialogs.err);
         await db.collection("dialogs").doc("lose").set(dialogs.lose);
         await db.collection("dialogs").doc("win").set(dialogs.win);
+
+        await db.collection("friends").doc("q4oGMmq2fDtBAVxxTsyE").set(friends);
     })();
 }
 
 export default writeData;
 
 // TODO 少ない単語補充
+// TODO friends 記入
