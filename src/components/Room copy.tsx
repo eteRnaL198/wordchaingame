@@ -13,7 +13,6 @@ type Props = {
 
 type Message = {
   text: string;
-  desc?: string;
   type: string;
   from: string;
 }
@@ -48,12 +47,12 @@ const Room = (props: Props) => {
     }
     const emptyMessage: Message = {
       text: "",
-      type: "reset",
+      type: "empty",
       from: "player"
     }
     replyDialog(emptyMessage, "start", "first");
     setOpponentLastChar("め");
-  }, []);
+  }, [])
 
   useEffect(() => {
     scrollBottom();
@@ -82,11 +81,8 @@ const Room = (props: Props) => {
   }
 
   const isDuplicated = (targetMessage: Message): boolean => {
-    const allWords: string[] = messages.filter(message => message.type === "word")
-      .map(message => message.text);
-    const targetWords: string[] = (count === 0) ? [""] : allWords.slice(-count);
-    const sameWords: string[] = targetWords.filter(word => word === targetMessage.text);
-    if(sameWords.length > 0) {
+    const sameMessages = messages.filter(message => message.text === targetMessage.text)
+    if(sameMessages.length > 0) {
       return true
     } else {
       return false
@@ -149,8 +145,7 @@ const Room = (props: Props) => {
         const wordsArr = data[playerLastChar];
         const idx = Math.floor(Math.random() * wordsArr.length);
         const newOpponentMessage: Message = {
-          text: `${wordsArr[idx].text}`,
-          desc: `( ${wordsArr[idx].desc} )`,
+          text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
           type: "word",
           from: "opponent",
         }
@@ -184,6 +179,7 @@ const Room = (props: Props) => {
       updateData("longest", count+1);
     } if(result === "win" && !isLargerThanCurrent("shortest", count+1)) {
       updateData("shortest", count+1);
+      console.log("shortest win");
     }
   }
 
@@ -200,8 +196,9 @@ const Room = (props: Props) => {
         replyNextMessage(newPlayerMessage);
       } else if(operation === "reset") {
         newPlayerMessage.type = "reset";
-        replyDialog(newPlayerMessage, "start", "first");
-        setOpponentLastChar("め");
+        setMessages([newPlayerMessage]);
+        // replyDialog(newPlayerMessage, "start", "first");
+        // setOpponentLastChar("め");
       } else {
         finishGame(newPlayerMessage, "lose", operation);
       }
@@ -227,9 +224,6 @@ const Room = (props: Props) => {
           if(message.type === "word") {
             count+=1;
             return <Chat key={idx} count={count} message={message}/>
-          } else if(message.type === "reset") {
-            count = 0;
-            return <Chat key={idx} message={message}/>
           } else {
             return <Chat key={idx} message={message}/>
           }
