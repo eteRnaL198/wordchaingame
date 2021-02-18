@@ -7,20 +7,20 @@ import writeData from "./data/writeData";
 type UserData = {
   username: string,
   record: {
-    wins: number,
+    win: number,
     shortest: number,
     longest: number,
-    losses: number,
+    lose: number,
   },
 }
 
-const tempData = {
+const tempData: UserData = {
   username: "eteRnaL198",
   record: {
-    wins: 0,
-    shortest: 0,
+    win: 0,
+    shortest: 99,
     longest: 0,
-    losses: 0,
+    lose: 0,
   },
 }
 // TODO 消す

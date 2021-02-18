@@ -1,4 +1,6 @@
 const words2 = {
+    ゔ: [{desc:"ヴォルデモート",text:"ゔぉるでもーと"},{desc:"ヴェノム",text:"ゔぇのむ"},{desc:"ヴィレッジヴァンガード",text:"ゔぃれっじゔぁんがーど"}],
+
     が: [{desc:"ガーゼ",text:"がーぜ"},{desc:"ガーデニング",text:"がーでにんぐ"},{desc:"ガード",text:"がーど"},{desc:"ガーネット",text:"がーねっと"},{desc:"ガーリック",text:"がーりっく"},{desc:"外食",text:"がいしょく"},{desc:"害虫",text:"がいちゅう"},{desc:"学者",text:"がくしゃ"},{desc:"学習",text:"がくしゅう"},{desc:"画質",text:"がしつ"},{desc:"画集",text:"がしゅう"},{desc:"ガス",text:"がす"},{desc:"ガラクタ",text:"がらくた"},{desc:"ガラス",text:"がらす"},{desc:"眼科",text:"がんか"},{desc:"岩石",text:"がんせき"},{desc:"岩盤浴",text:"がんばんよく"},],
     ぎ: [{desc:"儀式",text:"ぎしき"},{desc:"義手",text:"ぎしゅ"},{desc:"技術",text:"ぎじゅつ"},{desc:"ギター",text:"ぎたー"},{desc:"ギブス",text:"ぎぶす"},{desc:"義務教育",text:"ぎむきょういく"},{desc:"ギャグ",text:"ぎゃぐ"},{desc:"牛肉",text:"ぎゅうにく"},{desc:"牛乳",text:"ぎゅうにゅう"},{desc:"餃子",text:"ぎょうざ"},{desc:"魚肉ソーセージ",text:"ぎょにくそーせーじ"},{desc:"ギリシャ神話",text:"ぎりしゃしんわ"},{desc:"銀座",text:"ぎんざ"},],
     ぐ: [{desc:"グアム",text:"ぐあむ"},{desc:"Google",text:"ぐーぐる"},{desc:"愚痴",text:"ぐち"},{desc:"グッズ",text:"ぐっず"},{desc:"グラウンド",text:"ぐらうんど"},{desc:"グラフィック",text:"ぐらふぃっく"},{desc:"グランドピアノ",text:"ぐらんどぴあの"},{desc:"グリム童話",text:"ぐりむどうわ"},{desc:"グルメ",text:"ぐるめ"},{desc:"グレープジュース",text:"ぐれーぷじゅーす"},{desc:"グローブ",text:"ぐろーぶ"},{desc:"軍艦巻",text:"ぐんかんまき"},{desc:"軍隊",text:"ぐんたい"},],

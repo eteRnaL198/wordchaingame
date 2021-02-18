@@ -9,10 +9,10 @@ type Props = {
 type UserData = {
   username: string,
   record: {
-    wins: number,
+    win: number,
     shortest: number,
     longest: number,
-    losses: number,
+    lose: number,
   },
 }
 
@@ -81,13 +81,13 @@ const Login = (props: Props) => {
     if(typeof tempData.username !== 'undefined') {
       setWarning("この名前は既に使われています")
     } else {
-      const newData = {
+      const newData: UserData = {
         username: text,
         record: {
-          wins: 0,
+          win: 0,
           shortest: 0,
           longest: 0,
-          losses: 0,
+          lose: 0,
         },
       }
       registUser(newData);

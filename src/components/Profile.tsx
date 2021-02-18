@@ -5,10 +5,10 @@ type Props = {
 type UserData = {
   username: string,
   record: {
-    wins: number,
+    win: number,
     shortest: number,
     longest: number,
-    losses: number,
+    lose: number,
   },
 }
 
@@ -23,9 +23,9 @@ const Profile = (props: Props) => {
           {props.userData.username}
         </p>
         <div className="grid grid-cols-2 mx-auto mt-2 tracking-wide text-md text-gray-600">
-          <p>wins : {props.userData.record.wins}</p> 
+          <p>win : {props.userData.record.win}</p> 
           <p>shortest : {props.userData.record.shortest}</p>
-          <p>losses: {props.userData.record.losses}</p>
+          <p>lose: {props.userData.record.lose}</p>
           <p>longest : {props.userData.record.longest}</p>
         </div>
       </div>

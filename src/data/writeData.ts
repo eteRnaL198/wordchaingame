@@ -6,14 +6,16 @@ import news from "./news";
 
 const writeData = () => {
     (async () => {
-        firebase.initializeApp({
-          apiKey: "AIzaSyCOIXzz4vmffj94FLMWhEX0mE4t0UMTsxc",
-          authDomain: "wordchaingame-3e0fc.firebaseapp.com",
-          projectId: "wordchaingame-3e0fc",
-          storageBucket: "wordchaingame-3e0fc.appspot.com",
-          messagingSenderId: "307489909046",
-          appId: "1:307489909046:web:4bb2441c4c44a671406b97"
-        });
+      if(!firebase.apps.length) {
+          firebase.initializeApp({
+            apiKey: "AIzaSyCOIXzz4vmirffj94FLMWhEX0mE4t0UMTsxc",
+            authDomain: "wordchaingame-3e0fc.firebaseapp.com",
+            projectId: "wordchaingame-3e0fc",
+            storageBucket: "wordchaingame-3e0fc.appspot.com",
+            messagingSenderId: "307489909046",
+            appId: "1:307489909046:web:4bb2441c4c44a671406b97"
+          });
+        }
 
         const db = firebase.firestore();
         await db.collection("words").doc("49cDTcDttW3Tpj3DMYA0").set(words);

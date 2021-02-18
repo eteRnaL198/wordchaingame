@@ -8,10 +8,10 @@ type Props = {
 type UserData = {
   username: string,
   record: {
-    wins: number,
+    win: number,
     shortest: number,
     longest: number,
-    losses: number,
+    lose: number,
   },
 }
 

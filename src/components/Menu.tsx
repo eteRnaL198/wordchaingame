@@ -30,7 +30,7 @@ const Menu = (props: Props) => {
         <button onClick={()=>{props.onMainScreenChange("William");props.handleMenuToggle()}} className="bg-white border flex h-16 items-center mx-auto mt-3 p-2 rounded-xl shadow w-4/5">
           <span className="flex items-center space-x-4">👦</span>
             <span className="font-semibold text-gray-700">
-              Peter
+              William
             </span>
             <span className="text-sm text-gray-500">
               Hello!

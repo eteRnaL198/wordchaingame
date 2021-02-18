@@ -20,16 +20,16 @@ type Message = {
 type UserData = {
   username: string,
   record: {
-    wins: number,
+    win: number,
     shortest: number,
-    losses: number,
+    lose: number,
     longest: number,
   },
 }
 
 const Room = (props: Props) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [opponentLastChar, setOpponentLastChar] = useState<string>("め");
+  const [opponentLastChar, setOpponentLastChar] = useState<string>("");
   const [placeholderText, setPlaceholderText] = useState<string>();
 
   let count: number = 0;
@@ -51,6 +51,7 @@ const Room = (props: Props) => {
       from: "player"
     }
     replyDialog(emptyMessage, "start", "first");
+    setOpponentLastChar("め");
   }, [])
 
   useEffect(() => {
@@ -64,10 +65,10 @@ const Room = (props: Props) => {
     }, 250);
   }
 
-  const updateData = (key: keyof typeof props.userData.record) => {
-    const tempData = props.userData;
-    tempData.record[key];
-    props.handleUserData(tempData);
+  const updateData = (key: keyof typeof props.userData.record, newValue: number) => {
+    const newData = props.userData;
+    newData.record[key] = newValue;
+    props.handleUserData(newData);
   }
 
   const getLastChar = (word: string): string => {
@@ -88,8 +89,19 @@ const Room = (props: Props) => {
     }
   }
 
+  const isLargerThanCurrent = (key: keyof typeof props.userData.record, targetNum: number): boolean => {
+    const currentValue = props.userData.record[key];
+    if(targetNum > currentValue) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const getJudgePlayerMessage = (newPlayerMessage: Message): string => {
-    if(newPlayerMessage.text.slice(-1) === 'ん') {
+    if (newPlayerMessage.text === "もういちど") {
+      return "reset";
+    } else if(newPlayerMessage.text.slice(-1) === 'ん') {
       return "endWithN"
     } else if(newPlayerMessage.text.slice(0)[0] !== opponentLastChar ) {
       return "wrongStart";
@@ -131,32 +143,20 @@ const Room = (props: Props) => {
       if(data) {
         const playerLastChar = getLastChar(newPlayerMessage.text);
         const wordsArr = data[playerLastChar];
-        if(!wordsArr) {
-          replyDialog(newPlayerMessage, "win", "noIdea");
-          const tempData = props.userData;
-          tempData.record.wins+=1;
-          props.handleUserData(tempData);
-          // TODO updateData使う
-        } else {
-          const idx = Math.floor(Math.random() * wordsArr.length);
-          const newOpponentMessage: Message = {
-            text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
-            type: "word",
-            from: "opponent"
-          }
-          if(isDuplicated(newOpponentMessage)) {
-            replyDialog(newPlayerMessage, "win", "noIdea");
-            const tempData = props.userData;
-            tempData.record.wins+=1;
-            props.handleUserData(tempData);
-          // TODO updateData使う
-          } else {
-            const newOpponentLastChar = getLastChar(wordsArr[idx].text);
-            setOpponentLastChar(newOpponentLastChar);
-            printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
-            return doc;
-          };
+        const idx = Math.floor(Math.random() * wordsArr.length);
+        const newOpponentMessage: Message = {
+          text: `${wordsArr[idx].text}  ( ${wordsArr[idx].desc} )`,
+          type: "word",
+          from: "opponent",
         }
+        if(isDuplicated(newOpponentMessage)) {
+          finishGame(newPlayerMessage, "win", "noIdea");
+        } else {
+          const newOpponentLastChar = getLastChar(wordsArr[idx].text);
+          setOpponentLastChar(newOpponentLastChar);
+          printReply([newPlayerMessage, newOpponentMessage], `Start with 「${newOpponentLastChar}」`);
+          return doc;
+        };
       }
     })
     .catch(() => replyConnectError(newPlayerMessage));
@@ -170,37 +170,57 @@ const Room = (props: Props) => {
     }
   }
 
+  const finishGame = (newPlayerMessage: Message, result: string, reason: string) => {
+    replyDialog(newPlayerMessage, result, reason);
+    const key = result as keyof typeof props.userData.record;
+    const currentValue = props.userData.record[key];
+    updateData(key, currentValue+1);
+    if(isLargerThanCurrent("longest", count+1)) {
+      updateData("longest", count+1);
+    } if(result === "win" && !isLargerThanCurrent("shortest", count+1)) {
+      updateData("shortest", count+1);
+      console.log("shortest win");
+    }
+  }
+
   const handleMessageAdd = (newMessages: Message[]): void => {
     setMessages(newMessages);
   }
 
   const handlePlayerWordAdd = (newWord: string) => {
-    if(newWord.match(/^[ぁ-ゔ・ー]*$/)) {
+    if(newWord.match(/^[ぁ-ゔ・ー]*$/) && newWord !== "") {
       const newPlayerMessage: Message = {
         text: newWord,
         type: "word",
         from: "player",
       }
       handleMessageAdd([...messages, newPlayerMessage]);
-      const result = getJudgePlayerMessage(newPlayerMessage);
-      if(result === "continue") {
+      const reason = getJudgePlayerMessage(newPlayerMessage);
+      if(reason === "continue") {
         replyNextMessage(newPlayerMessage);
+      } else if(reason === "reset") {
+        newPlayerMessage.type = "reset";
+        // TODO もういちどの初期化どうするか
+        // setMessages([newPlayerMessage]);
+        // const emptyMessage: Message = {
+        //   text: "",
+        //   type: "empty",
+        //   from: "player"
+        // }
+        replyDialog(newPlayerMessage, "start", "first");
       } else {
-        replyDialog(newPlayerMessage, "lose", result);
-        const tempData = props.userData;
-        tempData.record.losses+=1;
-        props.handleUserData(tempData);
-          // TODO updateData使う
+        finishGame(newPlayerMessage, "lose", reason);
       }
     } else {
       const emptyMessage: Message = {
         text: "",
         type: "empty",
-        from: "player"
+        from: "player",
       }
       replyDialog(emptyMessage, "err", "kanaErr");
     }
   }
+
   return (
     (props.mainScreen !== props.roomName) ? null :
     <div className="h-screen">

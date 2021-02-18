@@ -13,6 +13,7 @@ module.exports = {
       },
       maxWidth: {
         '4/5': '80%',
+        '7/10': '70%',
       },
       translate: {
         '1/10': '10%',
