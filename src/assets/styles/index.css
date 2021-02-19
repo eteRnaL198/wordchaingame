@@ -2,7 +2,6 @@
 @layer base {
   button:focus {
     @apply outline-none;
-    @apply opacity-60;
   }
   input:focus {
     @apply outline-none;

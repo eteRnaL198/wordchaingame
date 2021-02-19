@@ -34,4 +34,3 @@ const writeData = () => {
 export default writeData;
 
 // TODO 少ない単語補充
-// TODO friends 記入

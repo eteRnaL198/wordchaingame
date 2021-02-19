@@ -78,6 +78,10 @@ const Room = (props: Props) => {
     const newData = props.userData;
     newData.record[key] = newValue;
     props.handleUserData(newData);
+    (async () => {
+      const db = firebase.firestore();
+      await db.collection("users").doc(props.userData.username).set(newData);
+    })();
   }
 
   const getLastChar = (word: string): string => {

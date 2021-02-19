@@ -46,17 +46,10 @@ function App() {
       const doc = db.collection("friends").doc("q4oGMmq2fDtBAVxxTsyE");
       await doc.get().then(async (doc) => {
         setFriends(doc.get("list"));
+        //TODO william 画像選ぶ
       });
     })();
   },[]);
-
-  useEffect(() => {
-    (async () => {
-      const db = firebase.firestore();
-      if(userData.username) await db.collection("users").doc(userData.username).set(userData);
-    })();
-    console.log("updated");
-  },[userData]);
 
   const handleMainScreenChange = (screen: string) => {
     setMainScreen(screen);

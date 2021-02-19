@@ -32,7 +32,7 @@ const Ranking = (props: Props) => {
       });
     }
     updateRank();
-  },[]);
+  },[props.userData]);
 
   const updateRank = async () => {
     const db = firebase.firestore();
@@ -42,7 +42,7 @@ const Ranking = (props: Props) => {
       usersStr.push(JSON.stringify(doc.data()));
     })
     const usersArr = usersStr.map(item => JSON.parse(item));
-    
+    //SORT
     setUsers(usersArr);
   }
 
@@ -60,8 +60,8 @@ const Ranking = (props: Props) => {
             }
         </div>
         <button
-          className="bg-blue-400 font-bold mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
-          onClick={() => updateRank}
+          className="bg-blue-400 font-bold focus:opacity-60 mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
+          onClick={() => updateRank()}
           >update ↺
         </button>
       </div>
