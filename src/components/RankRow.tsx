@@ -1,6 +1,7 @@
 type Props = {
   rank: number,
   user: UserData,
+  myData: UserData,
 }
 
 type UserData = {
@@ -15,12 +16,13 @@ type UserData = {
 }
 
 const RankRow = (props: Props) => {
-  // const name = props.username.
-  //TODO 名前モザイク replace 正規表現
+  const name = (props.myData.username !== props.user.username) ? props.user.username.replace(/(?<=..).(?=.)/gu, "*") : props.myData.username;
   return (
-    <div key={props.rank} className="flex justify-between">
+    <div key={props.rank} className="flex justify-between text-center">
       <p>{`${props.rank+1}.`}</p>
-      <p>{`${props.user.username}`}</p>
+      <span className={`${(props.myData.username !== props.user.username) ? "" : "bg-gray-200 rounded-xl w-1/2"}`} >
+        <p>{`${name}`}</p>
+      </span>
       <p>{`score: ${props.user.record.score}`}</p>
     </div>
   )

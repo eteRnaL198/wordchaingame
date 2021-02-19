@@ -24,7 +24,6 @@ type Friend = {
 }
 
 const tempData: UserData = {
-  // username: "eteRnaL198",
   username: "",
   record: {
     win: 0,
@@ -34,8 +33,6 @@ const tempData: UserData = {
     score: 0,
   },
 }
-
-// TODO 消す
 
 function App() {
   const [friends, setFriends] = useState<Friend[]>([]);
@@ -56,8 +53,9 @@ function App() {
   useEffect(() => {
     (async () => {
       const db = firebase.firestore();
-      if(userData.username) await db.collection("users").doc(userData.username).update(userData);
+      if(userData.username) await db.collection("users").doc(userData.username).set(userData);
     })();
+    console.log("updated");
   },[userData]);
 
   const handleMainScreenChange = (screen: string) => {

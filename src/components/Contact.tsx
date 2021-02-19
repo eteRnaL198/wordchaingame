@@ -66,13 +66,12 @@ const Contact = (props: Props) => {
           className="bg-white px-10 py-6 rounded-2xl shadow-md w-full" rows={2} placeholder={placeHolderText}
           value={text}
           onChange={(e)=>handleTextChange(e)}
-          >
+        >
         </textarea>
         <button
           className="bg-blue-400 font-bold mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
           onClick={()=>{if(text !== "")handleTextSubmit()}}
-          >
-          submit
+        >submit
         </button>
       </div>
     </section>

@@ -78,7 +78,6 @@ const Room = (props: Props) => {
     const newData = props.userData;
     newData.record[key] = newValue;
     props.handleUserData(newData);
-    // データ win+0, shortest+1 とかになっていないかチェック
   }
 
   const getLastChar = (word: string): string => {
@@ -189,7 +188,7 @@ const Room = (props: Props) => {
     const key = result as keyof typeof props.userData.record;
     const currentValue = props.userData.record[key];
     updateData(key, currentValue+1);
-    updateData("score", 0); //TODO score書き換え
+    updateData("score", props.userData.record.win); //TODO score書き換え
     if(isLargerThanCurrent("longest", count+1)) {
       updateData("longest", count+1);
     } if(result === "win" && !isLargerThanCurrent("shortest", count+1)) {

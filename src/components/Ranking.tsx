@@ -42,6 +42,7 @@ const Ranking = (props: Props) => {
       usersStr.push(JSON.stringify(doc.data()));
     })
     const usersArr = usersStr.map(item => JSON.parse(item));
+    
     setUsers(usersArr);
   }
 
@@ -50,16 +51,19 @@ const Ranking = (props: Props) => {
       <p className="font-medium mb-3 ml-5 tracking-wide text-gray-500 text-3xl">
         Ranking
       </p>
-      {/* <div className="bg-white flex-col items-center max-h-32 mx-auto overflow-y-scroll px-10 py-6 rounded-xl shadow-md w-4/5"> */}
-      <div className="bg-white flex-col items-center max-h-32 mx-auto overflow-y-auto px-10 py-6 rounded-xl shadow-md w-4/5">
-        {(!users) ? "Now Loading ..." :
-          <div className="text-center">
-            <button onClick={() => updateRank()}>update↺</button>
-            {users.map((user, idx) => (
-              <RankRow key={idx} rank={idx} user={user}/>
-            ))}
-          </div>
-        }
+      <div className="flex flex-col mx-auto  w-4/5">
+        <div className="bg-white flex-col items-center max-h-32 mx-auto overflow-y-auto px-10 py-6 rounded-xl shadow-md w-full">
+          {(!users) ? "Now Loading ..." :
+            (users.map((user, idx) => (
+              <RankRow key={idx} rank={idx} user={user} myData={props.userData}/>
+              )))
+            }
+        </div>
+        <button
+          className="bg-blue-400 font-bold mt-4 mx-auto rounded-full shadow-md py-1 text-white w-2/5"
+          onClick={() => updateRank}
+          >update ↺
+        </button>
       </div>
     </section>
   )

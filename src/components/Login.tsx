@@ -61,6 +61,8 @@ const Login = (props: Props) => {
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.target.value === "") {
       setWarning("ユーザー名を入力してください\n\n");
+    } else if(e.target.value.length < 4) {
+      setWarning("4文字以上の名前を入力してください\n\n");
     } else {
       setWarning("");
     }
@@ -81,7 +83,7 @@ const Login = (props: Props) => {
     await fetchUserData();
     if(typeof tempData.username !== 'undefined') {
       setWarning("この名前は既に使われています\n\n")
-    } else {
+    } else if(warning === "") {
       const newData: UserData = {
         username: text,
         record: {

@@ -3,8 +3,6 @@ type Props = {
   handleMainScreenChange: (screen: string) => void
 }
 
-// TODO アイコンstorageから取ってくる
-
 const HomeButton = (props: Props) => {
   return (
     <button
