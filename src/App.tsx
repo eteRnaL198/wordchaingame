@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import firebase from 'firebase';
 import { Rooms, Home, Menu, Login } from "./components/index";
 import writeData from "./data/writeData";
 
@@ -11,6 +12,7 @@ type UserData = {
     shortest: number,
     longest: number,
     lose: number,
+    score: number,
   },
 }
 
@@ -22,36 +24,41 @@ type Friend = {
 }
 
 const tempData: UserData = {
-  username: "eteRnaL198",
+  // username: "eteRnaL198",
+  username: "",
   record: {
     win: 0,
     shortest: 99,
     longest: 0,
     lose: 0,
+    score: 0,
   },
 }
 
 // TODO 消す
 
 function App() {
+  const [friends, setFriends] = useState<Friend[]>([]);
   const [mainScreen, setMainScreen] = useState<string>("Home");
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserData>(tempData);
 
-  const friends: Friend[] = [
-    {
-      name: "Peter",
-      img: 'https://storage.googleapis.com/wordchaingame-3e0fc.appspot.com/img/peter.jpg',
-      comment: "I'm studying Japanese!",
-      level: 5,
-    },
-    {
-      name: "William",
-      img: 'https://storage.googleapis.com/wordchaingame-3e0fc.appspot.com/img/peter.jpg',
-      comment: "日本在住歴は３年です",
-      level: 10,
-    }
-  ]
+  useEffect(() => {
+    (async () => {
+      const db = firebase.firestore();
+      const doc = db.collection("friends").doc("q4oGMmq2fDtBAVxxTsyE");
+      await doc.get().then(async (doc) => {
+        setFriends(doc.get("list"));
+      });
+    })();
+  },[]);
+
+  useEffect(() => {
+    (async () => {
+      const db = firebase.firestore();
+      if(userData.username) await db.collection("users").doc(userData.username).update(userData);
+    })();
+  },[userData]);
 
   const handleMainScreenChange = (screen: string) => {
     setMainScreen(screen);

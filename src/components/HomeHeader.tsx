@@ -12,7 +12,6 @@ const HomeHeader = (props: Props) => {
       <h1 className="text-gray-700 text-2xl">
         Word Chain Talker
       </h1>
-      {/* TODO タイトル決める */}
       <p className="flex-end ml-3 text-gray-500 text-md">
         ver1.0
       </p>

@@ -7,6 +7,7 @@ type UserData = {
   record: {
     win: number,
     shortest: number,
+    score: number,
     longest: number,
     lose: number,
   },
@@ -27,6 +28,7 @@ const Profile = (props: Props) => {
           <p>shortest : {props.userData.record.shortest}</p>
           <p>lose: {props.userData.record.lose}</p>
           <p>longest : {props.userData.record.longest}</p>
+          {/* TODO score表示 */}
         </div>
       </div>
     </section>

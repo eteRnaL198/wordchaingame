@@ -13,3 +13,5 @@ export { default as HomeHeader } from "./HomeHeader";
 export { default as HomeButton } from "./HomeButton";
 export { default as Profile } from "./Profile";
 export { default as Article } from "./Article";
+export { default as Ranking } from "./Ranking";
+export { default as RankRow } from "./RankRow";

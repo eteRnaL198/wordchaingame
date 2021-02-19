@@ -13,6 +13,7 @@ type UserData = {
     shortest: number,
     longest: number,
     lose: number,
+    score: number,
   },
 }
 
@@ -59,7 +60,7 @@ const Login = (props: Props) => {
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if(e.target.value === "") {
-      setWarning("ユーザー名を入力してください");
+      setWarning("ユーザー名を入力してください\n\n");
     } else {
       setWarning("");
     }
@@ -77,17 +78,18 @@ const Login = (props: Props) => {
   }
 
   const handleSignupClick = async () => {
-     await fetchUserData();
+    await fetchUserData();
     if(typeof tempData.username !== 'undefined') {
-      setWarning("この名前は既に使われています")
+      setWarning("この名前は既に使われています\n\n")
     } else {
       const newData: UserData = {
         username: text,
         record: {
           win: 0,
-          shortest: 0,
+          shortest: 99,
           longest: 0,
           lose: 0,
+          score: 0,
         },
       }
       registUser(newData);
@@ -99,19 +101,21 @@ const Login = (props: Props) => {
     (props.userData.username !== "") ? null :
     <>
       <div className="absolute bg-gray-600 bg-opacity-60 h-screen top-0 w-screen z-20">
-        <div className="relative bg-white flex flex-col h-1/2 left-1/2 py-6 px-8 rounded-3xl top-1/2 transform -translate-x-2/4 -translate-y-2/4 w-4/5">
+        <div className="relative bg-white flex flex-col left-1/2 py-6 px-8 rounded-3xl top-1/2 transform -translate-x-2/4 -translate-y-2/4 w-4/5">
           <p className="flex font-semibold justify-center text-gray-600 text-3xl">Welcome !</p>
           <div className="flex flex-col flex-1 justify-between">
             <div className="mt-2">
               <div className="flex h-8 items-center justify-between">
                 <p className="tracking-wide">Username</p>
-                <button className="bg-gray-400 py-0.5 px-3 rounded-full text-white text-sm" onClick={handleHelpClick}>Help</button>
+                <button className="bg-gray-400 py-0.5 px-3 rounded-full text-white text-sm" onClick={handleHelpClick}>{(isHelpOpen)? "close": "Help"}</button>
               </div>
               <input onChange={(e)=>handleTextChange(e)} type="text" placeholder="Enter your name !" className={`border-2 h-8 mt-1 px-4 py-5 rounded-xl w-full ${(warning === "") ? "bg-gray-200" : " border-red-500"}`} value={text}/>
-              <p className="text-red-500 whitespace-pre-line">{warning}</p>
-              <p className="text-gray-500 whitespace-pre-line">{(isHelpOpen)? "既に登録している場合:\n名前を入力してログイン\nはじめての場合:\n名前を入力してサインアップ" : null}</p>
+              {/* <p className="text-red-500 text-center whitespace-pre-line">{warning}</p> */}
+              <p className="text-red-500 text-center whitespace-pre-line">{(warning) ? warning : "\n\n"}</p>
+              {/* <p className="text-gray-500 text-center whitespace-pre-line">{(isHelpOpen)? "既に登録している場合は\n名前を入力してログイン\nはじめての場合は\n名前を入力してサインアップ" : null}</p> */}
+              <p className="text-gray-500 whitespace-pre-line">{(isHelpOpen)? "1. 名前を入力する\n2. 既に登録している場合は\nログイン\nはじめての場合は\nサインアップ" : null}</p>
             </div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center mt-4">
               <button
                 onClick={()=>handleLoginClick()}
                 className="bg-blue-400 font-semibold py-1.5 rounded-full shadow-md text-white tracking-wider w-5/6"

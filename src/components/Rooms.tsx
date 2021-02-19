@@ -16,6 +16,7 @@ type UserData = {
     shortest: number,
     lose: number,
     longest: number,
+    score: number,
   },
 }
 

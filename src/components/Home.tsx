@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import firebase from "firebase";
-import { News, Contact, Profile, HomeHeader } from "./index";
+import { News, Ranking, Contact, Profile, HomeHeader } from "./index";
 
 type Props = {
   handleMenuToggle: () => void,
@@ -14,6 +14,7 @@ type UserData = {
   record: {
     win: number,
     shortest: number,
+    score: number,
     longest: number,
     lose: number,
   },
@@ -25,7 +26,8 @@ const Home = (props: Props) => {
     <div className="bg-gray-100 flex flex-col h-screen">
       <HomeHeader handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen}/>
       <main className="h-9/10 overflow-y-scroll">
-        <Profile userData={props.userData} />
+        <Profile userData={props.userData}/>
+        <Ranking userData={props.userData}/>
         <Contact userData={props.userData}/>
         <News/>
       </main>

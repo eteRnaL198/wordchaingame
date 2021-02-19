@@ -10,6 +10,7 @@ type UserData = {
   record: {
     win: number,
     shortest: number,
+    score: number,
     longest: number,
     lose: number,
   },
@@ -62,7 +63,7 @@ const Contact = (props: Props) => {
       </p>
       <div className="flex flex-col mx-auto  w-4/5">
         <textarea
-          className="bg-white px-10 py-6 rounded-2xl shadow-md w-full" rows={3} placeholder={placeHolderText}
+          className="bg-white px-10 py-6 rounded-2xl shadow-md w-full" rows={2} placeholder={placeHolderText}
           value={text}
           onChange={(e)=>handleTextChange(e)}
           >
