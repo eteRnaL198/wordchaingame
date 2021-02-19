@@ -1,7 +1,7 @@
 import { Room } from "./index";
 
 type Props = {
-  friends: string[],
+  friends: Friend[],
   handleUserData: (newData: UserData) => void
   handleMenuToggle: () => void,
   isMenuOpen: boolean,
@@ -19,17 +19,24 @@ type UserData = {
   },
 }
 
+type Friend = {
+  name: string,
+  img: string,
+  comment: string,
+  level: number,
+}
+
 const Rooms = (props: Props) => {
   return (
     <>
       {props.friends.map((friend, idx) => (
         <Room
           key={idx}
+          opponent={friend}
           handleMenuToggle={props.handleMenuToggle}
+          handleUserData={props.handleUserData}
           isMenuOpen={props.isMenuOpen}
           mainScreen={props.mainScreen}
-          roomName={friend}
-          handleUserData={props.handleUserData}
           userData={props.userData}
         />
       ))}

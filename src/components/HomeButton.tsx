@@ -1,12 +1,14 @@
 type Props = {
   handleMenuToggle: () => void
-  onMainScreenChange: (screen: string) => void
+  handleMainScreenChange: (screen: string) => void
 }
+
+// TODO アイコンstorageから取ってくる
 
 const HomeButton = (props: Props) => {
   return (
     <button
-      onClick={()=>{props.onMainScreenChange("Home"); props.handleMenuToggle()}}
+      onClick={()=>{props.handleMainScreenChange("Home"); props.handleMenuToggle()}}
       className="bg-gray-300 flex font-bold items-center justify-center mx-auto py-1 rounded-full text-gray-700 w-3/5"
       >
       <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5 mr-2" >

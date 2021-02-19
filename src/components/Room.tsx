@@ -5,9 +5,9 @@ import firebase from "firebase";
 type Props = {
   handleUserData: (newData: UserData) => void,
   handleMenuToggle: () => void,
+  opponent: Friend,
   isMenuOpen: boolean,
   mainScreen: string,
-  roomName: string,
   userData: UserData,
 };
 
@@ -26,6 +26,13 @@ type UserData = {
     lose: number,
     longest: number,
   },
+}
+
+type Friend = {
+  name: string,
+  img: string,
+  comment: string,
+  level: number,
 }
 
 const Room = (props: Props) => {
@@ -147,7 +154,7 @@ const Room = (props: Props) => {
       if(data) {
         const playerLastChar = getLastChar(newPlayerMessage.text);
         const wordsArr = data[playerLastChar];
-        const idx = Math.floor(Math.random() * wordsArr.length);
+        const idx = Math.floor(Math.random() * wordsArr.length * props.opponent.level/10);
         const newOpponentMessage: Message = {
           text: `${wordsArr[idx].text}`,
           desc: `( ${wordsArr[idx].desc} )`,
@@ -212,22 +219,22 @@ const Room = (props: Props) => {
   }
 
   return (
-    (props.mainScreen !== props.roomName) ? null :
+    (props.mainScreen !== props.opponent.name) ? null :
     <div className="h-screen">
       <header className="border-b-2 border-gray-200 flex justify-between items-center h-1/10 px-4 sticky text-gray-700 text-4xl">
-        {props.roomName}
+        {props.opponent.name}
         <ToggleMenuButton handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen} />
       </header>
       <div id="messages" className="h-4/5 flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
         {messages.map((message, idx) => {
           if(message.type === "word") {
             count+=1;
-            return <Chat key={idx} count={count} message={message}/>
+            return <Chat key={idx} count={count} message={message} imgUrl={props.opponent.img}/>
           } else if(message.type === "finish") {
             count = 0;
-            return <Chat key={idx} message={message}/>
+            return <Chat key={idx} message={message} imgUrl={props.opponent.img}/>
           } else {
-            return <Chat key={idx} message={message}/>
+            return <Chat key={idx} message={message} imgUrl={props.opponent.img}/>
           }
         })}
       </div>

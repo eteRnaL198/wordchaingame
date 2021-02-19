@@ -1,10 +1,17 @@
-import { HomeButton } from "./index";
+import { HomeButton, RoomButton } from "./index";
 
 type Props = {
-  friends: string[]
+  friends: Friend[]
   handleMenuToggle: () => void
+  handleMainScreenChange: (screen: string) => void
   isMenuOpen: boolean
-  onMainScreenChange: (screen: string) => void
+}
+
+type Friend = {
+  name: string,
+  img: string,
+  comment: string,
+  level: number,
 }
 
 const Menu = (props: Props) => {
@@ -16,26 +23,10 @@ const Menu = (props: Props) => {
         <header className="flex justify-center items-center h-1/10 px-4 sticky text-2xl">
           <p>Menu</p>
         </header>
-        <HomeButton handleMenuToggle={props.handleMenuToggle} onMainScreenChange={props.onMainScreenChange} />
-        {/* // TODO キャラ表示 */}
-        <button onClick={()=>{props.onMainScreenChange("Peter");props.handleMenuToggle()}} className="bg-white border flex h-16 items-center mx-auto mt-3 p-2 rounded-xl shadow w-4/5">
-          <span className="flex items-center space-x-4">👦</span>
-            <span className="font-semibold text-gray-700">
-              Peter
-            </span>
-            <span className="text-sm text-gray-500">
-              Hello!
-            </span>
-        </button>
-        <button onClick={()=>{props.onMainScreenChange("William");props.handleMenuToggle()}} className="bg-white border flex h-16 items-center mx-auto mt-3 p-2 rounded-xl shadow w-4/5">
-          <span className="flex items-center space-x-4">👦</span>
-            <span className="font-semibold text-gray-700">
-              William
-            </span>
-            <span className="text-sm text-gray-500">
-              Hello!
-            </span>
-        </button>
+        <HomeButton handleMenuToggle={props.handleMenuToggle} handleMainScreenChange={props.handleMainScreenChange} />
+        {props.friends.map((friend, idx) => (
+          <RoomButton key={idx} friend={friend} handleMenuToggle={props.handleMenuToggle} handleMainScreenChange={props.handleMainScreenChange} />
+        ))}
       </div>
     </div>
   )
