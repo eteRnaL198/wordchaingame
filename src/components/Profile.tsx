@@ -24,7 +24,7 @@ const Profile = (props: Props) => {
           <p className="font-bold flex justify-start text-xl text-gray-700">
             {props.userData.username}
           </p>
-          <p>
+          <p className="text-gray-600">
             score: {props.userData.record.score}
           </p>
         </div>
