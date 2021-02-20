@@ -1,4 +1,3 @@
-import React from 'react';
 import Div100vh from 'react-div-100vh'
 import { News, Ranking, Contact, Profile, HomeHeader } from "./index";
 
@@ -25,11 +24,7 @@ const Home = (props: Props) => {
     (props.mainScreen !== "Home") ? null:
     // TODO 100vh
     // <div className="bg-gray-100 flex flex-col h-screen">
-<<<<<<< HEAD
     <Div100vh className="bg-gray-100 flex flex-col">
-=======
-    <Div100vh className="bg-gray-100 flex flex-col h-screen">
->>>>>>> main
       <HomeHeader handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen}/>
       <main className="h-9/10 overflow-y-scroll">
         <Profile userData={props.userData}/>
