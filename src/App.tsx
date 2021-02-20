@@ -66,7 +66,6 @@ function App() {
 
   return (
     <Div100vh>
-      {/* //TODO 100vh */}
       <Menu
         friends={friends}
         handleMenuToggle={handleMenuToggle}
