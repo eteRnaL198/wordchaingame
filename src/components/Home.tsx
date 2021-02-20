@@ -23,7 +23,8 @@ const Home = (props: Props) => {
   return (
     (props.mainScreen !== "Home") ? null:
     // TODO 100vh
-    <div className="bg-gray-100 flex flex-col h-screen">
+    // <div className="bg-gray-100 flex flex-col h-screen">
+    <Div100vh className="bg-gray-100 flex flex-col">
       <HomeHeader handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen}/>
       <main className="h-9/10 overflow-y-scroll">
         <Profile userData={props.userData}/>
@@ -31,7 +32,7 @@ const Home = (props: Props) => {
         <Contact userData={props.userData}/>
         <News/>
       </main>
-    </div>
+    </Div100vh>
   )
 
 }

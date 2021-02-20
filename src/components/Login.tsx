@@ -104,7 +104,8 @@ const Login = (props: Props) => {
     (props.userData.username !== "") ? null :
     <>
     {/* //TODO 100vh */}
-      <div className="absolute bg-gray-600 bg-opacity-60 h-screen top-0 w-screen z-20">
+      {/* <div className="absolute bg-gray-600 bg-opacity-60 h-screen top-0 w-screen z-20"> */}
+      <Div100vh className="absolute bg-gray-600 bg-opacity-60 top-0 w-screen z-20">
         <div className="relative bg-white flex flex-col left-1/2 py-6 px-8 rounded-3xl top-1/2 transform -translate-x-2/4 -translate-y-2/4 w-4/5">
           <p className="flex font-semibold justify-center text-gray-600 text-3xl">Welcome !</p>
           <div className="flex flex-col flex-1 justify-between">
@@ -135,7 +136,7 @@ const Login = (props: Props) => {
             </div>
           </div>
         </div>
-      </div>
+      </Div100vh>
     </>
   )
 }
