@@ -14,7 +14,6 @@
     "@types/react-dom": "^17.0.0",
     "autoprefixer": "^9.8.6",
     "firebase": "^8.2.6",
-    "postcss": "^7.0.35",
     "react": "^17.0.1",
     "react-div-100vh": "^0.5.6",
     "react-dom": "^17.0.1",
@@ -47,5 +46,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "postcss": "^7.0.35",
+    "postcss-100vh-fix": "^1.0.2"
+  }
 }

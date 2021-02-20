@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Chat, Input, ToggleMenuButton } from "./index";
 import firebase from "firebase";
+import Div100vh from 'react-div-100vh';
 
 type Props = {
   handleUserData: (newData: UserData) => void,
@@ -226,7 +227,7 @@ const Room = (props: Props) => {
 
   return (
     (props.mainScreen !== props.opponent.name) ? null :
-    <div className="h-screen">
+    <div className="h-screen">//TODO 100vh
       <header className="border-b-2 border-gray-200 flex justify-between items-center h-1/10 px-4 sticky text-gray-700 text-4xl">
         {props.opponent.name}
         <ToggleMenuButton handleMenuToggle={props.handleMenuToggle} isMenuOpen={props.isMenuOpen} />
