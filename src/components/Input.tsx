@@ -16,7 +16,7 @@ const Input = (props: Props) => {
     props.onPlayerWordAdd(text);
     setInputWord("");
   }
-
+//TODO キーボード表示時 上に上げる
   return (
   <div className="border-t-2 border-gray-200 flex flex-col h-1/10 justify-center px-4">
     <div className="flex">
