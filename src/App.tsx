@@ -65,7 +65,7 @@ function App() {
   }
 
   return (
-    <> //TODO 100vh
+    <Div100vh> //TODO 100vh
       <Menu
         friends={friends}
         handleMenuToggle={handleMenuToggle}
@@ -90,7 +90,7 @@ function App() {
         handleUserData={handleUserData}
         userData={userData}
       />
-    </>
+    </Div100vh>
   )
 }
 
