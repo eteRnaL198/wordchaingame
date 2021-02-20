@@ -1,3 +1,5 @@
+import { useCallback } from "react";
+
 type Props = {
   rank: number,
   user: UserData,
@@ -16,8 +18,20 @@ type UserData = {
 }
 
 const RankRow = (props: Props) => {
-  // const name = (props.myData.username !== props.user.username) ? props.user.username.replace(/(?<=..).(?=.)/gu, "*") : props.myData.username;
-  const name = props.user.username;//TODO 正規表現対応
+  const concealStr = useCallback(
+    () => {
+      const name = props.user.username;
+      return name.replace(/./g, (match, offset) => {
+        if (offset === 0) return match;
+        else if (offset === 1) return match;
+        else if (offset === name.length - 1) return match;
+        else return "*";
+      });
+    },[]
+  );
+
+  const name = (props.myData.username !== props.user.username) ? concealStr() : props.myData.username;
+
   return (
     <div key={props.rank} className="flex justify-between text-center">
       <p>{`${props.rank+1}.`}</p>

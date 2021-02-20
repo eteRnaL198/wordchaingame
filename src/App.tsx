@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase';
+import Div100vh from 'react-div-100vh';
 import { Rooms, Home, Menu, Login } from "./components/index";
 import writeData from "./data/writeData";
 
@@ -63,9 +64,8 @@ function App() {
     setIsMenuOpen(!isMenuOpen);
   }
 
-  //TODO 高さ アドレスバー込 innerHeight
   return (
-    <>
+    <Div100vh>
       <Menu
         friends={friends}
         handleMenuToggle={handleMenuToggle}
@@ -90,7 +90,7 @@ function App() {
         handleUserData={handleUserData}
         userData={userData}
       />
-    </>
+    </Div100vh>
   )
 }
 
