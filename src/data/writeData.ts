@@ -27,10 +27,9 @@ const writeData = () => {
         // await db.collection("dialogs").doc("lose").set(dialogs.lose);
         // await db.collection("dialogs").doc("win").set(dialogs.win);
 
-        await db.collection("friends").doc("q4oGMmq2fDtBAVxxTsyE").set(friends);
+        // await db.collection("friends").doc("q4oGMmq2fDtBAVxxTsyE").set(friends);
+        await db.collection("news").doc("icdnozZavk733qBA1Qoy").set(news);
     })();
 }
 
 export default writeData;
-
-// TODO 少ない単語補充

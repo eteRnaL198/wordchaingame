@@ -42,7 +42,7 @@ const Ranking = (props: Props) => {
       usersStr.push(JSON.stringify(doc.data()));
     })
     const usersArr = usersStr.map(item => JSON.parse(item));
-    //SORT
+    usersArr.sort((a, b) => b.record.score - a.record.score);
     setUsers(usersArr);
   }
 

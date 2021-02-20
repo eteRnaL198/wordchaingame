@@ -55,3 +55,4 @@ const words = {
 };
 
 export default words;
+//https://xn--68j8a5fb.net/

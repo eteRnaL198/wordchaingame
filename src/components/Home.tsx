@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import firebase from "firebase";
 import { News, Ranking, Contact, Profile, HomeHeader } from "./index";
 
 type Props = {

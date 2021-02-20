@@ -30,7 +30,7 @@ const tempData: UserData = {
     shortest: 99,
     longest: 0,
     lose: 0,
-    score: 0,
+    score: 1,
   },
 }
 

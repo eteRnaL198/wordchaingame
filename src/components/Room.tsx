@@ -192,7 +192,7 @@ const Room = (props: Props) => {
     const key = result as keyof typeof props.userData.record;
     const currentValue = props.userData.record[key];
     updateData(key, currentValue+1);
-    updateData("score", props.userData.record.win); //TODO score書き換え
+    updateData("score", props.userData.record.win*3+props.userData.record.lose*2+99-props.userData.record.shortest+props.userData.record.longest);
     if(isLargerThanCurrent("longest", count+1)) {
       updateData("longest", count+1);
     } if(result === "win" && !isLargerThanCurrent("shortest", count+1)) {
